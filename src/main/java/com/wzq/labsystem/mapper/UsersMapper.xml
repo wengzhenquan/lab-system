@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Users">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="identity_id" jdbcType="BIGINT" property="identityId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+  </resultMap>
+
+  <resultMap id="UserResultMap" type="com.wzq.labsystem.dto.UserDto">
+    <id column="id" jdbcType="BIGINT" property="userId" />
+    <result column="identity_name" jdbcType="VARCHAR" property="identityName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from users
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.Users">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users (identity_id, user_name, pwd, 
+      `name`, job)
+    values (#{identityId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Users">
+    update users
+    set identity_id = #{identityId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, identity_id, user_name, pwd, `name`, job
+    from users
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, identity_id, user_name, pwd, `name`, job
+    from users
+  </select>
+
+  <!-- 通过账号密码查询 -->
+  <select id="selectByUserNameAndPwd"  resultMap="UserResultMap">
+    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    from users u
+    left join `identity` i on i.id = u.identity_id
+    where u.user_name = #{userName}
+    and u.pwd = #{pwd}
+  </select>
+
+  <!-- 修改密码 -->
+  <update id="updatePwd">
+    update users
+    set pwd = #{pwd}
+    where pwd = #{oldPwd}
+    and user_name = #{newPwd}
+  </update>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.RomsLogMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.RomsLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="handle_user_id" jdbcType="BIGINT" property="handleUserId" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from roms_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.RomsLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into roms_log (user_id, handle_user_id, rom_id, 
+      `state`, creat_time, handle_time, 
+      start_time, end_time)
+    values (#{userId,jdbcType=BIGINT}, #{handleUserId,jdbcType=BIGINT}, #{romId,jdbcType=BIGINT}, 
+      #{state,jdbcType=TINYINT}, #{creatTime,jdbcType=TIMESTAMP}, #{handleTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.RomsLog">
+    update roms_log
+    set user_id = #{userId,jdbcType=BIGINT},
+      handle_user_id = #{handleUserId,jdbcType=BIGINT},
+      rom_id = #{romId,jdbcType=BIGINT},
+      `state` = #{state,jdbcType=TINYINT},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, user_id, handle_user_id, rom_id, `state`, creat_time, handle_time, start_time, 
+    end_time
+    from roms_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, handle_user_id, rom_id, `state`, creat_time, handle_time, start_time, 
+    end_time
+    from roms_log
+  </select>
+</mapper>

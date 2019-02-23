@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.EquipmentMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Equipment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ser_numb" jdbcType="BIGINT" property="serNumb" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
+    <result column="eq_class_id" jdbcType="BIGINT" property="eqClassId" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <result column="repair_times" jdbcType="TIMESTAMP" property="repairTimes" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from equipment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.Equipment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into equipment (ser_numb, rom_id, eq_class_id, 
+      buy_time, repair_times, update_time, 
+      `state`)
+    values (#{serNumb,jdbcType=BIGINT}, #{romId,jdbcType=BIGINT}, #{eqClassId,jdbcType=BIGINT}, 
+      #{buyTime,jdbcType=TIMESTAMP}, #{repairTimes,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Equipment">
+    update equipment
+    set ser_numb = #{serNumb,jdbcType=BIGINT},
+      rom_id = #{romId,jdbcType=BIGINT},
+      eq_class_id = #{eqClassId,jdbcType=BIGINT},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      repair_times = #{repairTimes,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      `state` = #{state,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, ser_numb, rom_id, eq_class_id, buy_time, repair_times, update_time, `state`
+    from equipment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, ser_numb, rom_id, eq_class_id, buy_time, repair_times, update_time, `state`
+    from equipment
+  </select>
+</mapper>

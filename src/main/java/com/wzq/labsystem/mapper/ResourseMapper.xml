@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.ResourseMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Resourse">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resourse_name" jdbcType="VARCHAR" property="resourseName" />
+    <result column="father_id" jdbcType="BIGINT" property="fatherId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resourse
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.Resourse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into resourse (resourse_name, father_id, url, 
+      `level`, `type`)
+    values (#{resourseName,jdbcType=VARCHAR}, #{fatherId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{type,jdbcType=TINYINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Resourse">
+    update resourse
+    set resourse_name = #{resourseName,jdbcType=VARCHAR},
+      father_id = #{fatherId,jdbcType=BIGINT},
+      url = #{url,jdbcType=VARCHAR},
+      `level` = #{level,jdbcType=TINYINT},
+      `type` = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, resourse_name, father_id, url, `level`, `type`
+    from resourse
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, resourse_name, father_id, url, `level`, `type`
+    from resourse
+  </select>
+</mapper>
