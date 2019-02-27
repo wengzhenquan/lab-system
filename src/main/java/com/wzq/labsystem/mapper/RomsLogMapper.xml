@@ -12,6 +12,20 @@
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
+
+  <resultMap id="RomsLogResultMap" type="com.wzq.labsystem.dto.RomsLogDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="BIGINT" property="name" />
+    <result column="handle_user" jdbcType="BIGINT" property="handleUser" />
+    <result column="numb" jdbcType="BIGINT" property="romNumb" />
+    <result column="rom_name" jdbcType="VARCHAR" property="romName" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from roms_log
     where id = #{id,jdbcType=BIGINT}
@@ -45,9 +59,64 @@
     from roms_log
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, user_id, handle_user_id, rom_id, `state`, creat_time, handle_time, start_time, 
-    end_time
+
+
+  <!-- 查询所有申请 -->
+  <select id="selectAll" resultMap="RomsLogResultMap">
+    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    l.end_time
+    from roms_log l
+    left join users u on u.id = l.user_id
+    left join users a on a.id = l.handle_user_id
+	left join roms r on r.id = l.rom_id
+	order by l.creat_time desc
+	limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
     from roms_log
   </select>
+
+  <!-- 查询某用户所有申请 -->
+  <select id="selectAllByUserId" resultMap="RomsLogResultMap">
+    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    l.end_time
+    from roms_log l
+    left join users u on u.id = l.user_id
+    left join users a on a.id = l.handle_user_id
+	left join roms r on r.id = l.rom_id
+	where u.id = #{userId}
+	order by l.creat_time desc
+	limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询某用户的申请总数 -->
+  <select id="selectCountByUserId"  resultType="java.lang.Long">
+    select count(*)
+    from roms_log
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <!-- 查询某教室申请记录 -->
+  <select id="selectAllByRomId" resultMap="RomsLogResultMap">
+    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    l.end_time
+    from roms_log l
+    left join users u on u.id = l.user_id
+    left join users a on a.id = l.handle_user_id
+	left join roms r on r.id = l.rom_id
+	where l.rom_id = #{romId}
+	order by l.creat_time desc
+	limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询某教室的申请总数 -->
+  <select id="selectCountByRomId"  resultType="java.lang.Long">
+    select count(*)
+    from roms_log
+    where rom_id = #{romId,jdbcType=BIGINT}
+  </select>
+
 </mapper>

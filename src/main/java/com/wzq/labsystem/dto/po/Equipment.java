@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 
 @Data
@@ -34,15 +34,15 @@ public class Equipment implements Serializable {
 
     @ApiModelProperty("购买时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date buyTime;
+    private Instant buyTime;
 
     @ApiModelProperty("修理时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date repairTimes;
+    private Instant repairTimes;
 
     @ApiModelProperty("信息最后更新时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updateTime;
+    private Instant updateTime;
 
     @ApiModelProperty("状态(0正常,1报修,2报废)")
     private Integer state;

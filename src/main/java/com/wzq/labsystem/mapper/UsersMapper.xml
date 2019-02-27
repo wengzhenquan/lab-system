@@ -35,24 +35,35 @@
     update users
     set identity_id = #{identityId,jdbcType=BIGINT},
       user_name = #{userName,jdbcType=VARCHAR},
-      pwd = #{pwd,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
       job = #{job,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, identity_id, user_name, pwd, `name`, job
-    from users
-    where id = #{id,jdbcType=BIGINT}
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserResultMap">
+    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    from users u
+    left join `identity` i on i.id = u.identity_id
+    where u.id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, identity_id, user_name, pwd, `name`, job
+
+  <!-- 查询全部信息 -->
+  <select id="selectAll" resultMap="UserResultMap">
+    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    from users u
+    left join `identity` i on i.id = u.identity_id
+    limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
     from users
   </select>
 
   <!-- 通过账号密码查询 -->
   <select id="selectByUserNameAndPwd"  resultMap="UserResultMap">
-    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id,u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     where u.user_name = #{userName}

@@ -13,12 +13,23 @@ public interface UsersMapper {
 
     int insert(Users record);
 
-    Users selectByPrimaryKey(Long id);
-
-    List<Users> selectAll();
+    UserDto selectByPrimaryKey(Long id);
 
     int updateByPrimaryKey(Users record);
 
+    /**
+     * 查询用户列表
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    List<UserDto> selectAll(@Param("pageNo") Integer pageNo , @Param("pageSize")Integer pageSize);
+
+    /**
+     * 查询总数
+     * @return
+     */
+    Long selectCount();
 
     /**
      * 通过账号密码查询

@@ -22,7 +22,7 @@ public class UserDto implements Serializable {
     @ApiModelProperty("用户ID")
     private Long userId;
 
-    @ApiModelProperty("身份ID")
+    @ApiModelProperty("身份")
     private String identityName;
 
     @ApiModelProperty("用户名")

@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -48,11 +48,11 @@ public class EquipmentLog implements Serializable {
 
     @ApiModelProperty("申请时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date creatTime;
+    private Instant creatTime;
 
     @ApiModelProperty("处理时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date handleTime;
+    private Instant handleTime;
 
 
 }
