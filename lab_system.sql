@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 50718
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 20/02/2019 20:46:03
+ Date: 27/02/2019 18:12:16
 */
 
 SET NAMES utf8mb4;
@@ -23,13 +23,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `equipment`;
 CREATE TABLE `equipment`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ser_numb` bigint(20) NULL DEFAULT NULL COMMENT '编号：ser_numb',
-  `rom_id` bigint(20) NULL DEFAULT NULL,
-  `eq_class_id` bigint(20) NULL DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
-  `buy_time` datetime(0) NULL DEFAULT NULL COMMENT '购买时间：buy_time',
-  `repair_times` datetime(0) NULL DEFAULT NULL COMMENT '修理时间：repair_times',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '信息更新时间：update_time',
-  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0正常,1报修,2报废)：state',
+  `eq_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ser_numb` bigint(20) DEFAULT NULL COMMENT '编号：ser_numb',
+  `rom_id` bigint(20) DEFAULT NULL,
+  `eq_class_id` bigint(20) DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
+  `buy_time` datetime(0) DEFAULT NULL COMMENT '购买时间：buy_time',
+  `repair_times` datetime(0) DEFAULT NULL COMMENT '修理时间：repair_times',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '信息更新时间：update_time',
+  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0正常,1报修,2报废)：state',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -39,7 +40,7 @@ CREATE TABLE `equipment`  (
 DROP TABLE IF EXISTS `equipment_class`;
 CREATE TABLE `equipment_class`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类别名：type_name',
+  `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类别名：type_name',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -56,16 +57,16 @@ INSERT INTO `equipment_class` VALUES (3, '教学设备');
 DROP TABLE IF EXISTS `equipment_log`;
 CREATE TABLE `equipment_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '申请人=>users->id:user_id',
-  `handle_user_id` bigint(20) NULL DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
-  `eq_class_id` bigint(20) NULL DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
-  `type` tinyint(4) NULL DEFAULT NULL COMMENT '类型(0报修,1采购)：type',
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题：title',
-  `need` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `result` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '处理结果：result',
-  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0申请中,1已审批,2已处理):state',
-  `creat_time` datetime(0) NULL DEFAULT NULL COMMENT '申请时间：creat_time',
-  `handle_time` datetime(0) NULL DEFAULT NULL COMMENT '处理时间：handle_time',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '申请人=>users->id:user_id',
+  `handle_user_id` bigint(20) DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
+  `eq_class_id` bigint(20) DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
+  `type` tinyint(4) DEFAULT NULL COMMENT '类型(0报修,1采购)：type',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题：title',
+  `need` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `result` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '处理结果：result',
+  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0申请中,1已审批,2已处理):state',
+  `creat_time` datetime(0) DEFAULT NULL COMMENT '申请时间：creat_time',
+  `handle_time` datetime(0) DEFAULT NULL COMMENT '处理时间：handle_time',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -75,8 +76,8 @@ CREATE TABLE `equipment_log`  (
 DROP TABLE IF EXISTS `identity`;
 CREATE TABLE `identity`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份名称：identity_name',
-  `level` tinyint(4) NULL DEFAULT NULL COMMENT '等级：level',
+  `identity_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份名称：identity_name',
+  `level` tinyint(4) DEFAULT NULL COMMENT '等级：level',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '身份表identity' ROW_FORMAT = Dynamic;
 
@@ -94,8 +95,8 @@ INSERT INTO `identity` VALUES (4, '设备管理员', 2);
 DROP TABLE IF EXISTS `identity_resourse`;
 CREATE TABLE `identity_resourse`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_id` bigint(20) NULL DEFAULT NULL,
-  `resourse_id` bigint(20) NULL DEFAULT NULL,
+  `identity_id` bigint(20) DEFAULT NULL,
+  `resourse_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -105,11 +106,11 @@ CREATE TABLE `identity_resourse`  (
 DROP TABLE IF EXISTS `resourse`;
 CREATE TABLE `resourse`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `resourse_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资源名：resourse_name',
-  `father_id` bigint(20) NULL DEFAULT NULL COMMENT '父id：father_id',
-  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'URL:url',
-  `level` tinyint(4) NULL DEFAULT NULL COMMENT '等级(0一级,1二级,2三级)：level',
-  `type` tinyint(4) NULL DEFAULT NULL COMMENT '类型(0目录,1按钮)：type',
+  `resourse_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资源名：resourse_name',
+  `father_id` bigint(20) DEFAULT NULL COMMENT '父id：father_id',
+  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'URL:url',
+  `level` tinyint(4) DEFAULT NULL COMMENT '等级(0一级,1二级,2三级)：level',
+  `type` tinyint(4) DEFAULT NULL COMMENT '类型(0目录,1按钮)：type',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -141,11 +142,12 @@ INSERT INTO `resourse` VALUES (18, '采购审批', 4, NULL, 1, 0);
 DROP TABLE IF EXISTS `roms`;
 CREATE TABLE `roms`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `numb` int(11) NULL DEFAULT NULL COMMENT '教室编号：numb',
-  `type` tinyint(4) NULL DEFAULT NULL COMMENT '类型（0办公室，1教室，2其它）：type',
-  `person_liable_id` bigint(20) NULL DEFAULT NULL COMMENT '负责人=>users->id:person_liable_id',
-  `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0空闲,1使用中):state',
+  `rom_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `numb` int(11) DEFAULT NULL COMMENT '教室编号：numb',
+  `type` tinyint(4) DEFAULT NULL COMMENT '类型（0办公室，1教室，2其它）：type',
+  `person_liable_id` bigint(20) DEFAULT NULL COMMENT '负责人=>users->id:person_liable_id',
+  `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0空闲,1使用中):state',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -155,14 +157,14 @@ CREATE TABLE `roms`  (
 DROP TABLE IF EXISTS `roms_log`;
 CREATE TABLE `roms_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '申请人=>users->id:user_id',
-  `handle_user_id` bigint(20) NULL DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
-  `rom_id` bigint(20) NULL DEFAULT NULL COMMENT '教室=>rom->id:rom_id',
-  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0申请中,1已审批,2已处理)：state',
-  `creat_time` datetime(0) NULL DEFAULT NULL COMMENT '申请时间：creat_time',
-  `handle_time` datetime(0) NULL DEFAULT NULL COMMENT '处理时间：handle_time',
-  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '申请开始使用时间:start_time',
-  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '申请结束使用时间:end_time',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '申请人=>users->id:user_id',
+  `handle_user_id` bigint(20) DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
+  `rom_id` bigint(20) DEFAULT NULL COMMENT '教室=>rom->id:rom_id',
+  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0申请中,1已审批,2未通过审批)：state',
+  `creat_time` datetime(0) DEFAULT NULL COMMENT '申请时间：creat_time',
+  `handle_time` datetime(0) DEFAULT NULL COMMENT '处理时间：handle_time',
+  `start_time` datetime(0) DEFAULT NULL COMMENT '申请开始使用时间:start_time',
+  `end_time` datetime(0) DEFAULT NULL COMMENT '申请结束使用时间:end_time',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -172,11 +174,11 @@ CREATE TABLE `roms_log`  (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_id` bigint(20) NULL DEFAULT NULL COMMENT '身份ID=>identity->id:identity_id',
-  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名:user_name',
-  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码：pwd',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名：name',
-  `job` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '职务：job',
+  `identity_id` bigint(20) DEFAULT NULL COMMENT '身份ID=>identity->id:identity_id',
+  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名:user_name',
+  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码：pwd',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名：name',
+  `job` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职务：job',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -184,5 +186,147 @@ CREATE TABLE `users`  (
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (1, 1, 'admin', 'admin', 'admin', 'admin');
+
+-- ----------------------------
+-- Procedure structure for acti_
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `acti_`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `acti_`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.com_user_id = user_id 
+      WHERE a.id = id;
+			
+      UPDATE company_user a JOIN acti_sub b ON a.id = b.creator_user_id  
+      set b.creator_user_id = user_id 
+      WHERE a.id = id;
+
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.acti_weighting_user = user_id 
+      WHERE a.id = id;
+
+
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for acti_1
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `acti_1`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `acti_1`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.com_user_id = user_id 
+      WHERE a.id = id;
+			
+      UPDATE company_user a JOIN acti_sub b ON a.id = b.creator_user_id  
+      set b.creator_user_id = user_id 
+      WHERE a.id = id;
+
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.acti_weighting_user = user_id 
+      WHERE a.id = id;
+
+
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for acti_2
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `acti_2`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `acti_2`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.com_user_id = user_id 
+      WHERE a.id = id;
+			
+      UPDATE company_user a JOIN acti_sub b ON a.id = b.creator_user_id  
+      set b.creator_user_id = user_id 
+      WHERE a.id = id;
+
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.acti_weighting_user = user_id 
+      WHERE a.id = id;
+
+
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for acti_task
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `acti_task`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `acti_task`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN acti_task b ON a.id = b.creator_user_id  
+			set b.creator_user_id = user_id 
+			WHERE a.id = id;
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for acti_weighting_user
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `acti_weighting_user`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `acti_weighting_user`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+			set b.com_user_id = user_id 
+			WHERE a.id = id;
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for app_user_invite_his
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `app_user_invite_his`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `app_user_invite_his`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN app_user_invite_his b ON a.id = b.user_id  
+			set b.user_id = user_id 
+			WHERE a.id = id;
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for collect_project
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `collect_project`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `collect_project`(IN user_id bigint,IN id bigint)
+BEGIN
+      UPDATE company_user a JOIN collect_project b ON a.id = b.user_id  
+			set b.user_id = user_id 
+			WHERE a.id = id;
+    END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for update_user
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `update_user`;
+delimiter ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `update_user`(IN user_id bigint,IN id bigint)
+BEGIN
+		UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
+      set b.com_user_id = user_id 
+      WHERE a.id = id;
+			   END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
