@@ -26,9 +26,23 @@ public interface RomsMapper {
      * @param pageSize
      * @return
      */
-    List<RomsDto> selectAll(@Param("pageNo") Integer pageNo , @Param("pageSize")Integer pageSize);
+    List<RomsDto> selectAll(@Param("roms") Roms roms,@Param("pageNo") Integer pageNo , @Param("pageSize")Integer pageSize);
 
-    Long selectCount();
+    Long selectCount(@Param("roms") Roms roms);
 
     int updateByPrimaryKey(Roms record);
+
+    /**
+     * 修改教室状态
+     * @param state
+     * @param id
+     * @return
+     */
+    int updateStateByPrimaryKey(@Param("state") Integer state, @Param("id") Long id);
+
+    /**
+     * 初始化教室状态
+     * @return
+     */
+    int updateStateInitialize();
 }

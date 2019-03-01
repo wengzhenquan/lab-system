@@ -29,5 +29,12 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, type_name
     from equipment_class
+    limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from  equipment_class
   </select>
 </mapper>

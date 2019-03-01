@@ -17,46 +17,24 @@ public interface RomsLogMapper {
 
     /**
      * 查询所有申请列表
+     * @param romsLog  查询条件
      * @param pageNo
      * @param pageSize
      * @return
      */
-    List<RomsLogDto> selectAll(@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
+    List<RomsLogDto> selectAll(@Param("pageNo") RomsLog romsLog,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
 
-    Long selectCount();
+    Long selectCount(@Param("pageNo") RomsLog romsLog);
 
     int updateByPrimaryKey(RomsLog record);
 
-    /**
-     * 查询某用户所有申请
-     * @param userId
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    List<RomsLogDto> selectAllByUserId(@Param("userId") Long userId, @Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
 
-    /**
-     * 查询某用户的申请总数
-     * @param userId
-     * @return
-     */
-    Long selectCountByUserId(Long userId);
 
 
     /**
-     * 查询某教室申请记录
-     * @param romId
-     * @param pageNo
-     * @param pageSize
+     * 修改处理状态
+     * @param romsLog
      * @return
      */
-    List<RomsLogDto> selectAllByRomId(@Param("userId") Long romId,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
-
-    /**
-     * 查询某教室的申请总数
-     * @param romId
-     * @return
-     */
-    Long selectCountByRomId(Long romId);
+    int updateState(RomsLog romsLog);
 }

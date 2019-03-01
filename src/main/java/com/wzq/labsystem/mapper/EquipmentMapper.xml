@@ -3,9 +3,23 @@
 <mapper namespace="com.wzq.labsystem.mapper.EquipmentMapper">
   <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Equipment">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="ser_numb" jdbcType="BIGINT" property="serNumb" />
+    <result column="ser_numb" jdbcType="VARCHAR" property="serNumb" />
     <result column="rom_id" jdbcType="BIGINT" property="romId" />
     <result column="eq_class_id" jdbcType="BIGINT" property="eqClassId" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <result column="repair_times" jdbcType="TIMESTAMP" property="repairTimes" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+
+  <resultMap id="EquipmentResultMap" type="com.wzq.labsystem.dto.EquipmentDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ser_numb" jdbcType="VARCHAR" property="serNumb" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
+    <result column="rom_numb" jdbcType="BIGINT" property="romNumb" />
+    <result column="rom_name" jdbcType="VARCHAR" property="romName" />
+    <result column="eq_class_id" jdbcType="BIGINT" property="eqClassId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
     <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
     <result column="repair_times" jdbcType="TIMESTAMP" property="repairTimes" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -37,13 +51,50 @@
       `state` = #{state,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, ser_numb, rom_id, eq_class_id, buy_time, repair_times, update_time, `state`
-    from equipment
-    where id = #{id,jdbcType=BIGINT}
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EquipmentResultMap">
+    select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    from equipment e
+    left join roms r on e.rom_id = r.id
+    left join equipment_class c on c.id = e.eq_class_id
+    where eid = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, ser_numb, rom_id, eq_class_id, buy_time, repair_times, update_time, `state`
-    from equipment
+  <!-- 查询设备 -->
+  <select id="selectAll" resultMap="EquipmentResultMap">
+    select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    from equipment e
+    left join roms r on e.rom_id = r.id
+    left join equipment_class c on c.id = e.eq_class_id
+    <where>
+      <if test="equipment.rom_id != null and equipment.rom_id != ''">
+        and e.rom_id = #{romId}
+      </if>
+      <if test="equipment.eq_class_id != null and equipment.eq_class_id != ''">
+        and e.eq_class_id = = #{eq_class_id}
+      </if>
+      <if test="equipment.state != null and equipment.state != ''">
+        and e.state = = #{state}
+      </if>
+    </where>
+    order by e.update_time desc
+    <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != '">
+      limit #{pageNo},#{pageSize}
+    </if>
+  </select>
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from  equipment
+    <where>
+      <if test="equipment.rom_id != null and equipment.rom_id != ''">
+        and e.rom_id = #{romId}
+      </if>
+      <if test="equipment.eq_class_id != null and equipment.eq_class_id != ''">
+        and e.eq_class_id = = #{eq_class_id}
+      </if>
+      <if test="equipment.state != null and equipment.state != ''">
+        and e.state = = #{state}
+      </if>
+    </where>
   </select>
 </mapper>

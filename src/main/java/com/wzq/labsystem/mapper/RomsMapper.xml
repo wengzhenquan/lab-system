@@ -16,6 +16,7 @@
     <result column="numb" jdbcType="INTEGER" property="numb" />
     <result column="rom_name" jdbcType="VARCHAR" property="romName" />
     <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="person_liable_id" jdbcType="BIGINT" property="personLiableId" />
     <result column="name" jdbcType="VARCHAR" property="personLiable" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -49,7 +50,7 @@
 
   <!-- 查询房间信息 -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="RoomsResultMap">
-    select r.id, r.numb, r.`type`, r.rom_name, u.`name`, r.content, r.`state`
+    select r.id, r.numb, r.`type`, r.rom_name,r.person_liable_id, u.`name`, r.content, r.`state`
     from roms r
     left join users u on r.person_liable_id = u.id
     where r.id = #{romsId,jdbcType=BIGINT}
@@ -57,15 +58,59 @@
 
   <!-- 查询所有房间列表 -->
   <select id="selectAll" resultMap="RoomsResultMap">
-    select r.id, r.numb, r.`type`, r.rom_name, u.`name`, r.content, r.`state`
+    select r.id, r.numb, r.`type`, r.rom_name,r.person_liable_id, u.`name`, r.content, r.`state`
     from roms r
     left join users u on r.person_liable_id = u.id
-    limit #{pageNo},#{pageSize}
+      <where>
+          <if test="roms.numb != null and roms.numb != ''">
+              and r.numb = #{roms.numb}
+          </if>
+          <if test="roms.type != null and roms.type != ''">
+              and r.`type` = #{roms.type}
+          </if>
+          <if test="roms.person_liable_id != null and roms.person_liable_id != ''">
+              and r.person_liable_id = #{roms.person_liable_id}
+          </if>
+          <if test="roms.state != null and roms.state != ''">
+              and r.`state` = #{roms.state}
+          </if>
+      </where>
+      <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != '">
+          limit #{pageNo},#{pageSize}
+      </if>
   </select>
 
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
     from roms
+      <where>
+          <if test="roms.numb != null and roms.numb != ''">
+              and numb = #{roms.numb}
+          </if>
+          <if test="roms.type != null and roms.type != ''">
+              and `type` = #{roms.type}
+          </if>
+          <if test="roms.person_liable_id != null and roms.person_liable_id != ''">
+              and person_liable_id = #{roms.person_liable_id}
+          </if>
+          <if test="roms.state != null and roms.state != ''">
+              and `state` = #{roms.state}
+          </if>
+      </where>
   </select>
+
+  <!-- 修改教室状态-->
+  <update id="updateStateByPrimaryKey" >
+    update roms
+    set  `state` = #{state}
+    where id = #{id}
+  </update>
+
+    <!-- 初始化教室状态-->
+  <update id="updateStateInitialize" >
+    update roms
+    set  `state` = 0
+    where `type` &lt;&gt; 0
+  </update>
 </mapper>

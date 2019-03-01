@@ -15,8 +15,11 @@
 
   <resultMap id="RomsLogResultMap" type="com.wzq.labsystem.dto.RomsLogDto">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="apply_id" jdbcType="BIGINT" property="applyId" />
     <result column="name" jdbcType="BIGINT" property="name" />
+    <result column="handle_user_id" jdbcType="BIGINT" property="handleUserId" />
     <result column="handle_user" jdbcType="BIGINT" property="handleUser" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
     <result column="numb" jdbcType="BIGINT" property="romNumb" />
     <result column="rom_name" jdbcType="VARCHAR" property="romName" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -54,7 +57,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, user_id, handle_user_id, rom_id, `state`, creat_time, handle_time, start_time, 
+    select id, user_id, handle_user_id, rom_id, `state`, creat_time, handle_time, start_time,
     end_time
     from roms_log
     where id = #{id,jdbcType=BIGINT}
@@ -63,25 +66,55 @@
 
   <!-- 查询所有申请 -->
   <select id="selectAll" resultMap="RomsLogResultMap">
-    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    select l.id,l.user_id as apply_id, u.`name`,l.handle_user_id, a.`name` as handle_user,l.rom_id, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
     l.end_time
     from roms_log l
     left join users u on u.id = l.user_id
     left join users a on a.id = l.handle_user_id
-	left join roms r on r.id = l.rom_id
-	order by l.creat_time desc
-	limit #{pageNo},#{pageSize}
+    left join roms r on r.id = l.rom_id
+    <where>
+      <if test="romsLog.userId != null and romsLog.userId != ''">
+        and l.user_id = #{romsLog.userId}
+      </if>
+      <if test="romsLog.handleUserId != null and romsLog.handleUserId != ''">
+        and l.handle_user_id = #{romsLog.handleUserId}
+      </if>
+      <if test="romsLog.romId != null and romsLog.romId != ''">
+        and l.rom_id = #{romsLog.romId}
+      </if>
+      <if test="romsLog.state != null and romsLog.state != ''">
+        and l.`state` = #{romsLog.state}
+      </if>
+    </where>
+    order by l.creat_time desc
+      <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != '">
+          limit #{pageNo},#{pageSize}
+      </if>
   </select>
 
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
     from roms_log
+      <where>
+          <if test="romsLog.userId != null and romsLog.userId != ''">
+              and l.user_id = #{romsLog.userId}
+          </if>
+          <if test="romsLog.handleUserId != null and romsLog.handleUserId != ''">
+              and l.handle_user_id = #{romsLog.handleUserId}
+          </if>
+          <if test="romsLog.romId != null and romsLog.romId != ''">
+              and l.rom_id = #{romsLog.romId}
+          </if>
+          <if test="romsLog.state != null and romsLog.state != ''">
+              and l.`state` = #{romsLog.state}
+          </if>
+      </where>
   </select>
 
   <!-- 查询某用户所有申请 -->
   <select id="selectAllByUserId" resultMap="RomsLogResultMap">
-    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    select l.id,l.user_id as apply_id, u.`name`,l.handle_user_id, a.`name` as handle_user,l.rom_id, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
     l.end_time
     from roms_log l
     left join users u on u.id = l.user_id
@@ -101,7 +134,7 @@
 
   <!-- 查询某教室申请记录 -->
   <select id="selectAllByRomId" resultMap="RomsLogResultMap">
-    select l.id, u.`name`, a.`name` as handle_user, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
+    select l.id,l.user_id as apply_id, u.`name`,l.handle_user_id, a.`name` as handle_user,l.rom_id, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time,
     l.end_time
     from roms_log l
     left join users u on u.id = l.user_id
@@ -118,5 +151,18 @@
     from roms_log
     where rom_id = #{romId,jdbcType=BIGINT}
   </select>
+
+  <!-- 修改处理状态 -->
+  <update id="updateState" parameterType="com.wzq.labsystem.dto.po.RomsLog">
+    update roms_log
+    set
+      handle_user_id = #{handleUserId},
+      rom_id = #{romId,jdbcType=BIGINT},
+      `state` = #{state,jdbcType=TINYINT},
+      handle_time = #{handleTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
 
 </mapper>

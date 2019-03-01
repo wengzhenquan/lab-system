@@ -12,6 +12,7 @@
 
   <resultMap id="UserResultMap" type="com.wzq.labsystem.dto.UserDto">
     <id column="id" jdbcType="BIGINT" property="userId" />
+    <result column="identity_id" jdbcType="BIGINT" property="identityId" />
     <result column="identity_name" jdbcType="VARCHAR" property="identityName" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -41,7 +42,7 @@
   </update>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserResultMap">
-    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id, u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     where u.id = #{id,jdbcType=BIGINT}
@@ -49,7 +50,7 @@
 
   <!-- 查询全部信息 -->
   <select id="selectAll" resultMap="UserResultMap">
-    select u.id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id,u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     limit #{pageNo},#{pageSize}

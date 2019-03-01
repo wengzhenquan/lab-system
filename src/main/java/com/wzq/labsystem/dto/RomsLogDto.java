@@ -19,13 +19,22 @@ public class RomsLogDto {
 
     private Long logId;
 
+    @ApiModelProperty("申请人ID")
+    private Long applyId;
+
     @ApiModelProperty("申请人")
     private String name;
+
+    @ApiModelProperty("处理人ID")
+    private Long handleUserId;
 
     @ApiModelProperty("处理人")
     private String handleUser;
 
     @ApiModelProperty("教室ID")
+    private Long romId;
+
+    @ApiModelProperty("教室编号")
     private Long romNub;
 
     @ApiModelProperty("教室名称")

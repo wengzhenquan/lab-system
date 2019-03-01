@@ -14,6 +14,24 @@
     <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
     <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
   </resultMap>
+
+  <resultMap id="EquipmentLogResultMap" type="com.wzq.labsystem.dto.EquipmentLogDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="apply_name" jdbcType="VARCHAR" property="applyName" />
+    <result column="handle_user_id" jdbcType="BIGINT" property="handleUserId" />
+    <result column="handle_user_name" jdbcType="VARCHAR" property="handleUserName" />
+    <result column="eq_class_id" jdbcType="BIGINT" property="eqClassId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="need" jdbcType="VARCHAR" property="need" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+  </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from equipment_log
     where id = #{id,jdbcType=BIGINT}
@@ -45,15 +63,60 @@
       handle_time = #{handleTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select id, user_id, handle_user_id, eq_class_id, `type`, title, need, `result`, `state`, 
-    creat_time, handle_time
-    from equipment_log
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EquipmentLogResultMap">
+    select l.id, l.user_id,u.name as apply_name, l.handle_user_id,h.name as handle_user_name,
+    l.eq_class_id,c.type_name, l.`type`, l.title, l.need, l.`result`, l.`state`, l.creat_time, l.handle_time
+    from equipment_log l
+    left join users u on u.id = l.user_id
+    left join users h on h.id = l.handle_user_id
+    left join equipment_class c on equipment_class.id = l.eq_class_id
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, user_id, handle_user_id, eq_class_id, `type`, title, need, `result`, `state`, 
-    creat_time, handle_time
-    from equipment_log
+  <select id="selectAll" resultMap="EquipmentLogResultMap">
+    select l.id, l.user_id,u.name as apply_name, l.handle_user_id,h.name as handle_user_name,
+    l.eq_class_id,c.type_name, l.`type`, l.title, l.need, l.`result`, l.`state`, l.creat_time, l.handle_time
+    from equipment_log l
+    left join users u on u.id = l.user_id
+    left join users h on h.id = l.handle_user_id
+    left join equipment_class c on equipment_class.id = l.eq_class_id
+    <where>
+      <if test="equipmentLog.userId != null and equipmentLog.userId !=''">
+        and l.user_id = #{equipmentLog.userId}
+      </if>
+      <if test="equipmentLog.handleUserId != null and equipmentLog.handleUserId !=''">
+        and l.handle_user_id = #{equipmentLog.handleUserId}
+      </if>
+      <if test="equipmentLog.eqClassId != null and equipmentLog.eqClassId !=''">
+        and l.eq_class_id = #{equipmentLog.eqClassId}
+      </if>
+      <if test="equipmentLog.state != null and equipmentLog.state !=''">
+        and l.state = #{equipmentLog.state}
+      </if>
+    </where>
+    order by creat_time desc
+    limit #{pageNo},#{pageSize}
+  </select>
+
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from equipment_log l
+    left join users u on u.id = l.user_id
+    left join users h on h.id = l.handle_user_id
+    left join equipment_class c on equipment_class.id = l.eq_class_id
+    <where>
+      <if test="equipmentLog.userId != null and equipmentLog.userId !=''">
+        and l.user_id = #{equipmentLog.userId}
+      </if>
+      <if test="equipmentLog.handleUserId != null and equipmentLog.handleUserId !=''">
+        and l.handle_user_id = #{equipmentLog.handleUserId}
+      </if>
+      <if test="equipmentLog.eqClassId != null and equipmentLog.eqClassId !=''">
+        and l.eq_class_id = #{equipmentLog.eqClassId}
+      </if>
+      <if test="equipmentLog.state != null and equipmentLog.state !=''">
+        and l.state = #{equipmentLog.state}
+      </if>
+    </where>
   </select>
 </mapper>

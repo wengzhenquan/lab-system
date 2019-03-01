@@ -1,6 +1,7 @@
 package com.wzq.labsystem.mapper;
 
 import com.wzq.labsystem.dto.po.EquipmentClass;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,9 @@ public interface EquipmentClassMapper {
 
     EquipmentClass selectByPrimaryKey(Long id);
 
-    List<EquipmentClass> selectAll();
+    List<EquipmentClass> selectAll(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
 
     int updateByPrimaryKey(EquipmentClass record);
+
+    Long selectCount();
 }

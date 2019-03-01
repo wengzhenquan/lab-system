@@ -1,4 +1,4 @@
-package com.wzq.labsystem.dto.po;
+package com.wzq.labsystem.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -11,15 +11,13 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.Instant;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("设备")
-public class Equipment implements Serializable {
-
-    private static final long serialVersionUID = -1494929659228491499L;
+public class EquipmentDto implements Serializable {
+    private static final long serialVersionUID = -4473102032375388279L;
 
     private Long id;
 
@@ -29,8 +27,17 @@ public class Equipment implements Serializable {
     @ApiModelProperty("教室ID")
     private Long romId;
 
+    @ApiModelProperty("教室编号")
+    private Integer romNumb;
+
+    @ApiModelProperty("教室名称")
+    private String romName;
+
     @ApiModelProperty("设备分类ID")
     private Long eqClassId;
+
+    @ApiModelProperty("设备分类")
+    private String eqClassName;
 
     @ApiModelProperty("购买时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -46,6 +53,4 @@ public class Equipment implements Serializable {
 
     @ApiModelProperty("状态(0正常,1报修,2报废)")
     private Integer state;
-
-
 }
