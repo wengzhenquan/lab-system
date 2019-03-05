@@ -87,7 +87,7 @@
       </if>
     </where>
     order by l.creat_time desc
-      <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != '">
+      <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != ''">
           limit #{pageNo},#{pageSize}
       </if>
   </select>

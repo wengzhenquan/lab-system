@@ -9,6 +9,7 @@ import com.wzq.labsystem.dto.po.RomsLog;
 import com.wzq.labsystem.exception.ServiceException;
 import com.wzq.labsystem.mapper.RomsLogMapper;
 import com.wzq.labsystem.mapper.RomsMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,35 +22,40 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @Service
 public class RomsService {
-    @Autowired
+
     private RomsMapper romsMapper;
 
-    @Autowired
     private RomsLogMapper romsLogMapper;
 
     // 需要被修改教室状态的房间列表（定时器使用）
     private static List<RomsStateUpdateDto> updaRomStateList = new ArrayList<>();
 
-     {
-         romsMapper.updateStateInitialize();
+    @Autowired
+    public RomsService(RomsMapper romsMapper,RomsLogMapper romsLogMapper) {
+        this.romsLogMapper = romsLogMapper;
+        this.romsMapper = romsMapper;
+        init();
+    }
 
-         List<RomsLogDto> romsLogDtos = romsLogMapper.selectAll(RomsLog.builder().state(1).build(), null, null);
-         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
-         List<RomsStateUpdateDto> list = romsLogDtos.stream()
-                 .filter(romsLogDto -> timeNow.isBefore(romsLogDto.getEndTime()))
-                 .map(romsLogDto -> RomsStateUpdateDto.builder()
-                                        .romLogId(romsLogDto.getLogId())
-                                        .romId(romsLogDto.getRomId())
-                                        .startTime(romsLogDto.getStartTime())
-                                        .endTime(romsLogDto.getEndTime()).build())
-                 .collect(Collectors.toList());
+    private void init() {
+        romsMapper.updateStateInitialize();
 
-         updaRomStateList.addAll(list);
+        List<RomsLogDto> romsLogDtos = romsLogMapper.selectAll(RomsLog.builder().state(1).build(), null, null);
+        Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
+        List<RomsStateUpdateDto> list = romsLogDtos.stream()
+                .filter(romsLogDto -> timeNow.isBefore(romsLogDto.getEndTime()))
+                .map(romsLogDto -> RomsStateUpdateDto.builder()
+                                       .romLogId(romsLogDto.getLogId())
+                                       .romId(romsLogDto.getRomId())
+                                       .startTime(romsLogDto.getStartTime())
+                                       .endTime(romsLogDto.getEndTime()).build())
+                .collect(Collectors.toList());
 
-     }
+        updaRomStateList.addAll(list);
+    }
 
     /**
      * 添加房间

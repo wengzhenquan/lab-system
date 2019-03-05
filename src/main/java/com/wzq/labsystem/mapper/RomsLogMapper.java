@@ -22,7 +22,7 @@ public interface RomsLogMapper {
      * @param pageSize
      * @return
      */
-    List<RomsLogDto> selectAll(@Param("pageNo") RomsLog romsLog,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
+    List<RomsLogDto> selectAll(@Param("romsLog") RomsLog romsLog,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
 
     Long selectCount(@Param("pageNo") RomsLog romsLog);
 
