@@ -1,9 +1,11 @@
 package com.wzq.labsystem.service;
 
 import com.wzq.labsystem.dto.EquipmentDto;
+import com.wzq.labsystem.dto.EquipmentLogDto;
 import com.wzq.labsystem.dto.PageDto;
 import com.wzq.labsystem.dto.po.Equipment;
 import com.wzq.labsystem.dto.po.EquipmentClass;
+import com.wzq.labsystem.dto.po.EquipmentLog;
 import com.wzq.labsystem.exception.ServiceException;
 import com.wzq.labsystem.mapper.EquipmentClassMapper;
 import com.wzq.labsystem.mapper.EquipmentLogMapper;
@@ -37,7 +39,7 @@ public class EquipmentService {
      */
     public Integer insertEquipment(Equipment equipment){
         Assert.isNull(equipment.getEqClassId(),"设备分类不能为空");
-        equipment.setSerNumb(UUID.randomUUID().toString().replace("-",""));
+        equipment.setSerNumb(UUID.randomUUID().toString().replace("-","").toUpperCase());
         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
         equipment.setBuyTime(timeNow);
         equipment.setUpdateTime(timeNow);
@@ -86,7 +88,7 @@ public class EquipmentService {
 
 
 
-
+    // TODO 设备分类
 
     /**
      * 添加设备分类
@@ -135,6 +137,68 @@ public class EquipmentService {
     public EquipmentClass selectClassById(Long equipmentClassId){
         return equipmentClassMapper.selectByPrimaryKey(equipmentClassId);
     }
+
+
+
+    // TODO 设备申请
+    /**
+     * 添加申请
+     * @param equipmentLog
+     * @return
+     */
+    public Integer insertEquipmentLog(EquipmentLog equipmentLog){
+        Assert.isNull(equipmentLog.getUserId(),"申请人不能为空");
+        Assert.isNull(equipmentLog.getEqClassId(),"设备类型不能为空");
+        Assert.isNull(equipmentLog.getType(),"申请类型不能为空");
+        Assert.isNull(equipmentLog.getTitle(),"标题不能为空");
+        Assert.isNull(equipmentLog.getNeed(),"需求描述不能为空");
+        equipmentLog.setState(0);
+        equipmentLog.setCreatTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
+        int result = equipmentLogMapper.insert(equipmentLog);
+        if(0 == result) throw new ServiceException(501, "添加失败");
+        return result;
+    }
+
+    /**
+     * 修改申请
+     * @param equipmentLog
+     * @return
+     */
+    public Integer updateEquipmentLog(EquipmentLog equipmentLog){
+        Assert.isNull(equipmentLog.getUserId(),"申请人不能为空");
+        Assert.isNull(equipmentLog.getEqClassId(),"设备类型不能为空");
+        Assert.isNull(equipmentLog.getType(),"申请类型不能为空");
+        Assert.isNull(equipmentLog.getTitle(),"标题不能为空");
+        Assert.isNull(equipmentLog.getNeed(),"需求描述不能为空");
+        int result = equipmentLogMapper.updateByPrimaryKey(equipmentLog);
+        if(0 == result) throw new ServiceException(501, "修改失败");
+        return result;
+    }
+
+    /**
+     * 查询所有申请
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public PageDto<EquipmentLogDto> selectEquipmentLogAll(EquipmentLog equipmentLog,Integer pageNo, Integer pageSize) {
+        List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(equipmentLog,pageNo, pageSize);
+        Long count = equipmentLogMapper.selectCount(equipmentLog);
+        PageDto<EquipmentLogDto> pageDto = new PageDto<>();
+        pageDto.setTotal(count);
+        pageDto.setData(equipmentLoglist);
+        return pageDto;
+    }
+
+    /**
+     * 查询申请
+     * @param equipmentLogId
+     * @return
+     */
+    public EquipmentLogDto selectLogById(Long equipmentLogId){
+        return equipmentLogMapper.selectByPrimaryKey(equipmentLogId);
+    }
+
 
 
 }

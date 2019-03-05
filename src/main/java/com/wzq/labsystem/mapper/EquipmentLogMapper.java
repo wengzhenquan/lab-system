@@ -1,5 +1,6 @@
 package com.wzq.labsystem.mapper;
 
+import com.wzq.labsystem.dto.EquipmentLogDto;
 import com.wzq.labsystem.dto.po.EquipmentLog;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -12,9 +13,9 @@ public interface EquipmentLogMapper {
 
     int insert(EquipmentLog record);
 
-    EquipmentLog selectByPrimaryKey(Long id);
+    EquipmentLogDto selectByPrimaryKey(Long id);
 
-    List<EquipmentLog> selectAll(@Param("equipmentLog") EquipmentLog equipmentLog,@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
+    List<EquipmentLogDto> selectAll(@Param("equipmentLog") EquipmentLog equipmentLog,@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
 
     int updateByPrimaryKey(EquipmentLog record);
 
