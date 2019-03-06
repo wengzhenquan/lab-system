@@ -132,6 +132,7 @@ public class RomsService {
         Assert.notNull(romsLog.getUserId(),"申请人ID不能为空");
         Assert.notNull(romsLog.getStartTime(),"开始时间不能为空");
         Assert.notNull(romsLog.getEndTime(),"结束时间不能为空");
+        if(null == romsLog.getCreatTime())
         romsLog.setCreatTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
         romsLog.setState(0);
         int result = romsLogMapper.insert(romsLog);

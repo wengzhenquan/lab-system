@@ -42,6 +42,7 @@ public class EquipmentService {
         equipment.setSerNumb(UUID.randomUUID().toString().replace("-","").toUpperCase());
         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
         equipment.setBuyTime(timeNow);
+        if(null == equipment.getUpdateTime())
         equipment.setUpdateTime(timeNow);
         equipment.setState(0);
         int result = equipmentMapper.insert(equipment);
@@ -153,6 +154,7 @@ public class EquipmentService {
         Assert.notNull(equipmentLog.getTitle(),"标题不能为空");
         Assert.notNull(equipmentLog.getNeed(),"需求描述不能为空");
         equipmentLog.setState(0);
+        if(null == equipmentLog.getCreatTime())
         equipmentLog.setCreatTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
         int result = equipmentLogMapper.insert(equipmentLog);
         if(0 == result) throw new ServiceException(501, "添加失败");
