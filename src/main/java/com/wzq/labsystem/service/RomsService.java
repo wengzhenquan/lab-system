@@ -63,8 +63,8 @@ public class RomsService {
      * @return
      */
     public Integer insertRoms(Roms roms){
-        Assert.isNull(roms.getNumb(),"编号不能为空");
-        Assert.isNull(roms.getType(),"类型不能为空");
+        Assert.notNull(roms.getNumb(),"编号不能为空");
+        Assert.notNull(roms.getType(),"类型不能为空");
         roms.setState(0);
         int result = romsMapper.insert(roms);
         if(0 == result) throw new ServiceException(501, "添加失败");
@@ -77,8 +77,8 @@ public class RomsService {
      * @return
      */
     public Integer updateRoms(Roms roms){
-        Assert.isNull(roms.getNumb(),"编号不能为空");
-        Assert.isNull(roms.getType(),"类型不能为空");
+        Assert.notNull(roms.getNumb(),"编号不能为空");
+        Assert.notNull(roms.getType(),"类型不能为空");
         int result = romsMapper.updateByPrimaryKey(roms);
         if(0 == result) throw new ServiceException(501, "修改失败");
         return result;
@@ -129,9 +129,9 @@ public class RomsService {
      * @return
      */
     public Integer insertLog(RomsLog romsLog){
-        Assert.isNull(romsLog.getUserId(),"申请人ID不能为空");
-        Assert.isNull(romsLog.getStartTime(),"开始时间不能为空");
-        Assert.isNull(romsLog.getEndTime(),"结束时间不能为空");
+        Assert.notNull(romsLog.getUserId(),"申请人ID不能为空");
+        Assert.notNull(romsLog.getStartTime(),"开始时间不能为空");
+        Assert.notNull(romsLog.getEndTime(),"结束时间不能为空");
         romsLog.setCreatTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
         romsLog.setState(0);
         int result = romsLogMapper.insert(romsLog);
@@ -173,7 +173,7 @@ public class RomsService {
         if (state > stateOld){
             switch (state){
                 case 1:{
-                    Assert.isNull(romId,"通过审批，请指定教室ID");
+                    Assert.notNull(romId,"通过审批，请指定教室ID");
                     result = romsLogMapper.updateState(RomsLog.builder()
                             .id(romRomLogId)
                             .handleUserId(handleUserId)

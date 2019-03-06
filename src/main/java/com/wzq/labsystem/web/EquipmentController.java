@@ -5,6 +5,7 @@ import com.wzq.labsystem.dto.EquipmentDto;
 import com.wzq.labsystem.dto.PageDto;
 import com.wzq.labsystem.dto.ResultDto;
 import com.wzq.labsystem.dto.po.Equipment;
+import com.wzq.labsystem.dto.po.EquipmentClass;
 import com.wzq.labsystem.service.EquipmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,5 +42,28 @@ public class EquipmentController {
         return ResultDto.ok(equipmentService.selectById(equipmentId));
     }
 
+    @ApiOperation("添加设备分类")
+    @PostMapping("insertEquipmentClass")
+    public ResultDto<Integer> insertEquipmentClass(@RequestBody EquipmentClass equipmentClass){
+        return ResultDto.ok(equipmentService.insertEquipmentClass(equipmentClass));
+    }
+
+    @ApiOperation("修改设备分类")
+    @PostMapping("updateEquipmentClass")
+    public ResultDto<Integer> updateEquipmentClass(@RequestBody EquipmentClass equipmentClass){
+        return ResultDto.ok(equipmentService.updateEquipmentClass(equipmentClass));
+    }
+
+    @ApiOperation("查询所有设备分类")
+    @GetMapping("selectEquipmentClassAll")
+    public ResultDto<PageDto<EquipmentClass>> selectEquipmentClassAll(@RequestParam Integer pageNo,@RequestParam Integer pageSize){
+        return ResultDto.ok(equipmentService.selectEquipmentClassAll(pageNo, pageSize));
+    }
+
+    @ApiOperation("查询设备分类")
+    @GetMapping("selectClassById")
+    public ResultDto<EquipmentClass> selectClassById(@RequestParam Long equipmentClassId){
+        return ResultDto.ok(equipmentService.selectClassById(equipmentClassId));
+    }
 
 }

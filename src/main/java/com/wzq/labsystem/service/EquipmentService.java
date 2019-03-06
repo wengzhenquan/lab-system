@@ -38,7 +38,7 @@ public class EquipmentService {
      * @return
      */
     public Integer insertEquipment(Equipment equipment){
-        Assert.isNull(equipment.getEqClassId(),"设备分类不能为空");
+        Assert.notNull(equipment.getEqClassId(),"设备分类不能为空");
         equipment.setSerNumb(UUID.randomUUID().toString().replace("-","").toUpperCase());
         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
         equipment.setBuyTime(timeNow);
@@ -55,7 +55,7 @@ public class EquipmentService {
      * @return
      */
     public Integer updateEquipment(Equipment equipment){
-        Assert.isNull(equipment.getEqClassId(),"设备分类不能为空");
+        Assert.notNull(equipment.getEqClassId(),"设备分类不能为空");
         int result = equipmentMapper.updateByPrimaryKey(equipment);
         if(0 == result) throw new ServiceException(501, "修改失败");
         return result;
@@ -96,7 +96,7 @@ public class EquipmentService {
      * @return
      */
     public Integer insertEquipmentClass(EquipmentClass equipmentClass){
-        Assert.isNull(equipmentClass.getTypeName(),"分类名称不能为空");
+        Assert.notNull(equipmentClass.getTypeName(),"分类名称不能为空");
         int result = equipmentClassMapper.insert(equipmentClass);
         if(0 == result) throw new ServiceException(501, "添加失败");
         return result;
@@ -108,7 +108,7 @@ public class EquipmentService {
      * @return
      */
     public Integer updateEquipmentClass(EquipmentClass equipmentClass){
-        Assert.isNull(equipmentClass.getTypeName(),"分类名称不能为空");
+        Assert.notNull(equipmentClass.getTypeName(),"分类名称不能为空");
         int result = equipmentClassMapper.updateByPrimaryKey(equipmentClass);
         if(0 == result) throw new ServiceException(501, "修改失败");
         return result;
@@ -147,11 +147,11 @@ public class EquipmentService {
      * @return
      */
     public Integer insertEquipmentLog(EquipmentLog equipmentLog){
-        Assert.isNull(equipmentLog.getUserId(),"申请人不能为空");
-        Assert.isNull(equipmentLog.getEqClassId(),"设备类型不能为空");
-        Assert.isNull(equipmentLog.getType(),"申请类型不能为空");
-        Assert.isNull(equipmentLog.getTitle(),"标题不能为空");
-        Assert.isNull(equipmentLog.getNeed(),"需求描述不能为空");
+        Assert.notNull(equipmentLog.getUserId(),"申请人不能为空");
+        Assert.notNull(equipmentLog.getEqClassId(),"设备类型不能为空");
+        Assert.notNull(equipmentLog.getType(),"申请类型不能为空");
+        Assert.notNull(equipmentLog.getTitle(),"标题不能为空");
+        Assert.notNull(equipmentLog.getNeed(),"需求描述不能为空");
         equipmentLog.setState(0);
         equipmentLog.setCreatTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
         int result = equipmentLogMapper.insert(equipmentLog);
@@ -165,11 +165,11 @@ public class EquipmentService {
      * @return
      */
     public Integer updateEquipmentLog(EquipmentLog equipmentLog){
-        Assert.isNull(equipmentLog.getUserId(),"申请人不能为空");
-        Assert.isNull(equipmentLog.getEqClassId(),"设备类型不能为空");
-        Assert.isNull(equipmentLog.getType(),"申请类型不能为空");
-        Assert.isNull(equipmentLog.getTitle(),"标题不能为空");
-        Assert.isNull(equipmentLog.getNeed(),"需求描述不能为空");
+        Assert.notNull(equipmentLog.getUserId(),"申请人不能为空");
+        Assert.notNull(equipmentLog.getEqClassId(),"设备类型不能为空");
+        Assert.notNull(equipmentLog.getType(),"申请类型不能为空");
+        Assert.notNull(equipmentLog.getTitle(),"标题不能为空");
+        Assert.notNull(equipmentLog.getNeed(),"需求描述不能为空");
         int result = equipmentLogMapper.updateByPrimaryKey(equipmentLog);
         if(0 == result) throw new ServiceException(501, "修改失败");
         return result;
