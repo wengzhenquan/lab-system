@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.ExpReportMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.ExpReport">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tesk_id" jdbcType="BIGINT" property="teskId" />
+    <result column="student_user_id" jdbcType="BIGINT" property="studentUserId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="student_file_url" jdbcType="VARCHAR" property="studentFileUrl" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+
+  <resultMap id="ExpReportResultMap" type="com.wzq.labsystem.dto.ExpReportDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tesk_id" jdbcType="BIGINT" property="teskId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="student_user_id" jdbcType="BIGINT" property="studentUserId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="student_file_url" jdbcType="VARCHAR" property="studentFileUrl" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from exp_report
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.ExpReport">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into exp_report (tesk_id, student_user_id, content, 
+      student_file_url, update_time, score
+      )
+    values (#{teskId,jdbcType=BIGINT}, #{studentUserId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{studentFileUrl,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.ExpReport">
+    update exp_report
+    set tesk_id = #{teskId,jdbcType=BIGINT},
+      student_user_id = #{studentUserId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      student_file_url = #{studentFileUrl,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ExpReportResultMap">
+    select er.id, er.tesk_id,et.title, er.student_user_id,u.name, er.content, er.student_file_url, er.update_time, er.score
+    from exp_report er
+    left join exp_tesk et on et.id = er.tesk_id
+    left join users u on u.id = er.student_user_id
+    where er.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="ExpReportResultMap">
+    select er.id, er.tesk_id,et.title, er.student_user_id,u.name, er.content, er.student_file_url, er.update_time, er.score
+    from exp_report er
+    left join exp_tesk et on et.id = er.tesk_id
+    left join users u on u.id = er.student_user_id
+    <where>
+      <if test="teskId != null and teskId != ''">
+        and er.tesk_id = #{teskId}
+      </if>
+      <if test="title != null and title != ''">
+        and et.title = #{title}
+      </if>
+      <if test="studentUserId != null and studentUserId != ''">
+        and er.student_user_id = #{studentUserId}
+      </if>
+      <if test="name != null and name != ''">
+        and u.name = #{name}
+      </if>
+    </where>
+    order by er.update_time desc
+    limit #{pageNo},#{pageSize}
+  </select>
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from exp_report er
+    left join exp_tesk et on et.id = er.tesk_id
+    left join users u on u.id = er.student_user_id
+    <where>
+      <if test="teskId != null and teskId != ''">
+        and er.tesk_id = #{teskId}
+      </if>
+      <if test="title != null and title != ''">
+        and et.title = #{title}
+      </if>
+      <if test="studentUserId != null and studentUserId != ''">
+        and er.student_user_id = #{studentUserId}
+      </if>
+      <if test="name != null and name != ''">
+        and u.name = #{name}
+      </if>
+    </where>
+  </select>
+
+</mapper>

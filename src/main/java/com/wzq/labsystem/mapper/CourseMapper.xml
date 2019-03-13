@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Course">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="teacher_user_id" jdbcType="BIGINT" property="teacherUserId" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+  </resultMap>
+
+  <resultMap id="CourseResultMap" type="com.wzq.labsystem.dto.CourseDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="teacher_user_id" jdbcType="BIGINT" property="teacherUserId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from course
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course (course_name, teacher_user_id, total_score, 
+      start_date, end_date)
+    values (#{courseName,jdbcType=VARCHAR}, #{teacherUserId,jdbcType=BIGINT}, #{totalScore,jdbcType=INTEGER}, 
+      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Course">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      teacher_user_id = #{teacherUserId,jdbcType=BIGINT},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="CourseResultMap">
+    select c.id, c.course_name, c.teacher_user_id,u.name, c.total_score, c.start_date, c.end_date
+    from course c
+    left join users u on u.id = c.teacher_user_id
+    where c.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <!-- 条件查询全部课程 -->
+  <select id="selectAll" resultMap="CourseResultMap">
+    select c.id, c.course_name, c.teacher_user_id,u.name, c.total_score, c.start_date, c.end_date
+    from course c
+    left join users u on u.id = c.teacher_user_id
+    <where>
+      <if test="teacherUserId != null and teacherUserId != ''">
+        c.teacher_user_id = #{teacherUserId}
+      </if>
+    </where>
+    limit #{pageNo},{pageSize}
+  </select>
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from course c
+    left join users u on u.id = c.teacher_user_id
+    <where>
+      <if test="teacherUserId != null and teacherUserId != ''">
+        c.teacher_user_id = #{teacherUserId}
+      </if>
+    </where>
+  </select>
+</mapper>

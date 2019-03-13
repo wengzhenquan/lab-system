@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.ExpTeskMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.ExpTesk">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+  </resultMap>
+
+  <resultMap id="ExpTeskResultMap" type="com.wzq.labsystem.dto.ExpTeskDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="rom_id" jdbcType="BIGINT" property="romId" />
+    <result column="numb" jdbcType="INTEGER" property="numb" />
+    <result column="rom_name" jdbcType="VARCHAR" property="romName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from exp_tesk
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wzq.labsystem.dto.po.ExpTesk">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into exp_tesk (course_id, rom_id, title, 
+      content, start_time, end_time, 
+      file_url)
+    values (#{courseId,jdbcType=BIGINT}, #{romId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{fileUrl,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.ExpTesk">
+    update exp_tesk
+    set course_id = #{courseId,jdbcType=BIGINT},
+      rom_id = #{romId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      file_url = #{fileUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ExpTeskResultMap">
+    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.rcontent, et.start_time, et.end_time, et.file_url
+    from exp_tesk et
+    left course c on c.id = et.course_id
+    left roms r on r.id = et.rom_id
+    where et.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="ExpTeskResultMap">
+    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.rcontent, et.start_time, et.end_time, et.file_url
+    from exp_tesk et
+    left course c on c.id = et.course_id
+    left roms r on r.id = et.rom_id
+    <where>
+      <if test="courseId != null and courseId != ''">
+        and et.course_id = #{courseId}
+      </if>
+      <if test="courseName != null and courseName != ''">
+        and c.course_name = #{courseName}
+      </if>
+      <if test="romId != null and romId != ''">
+        and et.rom_id = #{romId}
+      </if>
+      <if test="romName != null and romName != ''">
+        and r.rom_name = #{romName}
+      </if>
+    </where>
+    order by et.start_time desc
+    limit #{pageNo},#{pageSize}
+  </select>
+  <!-- 查询总数 -->
+  <select id="selectCount" resultType="java.lang.Long">
+    select count(*)
+    from exp_tesk et
+    left course c on c.id = et.course_id
+    left roms r on r.id = et.rom_id
+    <where>
+      <if test="courseId != null and courseId != ''">
+        and et.course_id = #{courseId}
+      </if>
+      <if test="courseName != null and courseName != ''">
+        and c.course_name = #{courseName}
+      </if>
+      <if test="romId != null and romId != ''">
+        and et.rom_id = #{romId}
+      </if>
+      <if test="romName != null and romName != ''">
+        and r.rom_name = #{romName}
+      </if>
+    </where>
+  </select>
+</mapper>
