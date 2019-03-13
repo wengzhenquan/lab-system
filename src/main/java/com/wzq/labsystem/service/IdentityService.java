@@ -19,11 +19,7 @@ public class IdentityService {
      * @return
      */
     public List<Identity> selectIdentityAll(){
-        List<Identity> identityList = identityMapper.selectAll();
-        if ((null == identityList) || (identityList.isEmpty()) || (0 == identityList.size())) {
-            throw new ServiceException(501, "获取列表失败");
-        }
-        return identityList;
+        return identityMapper.selectAll();
     }
 
     /**
@@ -48,4 +44,12 @@ public class IdentityService {
         return result;
     }
 
+    /**
+     * 通过ID查询
+     * @param identityId
+     * @return
+     */
+    public Identity selectIdentityById(Long identityId){
+        return identityMapper.selectByPrimaryKey(identityId);
+    }
 }

@@ -79,13 +79,14 @@ public class UserService {
 
     /**
      * 查询所有用户列表
+     *
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageDto<UserDto> selectUsersAll(Integer pageNo, Integer pageSize) {
-        List<UserDto> users = userMapper.selectAll(pageNo, pageSize);
-        Long count = userMapper.selectCount();
+    public PageDto<UserDto> selectUsersAll(Long identityId, String identityName, String userName, String name, Integer pageNo, Integer pageSize) {
+        List<UserDto> users = userMapper.selectAll(identityId,identityName,userName,name,pageNo, pageSize);
+        Long count = userMapper.selectCount(identityId,identityName,userName,name);
         PageDto<UserDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(users);

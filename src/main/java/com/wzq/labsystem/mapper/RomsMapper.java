@@ -14,21 +14,27 @@ public interface RomsMapper {
     int insert(Roms record);
 
     /**
-     * 查询房间信息
+     * 查询实验室信息
      * @param romsId
      * @return
      */
     RomsDto selectByPrimaryKey(Long romsId);
 
     /**
-     * 查询所有房间列表
+     * 查询所有实验室列表
      * @param pageNo
      * @param pageSize
      * @return
      */
-    List<RomsDto> selectAll(@Param("roms") Roms roms,@Param("pageNo") Integer pageNo , @Param("pageSize")Integer pageSize);
+    List<RomsDto> selectAll(@Param("numb") Integer numb,
+                            @Param("userId") Long userId,
+                            @Param("state") Integer state,
+                            @Param("pageNo") Integer pageNo,
+                            @Param("pageSize")Integer pageSize);
 
-    Long selectCount(@Param("roms") Roms roms);
+    Long selectCount(@Param("numb") Integer numb,
+                     @Param("userId") Long userId,
+                     @Param("state") Integer state);
 
     int updateByPrimaryKey(Roms record);
 

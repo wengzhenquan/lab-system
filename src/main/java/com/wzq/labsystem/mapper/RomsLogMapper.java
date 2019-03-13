@@ -17,14 +17,21 @@ public interface RomsLogMapper {
 
     /**
      * 查询所有申请列表
-     * @param romsLog  查询条件
      * @param pageNo
      * @param pageSize
      * @return
      */
-    List<RomsLogDto> selectAll(@Param("romsLog") RomsLog romsLog,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
+    List<RomsLogDto> selectAll(@Param("userId")Long userId,
+                               @Param("handleUserId")Long handleUserId,
+                               @Param("romId")Long romId,
+                               @Param("state")Integer state,
+                               @Param("pageNo") Integer pageNo,
+                               @Param("pageSize") Integer pageSize);
 
-    Long selectCount(@Param("pageNo") RomsLog romsLog);
+    Long selectCount(@Param("userId")Long userId,
+                     @Param("handleUserId")Long handleUserId,
+                     @Param("romId")Long romId,
+                     @Param("state")Integer state);
 
     int updateByPrimaryKey(RomsLog record);
 

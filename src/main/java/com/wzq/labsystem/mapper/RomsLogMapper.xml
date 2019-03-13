@@ -73,17 +73,17 @@
     left join users a on a.id = l.handle_user_id
     left join roms r on r.id = l.rom_id
     <where>
-      <if test="romsLog.userId != null and romsLog.userId != ''">
-        and l.user_id = #{romsLog.userId}
+      <if test="userId != null and userId != ''">
+        and l.user_id = #{userId}
       </if>
-      <if test="romsLog.handleUserId != null and romsLog.handleUserId != ''">
-        and l.handle_user_id = #{romsLog.handleUserId}
+      <if test="handleUserId != null and handleUserId != ''">
+        and l.handle_user_id = #{handleUserId}
       </if>
-      <if test="romsLog.romId != null and romsLog.romId != ''">
-        and l.rom_id = #{romsLog.romId}
+      <if test="romId != null and romId != ''">
+        and l.rom_id = #{romId}
       </if>
-      <if test="romsLog.state != null and romsLog.state != ''">
-        and l.`state` = #{romsLog.state}
+      <if test="state != null and state != ''">
+        and l.`state` = #{state}
       </if>
     </where>
     order by l.creat_time desc
@@ -96,20 +96,20 @@
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
     from roms_log
-      <where>
-          <if test="romsLog.userId != null and romsLog.userId != ''">
-              and l.user_id = #{romsLog.userId}
-          </if>
-          <if test="romsLog.handleUserId != null and romsLog.handleUserId != ''">
-              and l.handle_user_id = #{romsLog.handleUserId}
-          </if>
-          <if test="romsLog.romId != null and romsLog.romId != ''">
-              and l.rom_id = #{romsLog.romId}
-          </if>
-          <if test="romsLog.state != null and romsLog.state != ''">
-              and l.`state` = #{romsLog.state}
-          </if>
-      </where>
+    <where>
+      <if test="userId != null and userId != ''">
+        and l.user_id = #{userId}
+      </if>
+      <if test="handleUserId != null and handleUserId != ''">
+        and l.handle_user_id = #{handleUserId}
+      </if>
+      <if test="romId != null and romId != ''">
+        and l.rom_id = #{romId}
+      </if>
+      <if test="state != null and state != ''">
+        and l.`state` = #{state}
+      </if>
+    </where>
   </select>
 
   <!-- 查询某用户所有申请 -->

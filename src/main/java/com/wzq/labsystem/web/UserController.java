@@ -42,8 +42,13 @@ public class UserController {
 
     @ApiOperation("查询所有用户列表")
     @GetMapping("selectUsersAll")
-    public ResultDto<PageDto<UserDto>> selectUsersAll(@RequestParam Integer pageNo, @RequestParam Integer pageSize){
-        return ResultDto.ok(userService.selectUsersAll(pageNo,pageSize));
+    public ResultDto<PageDto<UserDto>> selectUsersAll(@RequestParam(value ="identityId",required = false) Long identityId,
+                                                      @RequestParam(value ="identityName",required = false) String identityName,
+                                                      @RequestParam(value ="userName",required = false) String userName,
+                                                      @RequestParam(value ="name",required = false) String name,
+                                                      @RequestParam Integer pageNo,
+                                                      @RequestParam Integer pageSize){
+        return ResultDto.ok(userService.selectUsersAll(identityId,identityName,userName,name,pageNo, pageSize));
     }
 
     @ApiOperation("查询用户信息")

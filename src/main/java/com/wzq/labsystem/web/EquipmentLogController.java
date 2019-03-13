@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api(tags ={"3-2 设备申请管理"})
+@Api(tags ={"4-2 设备申请管理"})
 public class EquipmentLogController {
     @Autowired
     private EquipmentService equipmentService;

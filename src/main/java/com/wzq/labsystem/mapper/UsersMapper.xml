@@ -53,13 +53,42 @@
     select u.id,u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
+    <where>
+      <if test="identityId != null and identityId != ''">
+        and u.identity_id = #{identityId}
+      </if>
+      <if test="identityName != null and identityName != ''">
+        and i.identity_name = #{identityName}
+      </if>
+      <if test="userName != null and userName != ''">
+        and u.user_name = #{userName}
+      </if>
+      <if test="name != null and name != ''">
+        and u.name = #{name}
+      </if>
+    </where>
     limit #{pageNo},#{pageSize}
   </select>
 
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
-    from users
+    from users u
+    left join `identity` i on i.id = u.identity_id
+    <where>
+    <if test="identityId != null and identityId != ''">
+      and u.identity_id = #{identityId}
+    </if>
+    <if test="identityName != null and identityName != ''">
+      and i.identity_name = #{identityName}
+    </if>
+    <if test="userName != null and userName != ''">
+      and u.user_name = #{userName}
+    </if>
+    <if test="name != null and name != ''">
+      and u.name = #{name}
+    </if>
+    </where>
   </select>
 
   <!-- 通过账号密码查询 -->

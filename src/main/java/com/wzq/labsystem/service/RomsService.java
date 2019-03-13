@@ -30,7 +30,7 @@ public class RomsService {
 
     private RomsLogMapper romsLogMapper;
 
-    // 需要被修改教室状态的房间列表（定时器使用）
+    // 需要被修改教室状态的实验室列表（定时器使用）
     private static List<RomsStateUpdateDto> updaRomStateList = new ArrayList<>();
 
     @Autowired
@@ -40,10 +40,13 @@ public class RomsService {
         init();
     }
 
+    /**
+     * 初始化实验室库表状态，初始化待处理的内存队列
+     */
     private void init() {
         romsMapper.updateStateInitialize();
 
-        List<RomsLogDto> romsLogDtos = romsLogMapper.selectAll(RomsLog.builder().state(1).build(), null, null);
+        List<RomsLogDto> romsLogDtos = romsLogMapper.selectAll(null,null,null,1, null, null);
         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
         List<RomsStateUpdateDto> list = romsLogDtos.stream()
                 .filter(romsLogDto -> timeNow.isBefore(romsLogDto.getEndTime()))
@@ -58,13 +61,12 @@ public class RomsService {
     }
 
     /**
-     * 添加房间
+     * 添加实验室
      * @param roms
      * @return
      */
     public Integer insertRoms(Roms roms){
         Assert.notNull(roms.getNumb(),"编号不能为空");
-        Assert.notNull(roms.getType(),"类型不能为空");
         roms.setState(0);
         int result = romsMapper.insert(roms);
         if(0 == result) throw new ServiceException(501, "添加失败");
@@ -72,28 +74,26 @@ public class RomsService {
     }
 
     /**
-     * 修改房间信息
+     * 修改实验室信息
      * @param roms
      * @return
      */
     public Integer updateRoms(Roms roms){
         Assert.notNull(roms.getNumb(),"编号不能为空");
-        Assert.notNull(roms.getType(),"类型不能为空");
         int result = romsMapper.updateByPrimaryKey(roms);
         if(0 == result) throw new ServiceException(501, "修改失败");
         return result;
     }
 
     /**
-     * 查询所有教室列表
-     * @param roms
+     * 查询所有实验室列表
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageDto<RomsDto> selectRomsAll(Roms roms,Integer pageNo, Integer pageSize) {
-        List<RomsDto> romlist = romsMapper.selectAll(roms,pageNo, pageSize);
-        Long count = romsMapper.selectCount(roms);
+    public PageDto<RomsDto> selectRomsAll(Integer numb, Long userId, Integer state,Integer pageNo, Integer pageSize) {
+        List<RomsDto> romlist = romsMapper.selectAll(numb,userId,state,pageNo, pageSize);
+        Long count = romsMapper.selectCount(numb,userId,state);
         PageDto<RomsDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(romlist);
@@ -101,16 +101,16 @@ public class RomsService {
     }
 
     /**
-     * 查询教室信息
+     * 查询实验室信息
      * @param romsId
      * @return
      */
-    public RomsDto selectById(Long romsId){
+    public RomsDto selectRomById(Long romsId){
         return romsMapper.selectByPrimaryKey(romsId);
     }
 
     /**
-     * 修改房间状态
+     * 修改实验室状态
      * @param state 状态(0空闲,1使用中)
      * @param romId 教室ID
      * @return
@@ -122,13 +122,13 @@ public class RomsService {
     }
 
 
-
+    // --------------- TODO  实验室申请
     /**
      * 提交申请
      * @param romsLog
      * @return
      */
-    public Integer insertLog(RomsLog romsLog){
+    public Integer insertRomLog(RomsLog romsLog){
         Assert.notNull(romsLog.getUserId(),"申请人ID不能为空");
         Assert.notNull(romsLog.getStartTime(),"开始时间不能为空");
         Assert.notNull(romsLog.getEndTime(),"结束时间不能为空");
@@ -142,16 +142,15 @@ public class RomsService {
 
     /**
      * 根据条件查询申请
-     * @param romsLog 查询条件
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageDto<RomsLogDto> selectLogAll(RomsLog romsLog,Integer pageNo, Integer pageSize) {
-        List<RomsLogDto> logDtos = romsLogMapper.selectAll(romsLog,pageNo, pageSize);
-        Long count = romsLogMapper.selectCount(romsLog);
+    public PageDto<RomsLogDto> selectRomLogAll(Long userId, Long handleUserId, Long romId,Integer state, Integer pageNo, Integer pageSize) {
+        List<RomsLogDto> logDtoList = romsLogMapper.selectAll(userId,handleUserId,romId,state,pageNo, pageSize);
+        Long count = romsLogMapper.selectCount(userId,handleUserId,romId,state);
         PageDto<RomsLogDto> pageDto = new PageDto<>();
-        pageDto.setData(logDtos);
+        pageDto.setData(logDtoList);
         pageDto.setTotal(count);
         return pageDto;
     }
@@ -203,7 +202,7 @@ public class RomsService {
     }
 
     /**
-     * 每30秒检查一次需要修改状态的房间
+     * 每30秒检查一次需要修改状态的实验室
      */
     @Scheduled(cron = "0/30 * * * * *")
     public void checkAndUpdateRomsState(){

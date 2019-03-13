@@ -25,14 +25,12 @@ public class RomsDto implements Serializable {
     @ApiModelProperty("名称")
     private String romName;
 
-    @ApiModelProperty("类型（0办公室，1教室，2其它）")
-    private Integer type;
 
     @ApiModelProperty("负责人ID")
-    private Long personLiableId;
+    private Long userId;
 
     @ApiModelProperty("负责人")
-    private String personLiable;
+    private String name;
 
     @ApiModelProperty("教室描述")
     private String content;

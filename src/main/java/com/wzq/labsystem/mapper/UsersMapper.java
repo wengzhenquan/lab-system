@@ -23,13 +23,21 @@ public interface UsersMapper {
      * @param pageSize
      * @return
      */
-    List<UserDto> selectAll(@Param("pageNo") Integer pageNo , @Param("pageSize")Integer pageSize);
+    List<UserDto> selectAll(@Param("identityId") Long identityId,
+                            @Param("identityName") String identityName,
+                            @Param("userName") String userName,
+                            @Param("name") String name,
+                            @Param("pageNo") Integer pageNo ,
+                            @Param("pageSize")Integer pageSize);
 
     /**
      * 查询总数
      * @return
      */
-    Long selectCount();
+    Long selectCount(@Param("identityId") Long identityId,
+                     @Param("identityName") String identityName,
+                     @Param("userName") String userName,
+                     @Param("name") String name);
 
     /**
      * 通过账号密码查询
