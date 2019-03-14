@@ -11,11 +11,25 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 06/03/2019 18:21:44
+ Date: 14/03/2019 16:07:41
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for course
+-- ----------------------------
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `course_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '课程名称：course_name',
+  `teacher_user_id` bigint(20) DEFAULT NULL COMMENT '教师ID：teacher_user_id',
+  `total_score` int(11) DEFAULT NULL COMMENT '总学分：total_score',
+  `start_date` date DEFAULT NULL COMMENT '开始时间：start_date',
+  `end_date` date DEFAULT NULL COMMENT '结束日期：end_date',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '课程表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for equipment
@@ -71,6 +85,37 @@ CREATE TABLE `equipment_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for exp_report
+-- ----------------------------
+DROP TABLE IF EXISTS `exp_report`;
+CREATE TABLE `exp_report`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tesk_id` bigint(20) DEFAULT NULL COMMENT '任务ID：tesk_id',
+  `student_user_id` bigint(20) DEFAULT NULL COMMENT '学生ID：student_user_id',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容：content',
+  `student_file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '学生附件:student_file_url',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间：update_time',
+  `score` int(11) DEFAULT 0 COMMENT '获得分数：score',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验报告表exp_report' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for exp_tesk
+-- ----------------------------
+DROP TABLE IF EXISTS `exp_tesk`;
+CREATE TABLE `exp_tesk`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `course_id` bigint(20) DEFAULT NULL COMMENT '课程ID：course_id',
+  `rom_id` bigint(20) DEFAULT NULL COMMENT '实验教室ID：rom_id',
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题:title',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容：content',
+  `start_time` datetime(0) DEFAULT NULL COMMENT '开始时间：start_time',
+  `end_time` datetime(0) DEFAULT NULL COMMENT '结束时间：end_time',
+  `file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '课件:file_url',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验任务表exp_tesk' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for identity
 -- ----------------------------
 DROP TABLE IF EXISTS `identity`;
@@ -87,54 +132,7 @@ CREATE TABLE `identity`  (
 INSERT INTO `identity` VALUES (1, 'admin', 0);
 INSERT INTO `identity` VALUES (2, '管理员', 1);
 INSERT INTO `identity` VALUES (3, '教师', 2);
-INSERT INTO `identity` VALUES (4, '设备管理员', 2);
-
--- ----------------------------
--- Table structure for identity_resourse
--- ----------------------------
-DROP TABLE IF EXISTS `identity_resourse`;
-CREATE TABLE `identity_resourse`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_id` bigint(20) DEFAULT NULL,
-  `resourse_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for resourse
--- ----------------------------
-DROP TABLE IF EXISTS `resourse`;
-CREATE TABLE `resourse`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `resourse_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '资源名：resourse_name',
-  `father_id` bigint(20) DEFAULT NULL COMMENT '父id：father_id',
-  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'URL:url',
-  `level` tinyint(4) DEFAULT NULL COMMENT '等级(0一级,1二级,2三级)：level',
-  `type` tinyint(4) DEFAULT NULL COMMENT '类型(0目录,1按钮)：type',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of resourse
--- ----------------------------
-INSERT INTO `resourse` VALUES (1, '用户管理', 0, NULL, 0, 0);
-INSERT INTO `resourse` VALUES (2, '实验室场地管理', 0, NULL, 0, 0);
-INSERT INTO `resourse` VALUES (3, '仪器设备管理', 0, NULL, 0, 0);
-INSERT INTO `resourse` VALUES (4, '设备采购', 0, NULL, 0, 0);
-INSERT INTO `resourse` VALUES (5, '账户管理', 1, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (6, '职务与权限', 1, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (7, '资源模块', 1, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (8, '教室管理', 2, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (9, '教室申请', 2, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (10, '教室审批', 2, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (11, '使用分配管理', 3, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (12, '库存管理', 3, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (13, '设备管理', 3, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (14, '报修申请', 3, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (15, '处理结果', 3, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (16, '设备分类', 4, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (17, '采购申请', 4, NULL, 1, 0);
-INSERT INTO `resourse` VALUES (18, '采购审批', 4, NULL, 1, 0);
+INSERT INTO `identity` VALUES (4, '设备管理员', 3);
 
 -- ----------------------------
 -- Table structure for roms
@@ -142,14 +140,13 @@ INSERT INTO `resourse` VALUES (18, '采购审批', 4, NULL, 1, 0);
 DROP TABLE IF EXISTS `roms`;
 CREATE TABLE `roms`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `rom_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `numb` int(11) DEFAULT NULL COMMENT '教室编号：numb',
-  `type` tinyint(4) DEFAULT NULL COMMENT '类型（0办公室，1教室，2其它）：type',
-  `person_liable_id` bigint(20) DEFAULT NULL COMMENT '负责人=>users->id:person_liable_id',
-  `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `rom_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教室名称：rom_name',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '负责人id:user_id',
+  `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述：content',
   `state` tinyint(4) DEFAULT NULL COMMENT '状态(0空闲,1使用中):state',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验室表roms' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for roms_log
@@ -169,26 +166,17 @@ CREATE TABLE `roms_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for user_table
+-- Table structure for user_activity
 -- ----------------------------
-DROP TABLE IF EXISTS `user_table`;
-CREATE TABLE `user_table`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_id` bigint(20) DEFAULT NULL COMMENT '身份ID=>identity->id:identity_id',
-  `major` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '专业:major',
-  `department_id` bigint(20) DEFAULT NULL,
-  `association_id` bigint(20) DEFAULT NULL COMMENT '社团ID:association_id',
-  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名:user_name',
-  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码：pwd',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名：name',
-  `sex` tinyint(4) DEFAULT NULL COMMENT '性别：sex',
-  `age` int(11) DEFAULT NULL COMMENT '年龄：age',
-  `job` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职务：job',
-  `tel_number` bigint(20) DEFAULT NULL COMMENT '联系方式:tel_number',
-  `grade` int(11) DEFAULT NULL COMMENT '年级:grade',
-  `user_img` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '图片:user_img',
+DROP TABLE IF EXISTS `user_activity`;
+CREATE TABLE `user_activity`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `student_id` bigint(20) DEFAULT NULL COMMENT '学生ID：student_id',
+  `teacher_user_id` bigint(20) DEFAULT 0 COMMENT '教师ID：teacher_user_id',
+  `course_id` bigint(20) DEFAULT 0 COMMENT '课程ID：course_id',
+  `achieve` int(11) DEFAULT 0 COMMENT '成绩：achieve',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表user_table' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户活动表user_activity' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
