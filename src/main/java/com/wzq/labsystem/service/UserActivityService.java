@@ -1,6 +1,7 @@
 package com.wzq.labsystem.service;
 
 
+import com.wzq.labsystem.dto.PageDto;
 import com.wzq.labsystem.dto.UserActivityDto;
 import com.wzq.labsystem.dto.po.UserActivity;
 import com.wzq.labsystem.exception.ServiceException;
@@ -58,6 +59,37 @@ public class UserActivityService {
             throw new ServiceException(501, "添加失败");
         return result;
     }
+
+
+
+
+    /**
+     * 获取某老师所有的学生列表
+     * @return
+     */
+    public PageDto<UserActivityDto> selectStudentAllByteacherUserId(Long teacherUserId,String teacherName, Integer pageNo, Integer pageSize){
+        List<UserActivityDto> courseDtoList = userActivityMapper.selectAll(null, null, teacherUserId, teacherName, 0L, null, pageNo, pageSize);
+        Long count = userActivityMapper.selectCount(null, null, teacherUserId, teacherName, 0L, null);
+        PageDto<UserActivityDto> page = new PageDto<>();
+        page.setData(courseDtoList);
+        page.setTotal(count);
+        return page;
+    }
+
+    /**
+     * 根据条件获取课程列表
+     * @return
+     */
+    public PageDto<UserActivityDto> selectCourseAllBy(Long studentId,String studentName,Long teacherUserId,String teacherName, Integer pageNo, Integer pageSize){
+        List<UserActivityDto> courseDtoList = userActivityMapper.selectCourseAllBy(studentId, studentName, teacherUserId, teacherName, pageNo, pageSize);
+        Long count = userActivityMapper.selectCourseCount(studentId, studentName, teacherUserId, teacherName);
+        PageDto<UserActivityDto> page = new PageDto<>();
+        page.setData(courseDtoList);
+        page.setTotal(count);
+        return page;
+    }
+
+
 
 
 

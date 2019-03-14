@@ -32,4 +32,35 @@ public interface UserActivityMapper {
                      @Param("courseName") String courseName);
 
     int updateByPrimaryKey(UserActivity record);
+
+
+    /**
+     * 条件查询课程
+     * @param studentId
+     * @param studentName
+     * @param teacherUserId
+     * @param teacherName
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    List<UserActivityDto> selectCourseAllBy(@Param("studentId") Long studentId,
+                                    @Param("studentName") String studentName,
+                                    @Param("teacherUserId") Long teacherUserId,
+                                    @Param("teacherName") String teacherName,
+                                    @Param("pageNo") Integer pageNo,
+                                    @Param("pageSize")Integer pageSize);
+
+    /**
+     * 查询课程总数
+     * @param studentId
+     * @param studentName
+     * @param teacherUserId
+     * @param teacherName
+     * @return
+     */
+    Long selectCourseCount(@Param("studentId") Long studentId,
+                     @Param("studentName") String studentName,
+                     @Param("teacherUserId") Long teacherUserId,
+                     @Param("teacherName") String teacherName);
 }

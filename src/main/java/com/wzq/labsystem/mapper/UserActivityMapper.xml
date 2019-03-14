@@ -59,22 +59,22 @@
     left join course c on c.id = ua.course_id
     <where>
         <if test="studentId != null and studentId != ''">
-            ua.student_id = #{studentId}
+            and ua.student_id = #{studentId}
         </if>
         <if test="studentName != null and studentName != ''">
-            us.name = #{studentName}
+            and us.name = #{studentName}
         </if>
         <if test="teacherUserId != null and teacherUserId != ''">
-            ua.teacher_user_id = #{teacherUserId}
+            and ua.teacher_user_id = #{teacherUserId}
         </if>
         <if test="teacherName != null and teacherName != ''">
-            ut.name = #{teacherName}
+            and ut.name = #{teacherName}
         </if>
         <if test="courseId != null and courseId != ''">
-            ua.course_id = #{courseId}
+            and ua.course_id = #{courseId}
         </if>
         <if test="courseName != null and courseName != ''">
-            c.course_name = #{courseName}
+            and c.course_name = #{courseName}
         </if>
     </where>
     order by c.start_date desc
@@ -92,23 +92,70 @@
     left join course c on c.id = ua.course_id
     <where>
         <if test="studentId != null and studentId != ''">
-            ua.student_id = #{studentId}
+            and ua.student_id = #{studentId}
         </if>
         <if test="studentName != null and studentName != ''">
-            us.name = #{studentName}
+            and us.name = #{studentName}
         </if>
         <if test="teacherUserId != null and teacherUserId != ''">
-            ua.teacher_user_id = #{teacherUserId}
+            and ua.teacher_user_id = #{teacherUserId}
         </if>
         <if test="teacherName != null and teacherName != ''">
-            ut.name = #{teacherName}
+            and ut.name = #{teacherName}
         </if>
         <if test="courseId != null and courseId != ''">
-            ua.course_id = #{courseId}
+            and ua.course_id = #{courseId}
         </if>
         <if test="courseName != null and courseName != ''">
-            c.course_name = #{courseName}
+            and c.course_name = #{courseName}
         </if>
     </where>
+    </select>
+
+
+    <!-- 查询课程 -->
+    <select id="selectCourseAllBy" resultMap="UserActivityResultMap">
+        select ua.id, ua.student_id,us.name as student_name, ua.teacher_user_id, ut.name as teacher_name,
+        ua.course_id,c.course_name, ua.achieve
+        from user_activity ua
+        left join users us on us.id = ua.student_id
+        left join users ut on ut.id = ua.teacher_user_id
+        left join course c on c.id = ua.course_id
+        where ua.course_id &lt;&gt; 0
+        <if test="studentId != null and studentId != ''">
+            and ua.student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            and us.name = #{studentName}
+        </if>
+        <if test="teacherUserId != null and teacherUserId != ''">
+            and ua.teacher_user_id = #{teacherUserId}
+        </if>
+        <if test="teacherName != null and teacherName != ''">
+            and ut.name = #{teacherName}
+        </if>
+        order by c.start_date desc
+        limit #{pageNo},#{pageSize}
+    </select>
+    <!-- 查询课程总数 -->
+    <select id="selectCourseCount" resultType="java.lang.Long">
+        select count(*)
+        from user_activity ua
+        left join users us on us.id = ua.student_id
+        left join users ut on ut.id = ua.teacher_user_id
+        left join course c on c.id = ua.course_id
+        where ua.course_id &lt;&gt; 0
+        <if test="studentId != null and studentId != ''">
+            and ua.student_id = #{studentId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            and us.name = #{studentName}
+        </if>
+        <if test="teacherUserId != null and teacherUserId != ''">
+            and ua.teacher_user_id = #{teacherUserId}
+        </if>
+        <if test="teacherName != null and teacherName != ''">
+            and ut.name = #{teacherName}
+        </if>
     </select>
 </mapper>

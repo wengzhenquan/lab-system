@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 14/03/2019 16:07:41
+ Date: 14/03/2019 18:29:30
 */
 
 SET NAMES utf8mb4;
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS `user_activity`;
 CREATE TABLE `user_activity`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `student_id` bigint(20) DEFAULT NULL COMMENT '学生ID：student_id',
-  `teacher_user_id` bigint(20) DEFAULT 0 COMMENT '教师ID：teacher_user_id',
+  `teacher_user_id` bigint(20) DEFAULT NULL COMMENT '教师ID：teacher_user_id',
   `course_id` bigint(20) DEFAULT 0 COMMENT '课程ID：course_id',
   `achieve` int(11) DEFAULT 0 COMMENT '成绩：achieve',
   PRIMARY KEY (`id`) USING BTREE
