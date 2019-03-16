@@ -27,6 +27,12 @@ public class ExpReportDto implements Serializable {
     @ApiModelProperty("任务标题")
     private String title;
 
+    @ApiModelProperty("所属课程ID")
+    private Long courseId;
+
+    @ApiModelProperty("所属课程名称")
+    private String courseName;
+
     @ApiModelProperty("学生ID")
     private Long studentUserId;
 

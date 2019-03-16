@@ -15,6 +15,8 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="tesk_id" jdbcType="BIGINT" property="teskId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="student_user_id" jdbcType="BIGINT" property="studentUserId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -49,17 +51,21 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ExpReportResultMap">
-    select er.id, er.tesk_id,et.title, er.student_user_id,u.name, er.content, er.student_file_url, er.update_time, er.score
+    select er.id, er.tesk_id,et.title,et.course_id,c.course_name, er.student_user_id,u.name,
+     er.content, er.student_file_url, er.update_time, er.score
     from exp_report er
     left join exp_tesk et on et.id = er.tesk_id
     left join users u on u.id = er.student_user_id
+    left join course c on c.id = et.course_id
     where er.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="ExpReportResultMap">
-    select er.id, er.tesk_id,et.title, er.student_user_id,u.name, er.content, er.student_file_url, er.update_time, er.score
+    select er.id, er.tesk_id,et.title,et.course_id,c.course_name, er.student_user_id,u.name,
+    er.content, er.student_file_url, er.update_time, er.score
     from exp_report er
     left join exp_tesk et on et.id = er.tesk_id
     left join users u on u.id = er.student_user_id
+    left join course c on c.id = et.course_id
     <where>
       <if test="teskId != null and teskId != ''">
         and er.tesk_id = #{teskId}
@@ -73,9 +79,17 @@
       <if test="name != null and name != ''">
         and u.name = #{name}
       </if>
+      <if test="courseId != null and courseId != ''">
+        and et.course_id = #{courseId}
+      </if>
+      <if test="courseName != null and courseName != ''">
+        and c.course_name = #{courseName}
+      </if>
     </where>
     order by er.update_time desc
-    limit #{pageNo},#{pageSize}
+    <if test="pageNo != null and pageNo != ''and pageSize != null and pageSize != ''">
+      limit #{pageNo},#{pageSize}
+    </if>
   </select>
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
@@ -83,6 +97,7 @@
     from exp_report er
     left join exp_tesk et on et.id = er.tesk_id
     left join users u on u.id = er.student_user_id
+    left join course c on c.id = et.course_id
     <where>
       <if test="teskId != null and teskId != ''">
         and er.tesk_id = #{teskId}
@@ -95,6 +110,12 @@
       </if>
       <if test="name != null and name != ''">
         and u.name = #{name}
+      </if>
+      <if test="courseId != null and courseId != ''">
+        and et.course_id = #{courseId}
+      </if>
+      <if test="courseName != null and courseName != ''">
+        and c.course_name = #{courseName}
       </if>
     </where>
   </select>

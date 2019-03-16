@@ -23,9 +23,11 @@ public class ExpReportController {
                                                                @RequestParam(value ="title",required = false) String title,
                                                                @RequestParam(value ="studentUserId",required = false) Long studentUserId,
                                                                @RequestParam(value ="name",required = false) String name,
+                                                               @RequestParam(value ="courseId",required = false) Long courseId,
+                                                               @RequestParam(value ="courseName",required = false) String courseName,
                                                                @RequestParam Integer pageNo,
                                                                @RequestParam Integer pageSize){
-        return ResultDto.ok(expReportService.selectExpReportAll(teskId,title,studentUserId,name, pageNo, pageSize));
+        return ResultDto.ok(expReportService.selectExpReportAll(teskId,title,studentUserId,name,courseId,courseName, pageNo, pageSize));
     }
 
     @ApiOperation("添加实验报告")

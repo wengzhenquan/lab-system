@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzq.labsystem.mapper.AchieveMapper">
+  <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.AchieveDto">
+    <id column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="teacher_user_id" jdbcType="BIGINT" property="teacherUserId" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
+    <result column="achieve" jdbcType="DOUBLE" property="achieve" />
+  </resultMap>
+
+
+  <!-- 修改成绩-->
+  <update id="updateAchieveBy" parameterType="com.wzq.labsystem.dto.po.Course">
+    update user_activity
+    set achieve = #{achieve}
+    where course_id = #{courseId}
+    and student_id = #{studentId}
+    and teacher_user_id = #{teacherId}
+  </update>
+
+
+
+  <!-- 老师查看某课程学生成绩列表 -->
+  <select id="selectAchieveAllByTeacherId" resultMap="BaseResultMap">
+    select c.id as course_id, c.course_name,us.id as studentId,
+    us.name as student_name, c.total_score,ua.achieve
+    from course c
+    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
+    left join users us on us.id = ua.student_id
+    where ua.course_id &lt;&gt; 0
+    and c.id = #{courseId}
+    and ua.teacher_user_id = #{teacherUserId}
+    limit #{pageNo},{pageSize}
+  </select>
+  <!-- 查询老师查看某课程学生成绩列表总数 -->
+  <select id="selectAchieveCountByTeacherId" resultType="java.lang.Long">
+    select count(*)
+    from course c
+    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
+    left join users us on us.id = ua.student_id
+    where ua.course_id &lt;&gt; 0
+    and c.id = #{courseId}
+    and ua.teacher_user_id = #{teacherUserId}
+  </select>
+
+  <!-- 学生查看课程成绩列表 -->
+  <select id="selectAchieveAllByStudentId" resultMap="BaseResultMap">
+    select c.id as course_id, c.course_name, ua.teacher_user_id,
+    ut.name as teacher_name, c.total_score,ua.achieve
+    from course c
+    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
+    left join users us on us.id = ua.student_id
+    where ua.course_id &lt;&gt; 0
+    and us.id = #{studentId}
+    limit #{pageNo},{pageSize}
+  </select>
+  <!-- 查询学生查看课程成绩列表总数 -->
+  <select id="selectAchieveCountByStudentId" resultType="java.lang.Long">
+    select count(*)
+    from course c
+    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
+    left join users us on us.id = ua.student_id
+    where ua.course_id &lt;&gt; 0
+    and us.id = #{studentId}
+  </select>
+
+</mapper>

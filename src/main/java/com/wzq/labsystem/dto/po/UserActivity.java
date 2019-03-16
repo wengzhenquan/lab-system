@@ -30,8 +30,6 @@ public class UserActivity implements Serializable {
     @ApiModelProperty("课程ID")
     private Long courseId;
 
-    @ApiModelProperty("成绩")
-    private Integer achieve;
 
 
 }
