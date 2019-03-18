@@ -28,6 +28,9 @@ public class UserDto implements Serializable {
     @ApiModelProperty("身份")
     private String identityName;
 
+    @ApiModelProperty("身份等级level")
+    private Integer level;
+
     @ApiModelProperty("用户名")
     private String userName;
 

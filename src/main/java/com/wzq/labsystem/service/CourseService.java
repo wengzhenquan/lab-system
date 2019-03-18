@@ -5,8 +5,10 @@ import com.wzq.labsystem.dto.PageDto;
 import com.wzq.labsystem.dto.po.Course;
 import com.wzq.labsystem.exception.ServiceException;
 import com.wzq.labsystem.mapper.CourseMapper;
+import com.wzq.labsystem.mapper.UserActivityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class CourseService {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private UserActivityMapper userActivityMapper;
 
     /**
      * 获取课程列表
@@ -35,8 +40,11 @@ public class CourseService {
      * @param course
      * @return
      */
+    @Transactional
     public Integer insertCourse(Course course){
         Assert.notNull(course.getCourseName(), "课程名称不能为空！");
+        Assert.notNull(course.getTeacherUserId(), "老师不能为空！");
+        Assert.notNull(course.getTotalScore(), "课程学分不能为空！");
         int result = courseMapper.insert(course);
         if(0 == result) throw new ServiceException(501, "添加失败");
         return result;

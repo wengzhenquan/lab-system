@@ -6,7 +6,6 @@
     <result column="student_id" jdbcType="BIGINT" property="studentId" />
     <result column="teacher_user_id" jdbcType="BIGINT" property="teacherUserId" />
     <result column="course_id" jdbcType="BIGINT" property="courseId" />
-    <result column="achieve" jdbcType="INTEGER" property="achieve" />
   </resultMap>
 
     <resultMap id="UserActivityResultMap" type="com.wzq.labsystem.dto.UserActivityDto">
@@ -17,7 +16,6 @@
         <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
         <result column="course_id" jdbcType="BIGINT" property="courseId" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />
-        <result column="achieve" jdbcType="INTEGER" property="achieve" />
     </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -28,22 +26,19 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_activity (student_id, teacher_user_id, course_id, 
-      achieve)
-    values (#{studentId,jdbcType=BIGINT}, #{teacherUserId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT}, 
-      #{achieve,jdbcType=INTEGER})
+    insert into user_activity (student_id, teacher_user_id, course_id)
+    values (#{studentId,jdbcType=BIGINT}, #{teacherUserId,jdbcType=BIGINT}, #{courseId,jdbcType=BIGINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.UserActivity">
     update user_activity
     set student_id = #{studentId,jdbcType=BIGINT},
       teacher_user_id = #{teacherUserId,jdbcType=BIGINT},
       course_id = #{courseId,jdbcType=BIGINT},
-      achieve = #{achieve,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserActivityResultMap">
     select ua.id, ua.student_id,us.name as student_name, ua.teacher_user_id, ut.name as teacher_name,
-     ua.course_id,c.course_name, ua.achieve
+     ua.course_id,c.course_name
     from user_activity ua
     left join users us on us.id = ua.student_id
     left join users ut on ut.id = ua.teacher_user_id
@@ -52,7 +47,7 @@
   </select>
   <select id="selectAll" resultMap="UserActivityResultMap">
     select ua.id, ua.student_id,us.name as student_name, ua.teacher_user_id, ut.name as teacher_name,
-     ua.course_id,c.course_name, ua.achieve
+     ua.course_id,c.course_name
     from user_activity ua
     left join users us on us.id = ua.student_id
     left join users ut on ut.id = ua.teacher_user_id

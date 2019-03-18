@@ -18,6 +18,7 @@ public class UserActivityService {
     private UserActivityMapper userActivityMapper;
 
 
+
     /**
      * 将学生加入到某位老师的学生列表
      * @param studentId
@@ -36,6 +37,35 @@ public class UserActivityService {
         if(0 == result)
             throw new ServiceException(501, "添加失败");
         return result;
+    }
+    /**
+     * 通过老师查询学生列表
+     * @param teacherId
+     * @return
+     */
+    public PageDto<UserActivityDto> selectTeacherByStudentId(Long teacherId, String teacherName,Integer pageNo,Integer pageSize){
+        if((null == teacherId) && (null == teacherName))
+            throw new ServiceException(501, "老师不能为空");
+        List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(null, null, teacherId, teacherName, 0L, null, pageNo, pageSize);
+        PageDto<UserActivityDto> pageDto = new PageDto<>();
+        pageDto.setData(userActivityDtoList);
+        pageDto.setTotal(userActivityMapper.selectCount(null, null, teacherId, teacherName, 0L, null));
+        return pageDto;
+    }
+
+    /**
+     * 通过学生查询老师列表
+     * @param studentId
+     * @return
+     */
+    public PageDto<UserActivityDto> selectStudentByTeacherId(Long studentId, String studentName,Integer pageNo,Integer pageSize){
+        if((null == studentId) && (null == studentName))
+            throw new ServiceException(501, "学生不能为空");
+        List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(studentId, studentName, null, null, 0L, null, pageNo, pageSize);
+        PageDto<UserActivityDto> pageDto = new PageDto<>();
+        pageDto.setData(userActivityDtoList);
+        pageDto.setTotal(userActivityMapper.selectCount(studentId, studentName, null, null, 0L, null));
+        return pageDto;
     }
 
     /**
@@ -58,6 +88,22 @@ public class UserActivityService {
         if(0 == result)
             throw new ServiceException(501, "添加失败");
         return result;
+    }
+
+
+    /**
+     * 查询某课程的学生列表
+     * @param courseId
+     * @return
+     */
+    public PageDto<UserActivityDto> selectStudentByCourseId(Long courseId, String courseName,Integer pageNo,Integer pageSize){
+        if((null == courseId) && (null == courseName))
+            throw new ServiceException(501, "课程不能为空");
+        List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(null, null, null, null, courseId, courseName, pageNo, pageSize);
+        PageDto<UserActivityDto> pageDto = new PageDto<>();
+        pageDto.setData(userActivityDtoList);
+        pageDto.setTotal(userActivityMapper.selectCount(null, null, null, null, courseId, courseName));
+        return pageDto;
     }
 
 

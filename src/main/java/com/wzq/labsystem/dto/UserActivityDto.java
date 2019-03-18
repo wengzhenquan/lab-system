@@ -37,8 +37,5 @@ public class UserActivityDto implements Serializable {
     @ApiModelProperty("课程名称")
     private String courseName;
 
-    @ApiModelProperty("成绩")
-    private Integer achieve;
-
 
 }

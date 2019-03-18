@@ -14,6 +14,7 @@
     <id column="id" jdbcType="BIGINT" property="userId" />
     <result column="identity_id" jdbcType="BIGINT" property="identityId" />
     <result column="identity_name" jdbcType="VARCHAR" property="identityName" />
+    <result column="level" jdbcType="BIGINT" property="level" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="job" jdbcType="VARCHAR" property="job" />
@@ -93,7 +94,7 @@
 
   <!-- 通过账号密码查询 -->
   <select id="selectByUserNameAndPwd"  resultMap="UserResultMap">
-    select u.id,u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id,u.identity_id, i.identity_name,i.level, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     where u.user_name = #{userName}

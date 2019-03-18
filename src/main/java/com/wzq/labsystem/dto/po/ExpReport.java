@@ -36,8 +36,5 @@ public class ExpReport implements Serializable {
     @ApiModelProperty("更新时间")
     private Instant updateTime;
 
-    @ApiModelProperty("获得分数")
-    private Integer score;
-
 
 }

@@ -23,9 +23,9 @@ public class ExpReportService {
      * 获取实验报告列表
      * @return
      */
-    public PageDto<ExpReportDto> selectExpReportAll(Long teskId, String title, Long studentUserId, String name, Integer pageNo, Integer pageSize){
-        List<ExpReportDto> expReportDtoList = expReportMapper.selectAll(teskId,title,studentUserId,name, pageNo, pageSize);
-        Long count = expReportMapper.selectCount(teskId,title,studentUserId,name);
+    public PageDto<ExpReportDto> selectExpReportAll(Long teskId, String title, Long studentUserId, String name,Long courseId, String courseName, Integer pageNo, Integer pageSize){
+        List<ExpReportDto> expReportDtoList = expReportMapper.selectAll(teskId,title,studentUserId,name,courseId,courseName, pageNo, pageSize);
+        Long count = expReportMapper.selectCount(teskId,title,studentUserId,name,courseId,courseName);
         PageDto<ExpReportDto> page = new PageDto<>();
         page.setData(expReportDtoList);
         page.setTotal(count);

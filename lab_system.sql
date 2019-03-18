@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
+ Source Server         : 本地
  Source Server Type    : MySQL
  Source Server Version : 50718
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 14/03/2019 18:29:30
+ Date: 16/03/2019 21:45:46
 */
 
 SET NAMES utf8mb4;
@@ -23,11 +23,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `course_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '课程名称：course_name',
-  `teacher_user_id` bigint(20) DEFAULT NULL COMMENT '教师ID：teacher_user_id',
-  `total_score` int(11) DEFAULT NULL COMMENT '总学分：total_score',
-  `start_date` date DEFAULT NULL COMMENT '开始时间：start_date',
-  `end_date` date DEFAULT NULL COMMENT '结束日期：end_date',
+  `course_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课程名称：course_name',
+  `teacher_user_id` bigint(20) NULL DEFAULT NULL COMMENT '教师ID：teacher_user_id',
+  `total_score` int(11) NULL DEFAULT NULL COMMENT '总学分：total_score',
+  `start_date` date NULL DEFAULT NULL COMMENT '开始时间：start_date',
+  `end_date` date NULL DEFAULT NULL COMMENT '结束日期：end_date',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '课程表' ROW_FORMAT = Dynamic;
 
@@ -37,14 +37,14 @@ CREATE TABLE `course`  (
 DROP TABLE IF EXISTS `equipment`;
 CREATE TABLE `equipment`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `eq_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `ser_numb` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编号：ser_numb',
-  `rom_id` bigint(20) DEFAULT NULL,
-  `eq_class_id` bigint(20) DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
-  `buy_time` datetime(0) DEFAULT NULL COMMENT '购买时间：buy_time',
-  `repair_times` datetime(0) DEFAULT NULL COMMENT '修理时间：repair_times',
-  `update_time` datetime(0) DEFAULT NULL COMMENT '信息更新时间：update_time',
-  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0正常,1报修,2报废)：state',
+  `eq_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `ser_numb` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号：ser_numb',
+  `rom_id` bigint(20) NULL DEFAULT NULL,
+  `eq_class_id` bigint(20) NULL DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
+  `buy_time` datetime(0) NULL DEFAULT NULL COMMENT '购买时间：buy_time',
+  `repair_times` datetime(0) NULL DEFAULT NULL COMMENT '修理时间：repair_times',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '信息更新时间：update_time',
+  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0正常,1报修,2报废)：state',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -54,7 +54,7 @@ CREATE TABLE `equipment`  (
 DROP TABLE IF EXISTS `equipment_class`;
 CREATE TABLE `equipment_class`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类别名：type_name',
+  `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类别名：type_name',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -71,16 +71,16 @@ INSERT INTO `equipment_class` VALUES (3, '教学设备');
 DROP TABLE IF EXISTS `equipment_log`;
 CREATE TABLE `equipment_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL COMMENT '申请人=>users->id:user_id',
-  `handle_user_id` bigint(20) DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
-  `eq_class_id` bigint(20) DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
-  `type` tinyint(4) DEFAULT NULL COMMENT '类型(0报修,1采购)：type',
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题：title',
-  `need` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `result` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '处理结果：result',
-  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0申请中,1已审批,2已处理):state',
-  `creat_time` datetime(0) DEFAULT NULL COMMENT '申请时间：creat_time',
-  `handle_time` datetime(0) DEFAULT NULL COMMENT '处理时间：handle_time',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '申请人=>users->id:user_id',
+  `handle_user_id` bigint(20) NULL DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
+  `eq_class_id` bigint(20) NULL DEFAULT NULL COMMENT '分类=>equipment_class->id:eq_class_id',
+  `type` tinyint(4) NULL DEFAULT NULL COMMENT '类型(0报修,1采购)：type',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题：title',
+  `need` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `result` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '处理结果：result',
+  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0申请中,1已审批,2已处理):state',
+  `creat_time` datetime(0) NULL DEFAULT NULL COMMENT '申请时间：creat_time',
+  `handle_time` datetime(0) NULL DEFAULT NULL COMMENT '处理时间：handle_time',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -90,12 +90,12 @@ CREATE TABLE `equipment_log`  (
 DROP TABLE IF EXISTS `exp_report`;
 CREATE TABLE `exp_report`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `tesk_id` bigint(20) DEFAULT NULL COMMENT '任务ID：tesk_id',
-  `student_user_id` bigint(20) DEFAULT NULL COMMENT '学生ID：student_user_id',
-  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容：content',
-  `student_file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '学生附件:student_file_url',
-  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间：update_time',
-  `score` int(11) DEFAULT 0 COMMENT '获得分数：score',
+  `tesk_id` bigint(20) NULL DEFAULT NULL COMMENT '任务ID：tesk_id',
+  `student_user_id` bigint(20) NULL DEFAULT NULL COMMENT '学生ID：student_user_id',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容：content',
+  `student_file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学生附件:student_file_url',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间：update_time',
+  `score` int(11) NULL DEFAULT 0 COMMENT '获得分数：score',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验报告表exp_report' ROW_FORMAT = Dynamic;
 
@@ -105,13 +105,13 @@ CREATE TABLE `exp_report`  (
 DROP TABLE IF EXISTS `exp_tesk`;
 CREATE TABLE `exp_tesk`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `course_id` bigint(20) DEFAULT NULL COMMENT '课程ID：course_id',
-  `rom_id` bigint(20) DEFAULT NULL COMMENT '实验教室ID：rom_id',
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题:title',
-  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容：content',
-  `start_time` datetime(0) DEFAULT NULL COMMENT '开始时间：start_time',
-  `end_time` datetime(0) DEFAULT NULL COMMENT '结束时间：end_time',
-  `file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '课件:file_url',
+  `course_id` bigint(20) NULL DEFAULT NULL COMMENT '课程ID：course_id',
+  `rom_id` bigint(20) NULL DEFAULT NULL COMMENT '实验教室ID：rom_id',
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题:title',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '内容：content',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间：start_time',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间：end_time',
+  `file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课件:file_url',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验任务表exp_tesk' ROW_FORMAT = Dynamic;
 
@@ -121,8 +121,8 @@ CREATE TABLE `exp_tesk`  (
 DROP TABLE IF EXISTS `identity`;
 CREATE TABLE `identity`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份名称：identity_name',
-  `level` tinyint(4) DEFAULT NULL COMMENT '等级：level',
+  `identity_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份名称：identity_name',
+  `level` tinyint(4) NULL DEFAULT NULL COMMENT '等级：level',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '身份表identity' ROW_FORMAT = Dynamic;
 
@@ -140,11 +140,11 @@ INSERT INTO `identity` VALUES (4, '设备管理员', 3);
 DROP TABLE IF EXISTS `roms`;
 CREATE TABLE `roms`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `numb` int(11) DEFAULT NULL COMMENT '教室编号：numb',
-  `rom_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教室名称：rom_name',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '负责人id:user_id',
-  `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述：content',
-  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0空闲,1使用中):state',
+  `numb` int(11) NULL DEFAULT NULL COMMENT '教室编号：numb',
+  `rom_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教室名称：rom_name',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '负责人id:user_id',
+  `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述：content',
+  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0空闲,1使用中):state',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验室表roms' ROW_FORMAT = Dynamic;
 
@@ -154,14 +154,14 @@ CREATE TABLE `roms`  (
 DROP TABLE IF EXISTS `roms_log`;
 CREATE TABLE `roms_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL COMMENT '申请人=>users->id:user_id',
-  `handle_user_id` bigint(20) DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
-  `rom_id` bigint(20) DEFAULT NULL COMMENT '教室=>rom->id:rom_id',
-  `state` tinyint(4) DEFAULT NULL COMMENT '状态(0申请中,1已审批,2未通过审批)：state',
-  `creat_time` datetime(0) DEFAULT NULL COMMENT '申请时间：creat_time',
-  `handle_time` datetime(0) DEFAULT NULL COMMENT '处理时间：handle_time',
-  `start_time` datetime(0) DEFAULT NULL COMMENT '申请开始使用时间:start_time',
-  `end_time` datetime(0) DEFAULT NULL COMMENT '申请结束使用时间:end_time',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '申请人=>users->id:user_id',
+  `handle_user_id` bigint(20) NULL DEFAULT NULL COMMENT '处理人=>users->id:handle_user_id',
+  `rom_id` bigint(20) NULL DEFAULT NULL COMMENT '教室=>rom->id:rom_id',
+  `state` tinyint(4) NULL DEFAULT NULL COMMENT '状态(0申请中,1已审批,2未通过审批)：state',
+  `creat_time` datetime(0) NULL DEFAULT NULL COMMENT '申请时间：creat_time',
+  `handle_time` datetime(0) NULL DEFAULT NULL COMMENT '处理时间：handle_time',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '申请开始使用时间:start_time',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '申请结束使用时间:end_time',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -171,10 +171,10 @@ CREATE TABLE `roms_log`  (
 DROP TABLE IF EXISTS `user_activity`;
 CREATE TABLE `user_activity`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `student_id` bigint(20) DEFAULT NULL COMMENT '学生ID：student_id',
-  `teacher_user_id` bigint(20) DEFAULT NULL COMMENT '教师ID：teacher_user_id',
-  `course_id` bigint(20) DEFAULT 0 COMMENT '课程ID：course_id',
-  `achieve` int(11) DEFAULT 0 COMMENT '成绩：achieve',
+  `student_id` bigint(20) NULL DEFAULT 0 COMMENT '学生ID：student_id',
+  `teacher_user_id` bigint(20) NULL DEFAULT 0 COMMENT '教师ID：teacher_user_id',
+  `course_id` bigint(20) NULL DEFAULT 0 COMMENT '课程ID：course_id',
+  `achieve` double NULL DEFAULT 0 COMMENT '成绩：achieve',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户活动表user_activity' ROW_FORMAT = Dynamic;
 
@@ -184,11 +184,11 @@ CREATE TABLE `user_activity`  (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identity_id` bigint(20) DEFAULT NULL COMMENT '身份ID=>identity->id:identity_id',
-  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名:user_name',
-  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '密码：pwd',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '姓名：name',
-  `job` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职务：job',
+  `identity_id` bigint(20) NULL DEFAULT NULL COMMENT '身份ID=>identity->id:identity_id',
+  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名:user_name',
+  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码：pwd',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名：name',
+  `job` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '职务：job',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
