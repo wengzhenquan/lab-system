@@ -27,6 +27,7 @@ public class CourseService {
      * @return
      */
     public PageDto<CourseDto> selectCourseAll(Long teacherUserId,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<CourseDto> courseDtoList = courseMapper.selectAll(teacherUserId, pageNo, pageSize);
         Long count = courseMapper.selectCount(teacherUserId);
         PageDto<CourseDto> page = new PageDto<>();

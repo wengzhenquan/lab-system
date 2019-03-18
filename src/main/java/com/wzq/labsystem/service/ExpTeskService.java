@@ -22,6 +22,7 @@ public class ExpTeskService {
      * @return
      */
     public PageDto<ExpTeskDto> selectExpTeskAll(Long courseId, String courseName, Long romId, String romName, Integer pageNo, Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<ExpTeskDto> expTeskDtoList = expTeskMapper.selectAll(courseId,courseName,romId,romName, pageNo, pageSize);
         Long count = expTeskMapper.selectCount(courseId,courseName,romId,romName);
         PageDto<ExpTeskDto> page = new PageDto<>();

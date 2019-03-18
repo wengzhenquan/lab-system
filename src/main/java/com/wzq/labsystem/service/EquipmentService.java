@@ -70,6 +70,7 @@ public class EquipmentService {
      * @return
      */
     public PageDto<EquipmentDto> selectEquipmentAll(Equipment equipment, Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<EquipmentDto> equipmentlist = equipmentMapper.selectAll(equipment,pageNo, pageSize);
         Long count = equipmentMapper.selectCount(equipment);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
@@ -122,6 +123,7 @@ public class EquipmentService {
      * @return
      */
     public PageDto<EquipmentClass> selectEquipmentClassAll(Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<EquipmentClass> equipmentClasslist = equipmentClassMapper.selectAll(pageNo, pageSize);
         Long count = equipmentClassMapper.selectCount();
         PageDto<EquipmentClass> pageDto = new PageDto<>();
@@ -184,6 +186,7 @@ public class EquipmentService {
      * @return
      */
     public PageDto<EquipmentLogDto> selectEquipmentLogAll(EquipmentLog equipmentLog,Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(equipmentLog,pageNo, pageSize);
         Long count = equipmentLogMapper.selectCount(equipmentLog);
         PageDto<EquipmentLogDto> pageDto = new PageDto<>();

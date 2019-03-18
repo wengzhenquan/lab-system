@@ -85,6 +85,7 @@ public class UserService {
      * @return
      */
     public PageDto<UserDto> selectUsersAll(Long identityId, String identityName, String userName, String name, Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<UserDto> users = userMapper.selectAll(identityId,identityName,userName,name,pageNo, pageSize);
         Long count = userMapper.selectCount(identityId,identityName,userName,name);
         PageDto<UserDto> pageDto = new PageDto<>();

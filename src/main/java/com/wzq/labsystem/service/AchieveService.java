@@ -40,6 +40,7 @@ public class AchieveService {
      * @return
      */
     public PageDto<AchieveDto> selectAchieveAllByTeacherId(Long courseId,Long teacherUserId,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<AchieveDto> achieveDtoList = achieveMapper.selectAchieveAllByTeacherId(courseId, teacherUserId, pageNo, pageSize);
         Long count = achieveMapper.selectAchieveCountByTeacherId(courseId, teacherUserId);
         PageDto<AchieveDto> pageDto = new PageDto<>();
@@ -56,6 +57,7 @@ public class AchieveService {
      * @return
      */
     public PageDto<AchieveDto> selectAchieveAllByStudentId(Long studentId,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<AchieveDto> achieveDtoList = achieveMapper.selectAchieveAllByStudentId(studentId, pageNo, pageSize);
         Long count = achieveMapper.selectAchieveCountByStudentId(studentId);
         PageDto<AchieveDto> pageDto = new PageDto<>();

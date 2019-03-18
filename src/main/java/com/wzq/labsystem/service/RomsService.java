@@ -92,6 +92,7 @@ public class RomsService {
      * @return
      */
     public PageDto<RomsDto> selectRomsAll(Integer numb, Long userId, Integer state,Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<RomsDto> romlist = romsMapper.selectAll(numb,userId,state,pageNo, pageSize);
         Long count = romsMapper.selectCount(numb,userId,state);
         PageDto<RomsDto> pageDto = new PageDto<>();
@@ -147,6 +148,7 @@ public class RomsService {
      * @return
      */
     public PageDto<RomsLogDto> selectRomLogAll(Long userId, Long handleUserId, Long romId,Integer state, Integer pageNo, Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
         List<RomsLogDto> logDtoList = romsLogMapper.selectAll(userId,handleUserId,romId,state,pageNo, pageSize);
         Long count = romsLogMapper.selectCount(userId,handleUserId,romId,state);
         PageDto<RomsLogDto> pageDto = new PageDto<>();

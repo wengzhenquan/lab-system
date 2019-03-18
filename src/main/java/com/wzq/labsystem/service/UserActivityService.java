@@ -44,6 +44,7 @@ public class UserActivityService {
      * @return
      */
     public PageDto<UserActivityDto> selectTeacherByStudentId(Long teacherId, String teacherName,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         if((null == teacherId) && (null == teacherName))
             throw new ServiceException(501, "老师不能为空");
         List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(null, null, teacherId, teacherName, 0L, null, pageNo, pageSize);
@@ -59,6 +60,7 @@ public class UserActivityService {
      * @return
      */
     public PageDto<UserActivityDto> selectStudentByTeacherId(Long studentId, String studentName,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         if((null == studentId) && (null == studentName))
             throw new ServiceException(501, "学生不能为空");
         List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(studentId, studentName, null, null, 0L, null, pageNo, pageSize);
@@ -97,6 +99,7 @@ public class UserActivityService {
      * @return
      */
     public PageDto<UserActivityDto> selectStudentByCourseId(Long courseId, String courseName,Integer pageNo,Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         if((null == courseId) && (null == courseName))
             throw new ServiceException(501, "课程不能为空");
         List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(null, null, null, null, courseId, courseName, pageNo, pageSize);
@@ -114,6 +117,7 @@ public class UserActivityService {
      * @return
      */
     public PageDto<UserActivityDto> selectStudentAllByteacherUserId(Long teacherUserId,String teacherName, Integer pageNo, Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<UserActivityDto> courseDtoList = userActivityMapper.selectAll(null, null, teacherUserId, teacherName, 0L, null, pageNo, pageSize);
         Long count = userActivityMapper.selectCount(null, null, teacherUserId, teacherName, 0L, null);
         PageDto<UserActivityDto> page = new PageDto<>();
@@ -127,6 +131,7 @@ public class UserActivityService {
      * @return
      */
     public PageDto<UserActivityDto> selectCourseAllBy(Long studentId,String studentName,Long teacherUserId,String teacherName, Integer pageNo, Integer pageSize){
+        pageNo = pageSize * (pageNo - 1);
         List<UserActivityDto> courseDtoList = userActivityMapper.selectCourseAllBy(studentId, studentName, teacherUserId, teacherName, pageNo, pageSize);
         Long count = userActivityMapper.selectCourseCount(studentId, studentName, teacherUserId, teacherName);
         PageDto<UserActivityDto> page = new PageDto<>();
