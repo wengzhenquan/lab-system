@@ -18,8 +18,8 @@ public class UserController {
 
     @ApiOperation("登录")
     @PostMapping("login")
-    public ResultDto<UserDto> longin(@RequestParam String userName,@RequestParam String pwd){
-        return ResultDto.ok(userService.login(userName, pwd));
+    public ResultDto<UserDto> longin(@RequestParam String userName,@RequestParam String pwd,@RequestParam Integer level){
+        return ResultDto.ok(userService.login(userName, pwd,level));
     }
 
     @ApiOperation("修改密码")

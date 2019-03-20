@@ -26,10 +26,11 @@ public class UserService {
      * @param pwd
      * @return
      */
-   public UserDto login(String userName, String pwd){
+   public UserDto login(String userName, String pwd,Integer level){
        Assert.notNull(userName, "用户名不能为空");
        Assert.notNull(pwd, "密码不能为空");
-       UserDto userDto = userMapper.selectByUserNameAndPwd(userName, pwd);
+       Assert.notNull(level, "身份不能为空");
+       UserDto userDto = userMapper.selectByUserNameAndPwd(userName, pwd,level);
        if(null == userDto) throw new ServiceException(501, "账号或密码错误");
        return userDto;
    }

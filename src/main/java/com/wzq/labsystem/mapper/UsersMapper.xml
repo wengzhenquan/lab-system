@@ -99,6 +99,7 @@
     left join `identity` i on i.id = u.identity_id
     where u.user_name = #{userName}
     and u.pwd = #{pwd}
+    and i.level = #{level}
   </select>
 
   <!-- 修改密码 -->

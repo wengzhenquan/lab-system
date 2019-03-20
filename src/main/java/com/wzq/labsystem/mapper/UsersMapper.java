@@ -46,7 +46,7 @@ public interface UsersMapper {
      * @param pwd
      * @return
      */
-    UserDto selectByUserNameAndPwd(@Param("userName") String userName, @Param("pwd") String pwd);
+    UserDto selectByUserNameAndPwd(@Param("userName") String userName, @Param("pwd") String pwd,@Param("level") Integer level);
 
     /**
      * 修改密码
