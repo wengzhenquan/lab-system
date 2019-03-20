@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 20/03/2019 13:47:56
+ Date: 20/03/2019 14:48:23
 */
 
 SET NAMES utf8mb4;
@@ -124,17 +124,15 @@ CREATE TABLE `identity`  (
   `identity_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份名称：identity_name',
   `level` tinyint(4) DEFAULT NULL COMMENT '等级：level',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '身份表identity' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '身份表identity' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of identity
 -- ----------------------------
-INSERT INTO `identity` VALUES (1, 'admin', 0);
-INSERT INTO `identity` VALUES (2, '管理员', 1);
-INSERT INTO `identity` VALUES (3, '教师', 2);
-INSERT INTO `identity` VALUES (4, '设备管理员', 3);
-INSERT INTO `identity` VALUES (5, '学生', 4);
-INSERT INTO `identity` VALUES (6, NULL, NULL);
+INSERT INTO `identity` VALUES (1, '管理员', 0);
+INSERT INTO `identity` VALUES (2, '教师', 1);
+INSERT INTO `identity` VALUES (3, '设备管理员', 2);
+INSERT INTO `identity` VALUES (4, '学生', 3);
 
 -- ----------------------------
 -- Table structure for roms
