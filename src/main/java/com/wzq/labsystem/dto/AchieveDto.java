@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL) // 结果忽略未null的字段
 @Data
 @Builder
 @AllArgsConstructor

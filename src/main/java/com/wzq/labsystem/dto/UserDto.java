@@ -35,7 +35,7 @@ public class UserDto implements Serializable {
     private String userName;
 
     @ApiModelProperty("密码")
-    @JsonIgnore
+    @JsonIgnore // 结果不显示该字段
     private String pwd;
 
     @ApiModelProperty("姓名")
