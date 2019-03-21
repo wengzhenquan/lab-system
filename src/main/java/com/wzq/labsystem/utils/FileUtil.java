@@ -26,6 +26,10 @@ public class FileUtil {
     @Value("${fileUpload.location.path}")
     private String resourceDir;
 
+    //获取返回的IP
+    @Value("${localip}")
+    private String localIp;
+
 
     /**
      * 单文件上传
@@ -39,10 +43,10 @@ public class FileUtil {
         // 获取上传文件的后缀
         String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
         // 设置上传文件路径
-        String uploadPath = new File(System.getProperty("user.dir")).getParent().replace("\\","/") + resourceDir + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "/" + fileSuffix + "/";
+        String uploadPath = resourceDir + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "/" + fileSuffix + "/";
         // 上传文件名
-        String fileName = System.currentTimeMillis()  + new Random().nextInt(1000) + originalFilename;
-        File savefile = new File(uploadPath + "/" + fileName);
+        String fileName = System.currentTimeMillis()  + new Random().nextInt(1000) + "-" + originalFilename;
+        File savefile = new File(System.getProperty("user.dir").replace("\\","/") + uploadPath + "/" + fileName);
         if (!savefile.getParentFile().exists()) {
             savefile.getParentFile().mkdirs();
         }
@@ -56,7 +60,7 @@ public class FileUtil {
             e.printStackTrace();
             throw new ServiceException(501, "文件上传错误，读写异常！");
         }
-        return uploadPath + fileName;
+        return localIp + uploadPath + fileName;
     }
 
     /**

@@ -27,3 +27,5 @@ mybatis:
 fileUpload:
   location:
     path: /upload_tmp/
+
+localip: http://localhost:8081
