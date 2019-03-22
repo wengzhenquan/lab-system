@@ -27,7 +27,7 @@ public interface UsersMapper {
                             @Param("identityName") String identityName,
                             @Param("userName") String userName,
                             @Param("name") String name,
-                            @Param("pageNo") Integer pageNo ,
+                            @Param("pageNo") Integer pageNo,
                             @Param("pageSize")Integer pageSize);
 
     /**

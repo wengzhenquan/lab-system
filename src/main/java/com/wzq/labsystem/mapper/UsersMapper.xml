@@ -68,7 +68,7 @@
         and u.name = #{name}
       </if>
     </where>
-    <if test="pageNo != null and pageNo != '' and pageSize != null and pageSize != ''">
+    <if test="pageNo != null  and  pageSize != null ">
       limit #{pageNo},#{pageSize}
     </if>
 
