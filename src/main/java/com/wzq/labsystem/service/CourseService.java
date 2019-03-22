@@ -5,7 +5,6 @@ import com.wzq.labsystem.dto.PageDto;
 import com.wzq.labsystem.dto.po.Course;
 import com.wzq.labsystem.exception.ServiceException;
 import com.wzq.labsystem.mapper.CourseMapper;
-import com.wzq.labsystem.mapper.UserActivityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
