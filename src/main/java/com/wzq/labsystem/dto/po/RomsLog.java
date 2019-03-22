@@ -20,6 +20,7 @@ public class RomsLog implements Serializable {
 
     private static final long serialVersionUID = 8827573621827056462L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("申请人ID")

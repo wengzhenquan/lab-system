@@ -19,6 +19,7 @@ public class ExpReport implements Serializable {
 
     private static final long serialVersionUID = -7009521658700535260L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("任务ID")

@@ -20,6 +20,7 @@ public class EquipmentLog implements Serializable {
 
     private static final long serialVersionUID = -5262048281355700047L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("申请人ID")

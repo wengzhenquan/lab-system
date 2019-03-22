@@ -20,6 +20,7 @@ public class ExpTesk implements Serializable {
 
     private static final long serialVersionUID = -8351265412813221375L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("课程ID")

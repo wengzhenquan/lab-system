@@ -18,6 +18,7 @@ public class EquipmentClass implements Serializable {
 
     private static final long serialVersionUID = 7358552260515632914L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("类别名")

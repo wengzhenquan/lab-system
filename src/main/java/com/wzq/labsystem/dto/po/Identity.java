@@ -18,6 +18,7 @@ public class Identity implements Serializable {
 
     private static final long serialVersionUID = 8895447611576644140L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("身份名称")

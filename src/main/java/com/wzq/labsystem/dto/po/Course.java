@@ -20,6 +20,7 @@ public class Course implements Serializable {
 
     private static final long serialVersionUID = -2769141020738174818L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("课程名称")

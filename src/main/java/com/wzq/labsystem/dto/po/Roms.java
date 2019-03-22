@@ -19,6 +19,7 @@ public class Roms implements Serializable {
 
     private static final long serialVersionUID = 6438034077771523927L;
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("教室编号")

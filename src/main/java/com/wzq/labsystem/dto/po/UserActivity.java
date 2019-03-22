@@ -19,6 +19,7 @@ public class UserActivity implements Serializable {
     private static final long serialVersionUID = 6799635154783554229L;
 
 
+    @ApiModelProperty("ID")
     private Long id;
 
     @ApiModelProperty("学生ID")
