@@ -68,7 +68,10 @@
         and u.name = #{name}
       </if>
     </where>
-    limit #{pageNo},#{pageSize}
+    <if test="pageNo != null and pageNo != '' and pageSize != null and pageSize != ''">
+      limit #{pageNo},#{pageSize}
+    </if>
+
   </select>
 
   <!-- 查询总数 -->

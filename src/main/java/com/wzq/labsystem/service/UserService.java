@@ -62,6 +62,9 @@ public class UserService {
         Assert.notNull(users.getUserName(), "用户名不能为空");
         Assert.notNull(users.getPwd(), "密码不能为空");
         Assert.notNull(users.getIdentityId(), "必须绑定身份");
+        List<UserDto> usersList = userMapper.selectAll(null,null,users.getUserName(),null,null,null);
+        if(0 != usersList.size())
+            throw new ServiceException(501, "该用户名已存在！");
         int result = userMapper.insert(users);
         if (0 == result) throw new ServiceException(501, "添加账号失败");
         return result;
