@@ -88,13 +88,13 @@
     left course c on c.id = et.course_id
     left roms r on r.id = et.rom_id
     <where>
-      <if test="courseId != null and courseId != ''">
+      <if test="courseId != null '">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
         and c.course_name = #{courseName}
       </if>
-      <if test="romId != null and romId != ''">
+      <if test="romId != null '">
         and et.rom_id = #{romId}
       </if>
       <if test="romName != null and romName != ''">

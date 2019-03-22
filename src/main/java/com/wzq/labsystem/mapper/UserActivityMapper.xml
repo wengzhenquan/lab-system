@@ -53,19 +53,19 @@
     left join users ut on ut.id = ua.teacher_user_id
     left join course c on c.id = ua.course_id
     <where>
-        <if test="studentId != null and studentId != ''">
+        <if test="studentId != null ">
             and ua.student_id = #{studentId}
         </if>
         <if test="studentName != null and studentName != ''">
             and us.name = #{studentName}
         </if>
-        <if test="teacherUserId != null and teacherUserId != ''">
+        <if test="teacherUserId != null ">
             and ua.teacher_user_id = #{teacherUserId}
         </if>
         <if test="teacherName != null and teacherName != ''">
             and ut.name = #{teacherName}
         </if>
-        <if test="courseId != null and courseId != ''">
+        <if test="courseId != null '">
             and ua.course_id = #{courseId}
         </if>
         <if test="courseName != null and courseName != ''">

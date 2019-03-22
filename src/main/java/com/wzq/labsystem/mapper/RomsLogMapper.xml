@@ -73,16 +73,16 @@
     left join users a on a.id = l.handle_user_id
     left join roms r on r.id = l.rom_id
     <where>
-      <if test="userId != null and userId != ''">
+      <if test="userId != null ">
         and l.user_id = #{userId}
       </if>
-      <if test="handleUserId != null and handleUserId != ''">
+      <if test="handleUserId != null ">
         and l.handle_user_id = #{handleUserId}
       </if>
-      <if test="romId != null and romId != ''">
+      <if test="romId != null ">
         and l.rom_id = #{romId}
       </if>
-      <if test="state != null and state != ''">
+      <if test="state != null ">
         and l.`state` = #{state}
       </if>
     </where>
@@ -97,16 +97,16 @@
     select count(*)
     from roms_log
     <where>
-      <if test="userId != null and userId != ''">
+      <if test="userId != null ">
         and l.user_id = #{userId}
       </if>
-      <if test="handleUserId != null and handleUserId != ''">
+      <if test="handleUserId != null ">
         and l.handle_user_id = #{handleUserId}
       </if>
-      <if test="romId != null and romId != ''">
+      <if test="romId != null ">
         and l.rom_id = #{romId}
       </if>
-      <if test="state != null and state != ''">
+      <if test="state != null ">
         and l.`state` = #{state}
       </if>
     </where>

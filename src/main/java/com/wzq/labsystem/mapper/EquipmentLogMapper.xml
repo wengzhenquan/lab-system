@@ -105,16 +105,16 @@
     left join users h on h.id = l.handle_user_id
     left join equipment_class c on equipment_class.id = l.eq_class_id
     <where>
-      <if test="equipmentLog.userId != null and equipmentLog.userId !=''">
+      <if test="equipmentLog.userId != null ">
         and l.user_id = #{equipmentLog.userId}
       </if>
-      <if test="equipmentLog.handleUserId != null and equipmentLog.handleUserId !=''">
+      <if test="equipmentLog.handleUserId != null ">
         and l.handle_user_id = #{equipmentLog.handleUserId}
       </if>
-      <if test="equipmentLog.eqClassId != null and equipmentLog.eqClassId !=''">
+      <if test="equipmentLog.eqClassId != null ">
         and l.eq_class_id = #{equipmentLog.eqClassId}
       </if>
-      <if test="equipmentLog.state != null and equipmentLog.state !=''">
+      <if test="equipmentLog.state != null ">
         and l.state = #{equipmentLog.state}
       </if>
     </where>

@@ -86,13 +86,13 @@
     select count(*)
     from  equipment
     <where>
-      <if test="equipment.rom_id != null and equipment.rom_id != ''">
+      <if test="equipment.rom_id != null ">
         and e.rom_id = #{romId}
       </if>
-      <if test="equipment.eq_class_id != null and equipment.eq_class_id != ''">
+      <if test="equipment.eq_class_id != null ">
         and e.eq_class_id = = #{eq_class_id}
       </if>
-      <if test="equipment.state != null and equipment.state != ''">
+      <if test="equipment.state != null ">
         and e.state = = #{state}
       </if>
     </where>

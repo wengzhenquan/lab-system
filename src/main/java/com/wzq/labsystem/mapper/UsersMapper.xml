@@ -55,7 +55,7 @@
     from users u
     left join `identity` i on i.id = u.identity_id
     <where>
-      <if test="identityId != null and identityId != ''">
+      <if test="identityId != null ">
         and u.identity_id = #{identityId}
       </if>
       <if test="identityName != null and identityName != ''">
@@ -80,7 +80,7 @@
     from users u
     left join `identity` i on i.id = u.identity_id
     <where>
-    <if test="identityId != null and identityId != ''">
+    <if test="identityId != null ">
       and u.identity_id = #{identityId}
     </if>
     <if test="identityName != null and identityName != ''">

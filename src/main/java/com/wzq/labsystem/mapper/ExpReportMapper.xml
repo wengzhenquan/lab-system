@@ -99,19 +99,19 @@
     left join users u on u.id = er.student_user_id
     left join course c on c.id = et.course_id
     <where>
-      <if test="teskId != null and teskId != ''">
+      <if test="teskId != null ">
         and er.tesk_id = #{teskId}
       </if>
       <if test="title != null and title != ''">
         and et.title = #{title}
       </if>
-      <if test="studentUserId != null and studentUserId != ''">
+      <if test="studentUserId != null '">
         and er.student_user_id = #{studentUserId}
       </if>
       <if test="name != null and name != ''">
         and u.name = #{name}
       </if>
-      <if test="courseId != null and courseId != ''">
+      <if test="courseId != null '">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
