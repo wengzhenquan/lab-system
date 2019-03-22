@@ -43,7 +43,7 @@
   </update>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserResultMap">
-    select u.id, u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id,u.identity_id, i.identity_name,i.level, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     where u.id = #{id,jdbcType=BIGINT}
@@ -51,7 +51,7 @@
 
   <!-- 查询全部信息 -->
   <select id="selectAll" resultMap="UserResultMap">
-    select u.id,u.identity_id, i.identity_name, u.user_name,u.pwd, u.`name`, u.job
+    select u.id,u.identity_id, i.identity_name,i.level, u.user_name,u.pwd, u.`name`, u.job
     from users u
     left join `identity` i on i.id = u.identity_id
     <where>

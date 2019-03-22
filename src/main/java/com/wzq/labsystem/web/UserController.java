@@ -53,8 +53,8 @@ public class UserController {
 
     @ApiOperation("查询用户信息")
     @GetMapping("selectByUserId")
-    public ResultDto<UserDto> selectByUserId(@RequestParam Long UserId){
-        return ResultDto.ok(userService.selectByUserId(UserId));
+    public ResultDto<UserDto> selectByUserId(@RequestParam Long userId){
+        return ResultDto.ok(userService.selectByUserId(userId));
     }
 
     @ApiOperation("删除账户")
