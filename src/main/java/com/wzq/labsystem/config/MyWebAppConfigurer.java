@@ -20,6 +20,12 @@ public class MyWebAppConfigurer extends WebMvcConfigurationSupport {
         // 配置文件上传资源访问
         registry.addResourceHandler(resourceDir + "**")
                 .addResourceLocations("file:" + System.getProperty("user.dir").replace("\\","/") + resourceDir);
+
+        // swagger
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
         super.addResourceHandlers(registry);
     }
 }
