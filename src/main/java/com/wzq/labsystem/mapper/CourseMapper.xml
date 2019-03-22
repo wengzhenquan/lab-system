@@ -58,7 +58,7 @@
         c.teacher_user_id = #{teacherUserId}
       </if>
     </where>
-    limit #{pageNo},{pageSize}
+    limit #{pageNo},#{pageSize}
   </select>
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">

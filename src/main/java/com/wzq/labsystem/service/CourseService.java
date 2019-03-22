@@ -19,8 +19,6 @@ public class CourseService {
     @Autowired
     private CourseMapper courseMapper;
 
-    @Autowired
-    private UserActivityMapper userActivityMapper;
 
     /**
      * 获取课程列表
