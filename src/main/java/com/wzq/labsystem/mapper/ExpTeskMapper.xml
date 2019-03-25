@@ -53,25 +53,25 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ExpTeskResultMap">
-    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.rcontent, et.start_time, et.end_time, et.file_url
+    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.content, et.start_time, et.end_time, et.file_url
     from exp_tesk et
-    left course c on c.id = et.course_id
-    left roms r on r.id = et.rom_id
+    left join course c on c.id = et.course_id
+    left join roms r on r.id = et.rom_id
     where et.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="ExpTeskResultMap">
-    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.rcontent, et.start_time, et.end_time, et.file_url
+    select et.id, et.course_id,c.course_name, et.rom_id,r.numb , r.rom_name, et.title, et.content, et.start_time, et.end_time, et.file_url
     from exp_tesk et
-    left course c on c.id = et.course_id
-    left roms r on r.id = et.rom_id
+    left join course c on c.id = et.course_id
+    left join roms r on r.id = et.rom_id
     <where>
-      <if test="courseId != null and courseId != ''">
+      <if test="courseId != null ">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
         and c.course_name = #{courseName}
       </if>
-      <if test="romId != null and romId != ''">
+      <if test="romId != null ">
         and et.rom_id = #{romId}
       </if>
       <if test="romName != null and romName != ''">
@@ -85,16 +85,16 @@
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
     from exp_tesk et
-    left course c on c.id = et.course_id
-    left roms r on r.id = et.rom_id
+    left join course c on c.id = et.course_id
+    left join roms r on r.id = et.rom_id
     <where>
-      <if test="courseId != null '">
+      <if test="courseId != null ">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
         and c.course_name = #{courseName}
       </if>
-      <if test="romId != null '">
+      <if test="romId != null ">
         and et.rom_id = #{romId}
       </if>
       <if test="romName != null and romName != ''">

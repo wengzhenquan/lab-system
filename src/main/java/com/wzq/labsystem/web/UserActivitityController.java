@@ -18,22 +18,22 @@ public class UserActivitityController {
     @Autowired
     private UserActivityService userActivityService;
 
-    @ApiOperation("通过老师查询学生列表")
-    @GetMapping("selectTeacherByStudentId")
-    public ResultDto<PageDto<UserActivityDto>> selectTeacherByStudentId(@RequestParam(value ="teacherUserId",required = false) Long teacherUserId,
-                                                                        @RequestParam(value ="teacherName",required = false) String teacherName,
-                                                                        @RequestParam Integer pageNo,
-                                                                        @RequestParam Integer pageSize){
-        return ResultDto.ok(userActivityService.selectTeacherByStudentId(teacherUserId,teacherName, pageNo, pageSize));
-    }
-
     @ApiOperation("通过学生查询老师列表")
-    @GetMapping("selectStudentByTeacherId")
-    public ResultDto<PageDto<UserActivityDto>> selectStudentByTeacherId(@RequestParam(value ="studentId",required = false) Long studentId,
+    @GetMapping("selectTeacherByStudentId")
+    public ResultDto<PageDto<UserActivityDto>> selectTeacherByStudentId(@RequestParam(value ="studentId",required = false) Long studentId,
                                                                         @RequestParam(value ="studentName",required = false) String studentName,
                                                                         @RequestParam Integer pageNo,
                                                                         @RequestParam Integer pageSize){
-        return ResultDto.ok(userActivityService.selectStudentByTeacherId(studentId,studentName, pageNo, pageSize));
+        return ResultDto.ok(userActivityService.selectTeacherByStudentId(studentId,studentName, pageNo, pageSize));
+    }
+
+    @ApiOperation("通过老师查询学生列表")
+    @GetMapping("selectStudentByTeacherId")
+    public ResultDto<PageDto<UserActivityDto>> selectStudentByTeacherId(@RequestParam(value ="teacherUserId",required = false) Long teacherUserId,
+                                                                        @RequestParam(value ="teacherName",required = false) String teacherName,
+                                                                        @RequestParam Integer pageNo,
+                                                                        @RequestParam Integer pageSize){
+        return ResultDto.ok(userActivityService.selectStudentByTeacherId(teacherUserId,teacherName, pageNo, pageSize));
     }
 
     @ApiOperation("将学生加入到某位老师的学生列表")
@@ -52,11 +52,11 @@ public class UserActivitityController {
 
     @ApiOperation("查询某课程的学生列表")
     @GetMapping("selectStudentByCourseId")
-    public ResultDto<PageDto<UserActivityDto>> selectStudentByCourseId(@RequestParam(value ="studentId",required = false) Long studentId,
+    public ResultDto<PageDto<UserActivityDto>> selectStudentByCourseId(@RequestParam(value ="courseId",required = false) Long courseId,
                                                                       @RequestParam(value ="courseName",required = false) String courseName,
                                                                       @RequestParam Integer pageNo,
                                                                       @RequestParam Integer pageSize){
-        return ResultDto.ok(userActivityService.selectStudentByCourseId(studentId,courseName,pageNo,pageSize));
+        return ResultDto.ok(userActivityService.selectStudentByCourseId(courseId,courseName,pageNo,pageSize));
     }
 
 

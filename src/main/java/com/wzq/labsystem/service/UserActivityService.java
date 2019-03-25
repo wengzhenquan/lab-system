@@ -43,7 +43,7 @@ public class UserActivityService {
      * @param teacherId
      * @return
      */
-    public PageDto<UserActivityDto> selectTeacherByStudentId(Long teacherId, String teacherName,Integer pageNo,Integer pageSize){
+    public PageDto<UserActivityDto> selectStudentByTeacherId(Long teacherId, String teacherName,Integer pageNo,Integer pageSize){
         pageNo = pageSize * (pageNo - 1);
         if((null == teacherId) && (null == teacherName))
             throw new ServiceException(501, "老师不能为空");
@@ -59,7 +59,7 @@ public class UserActivityService {
      * @param studentId
      * @return
      */
-    public PageDto<UserActivityDto> selectStudentByTeacherId(Long studentId, String studentName,Integer pageNo,Integer pageSize){
+    public PageDto<UserActivityDto> selectTeacherByStudentId(Long studentId, String studentName,Integer pageNo,Integer pageSize){
         pageNo = pageSize * (pageNo - 1);
         if((null == studentId) && (null == studentName))
             throw new ServiceException(501, "学生不能为空");

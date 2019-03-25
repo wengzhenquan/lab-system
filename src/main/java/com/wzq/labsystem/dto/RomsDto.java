@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class RomsDto implements Serializable {
     private static final long serialVersionUID = -937624620725056322L;
 
-    private Long romsId;
+    private Long id;
 
     @ApiModelProperty("教室编号")
     private Integer numb;

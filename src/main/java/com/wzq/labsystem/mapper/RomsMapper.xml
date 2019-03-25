@@ -11,7 +11,7 @@
   </resultMap>
 
   <resultMap id="RoomsResultMap" type="com.wzq.labsystem.dto.RomsDto">
-    <id column="id" jdbcType="BIGINT" property="romsId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="numb" jdbcType="INTEGER" property="numb" />
     <result column="rom_name" jdbcType="VARCHAR" property="romName" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />

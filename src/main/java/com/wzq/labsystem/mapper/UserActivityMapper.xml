@@ -65,7 +65,7 @@
         <if test="teacherName != null and teacherName != ''">
             and ut.name = #{teacherName}
         </if>
-        <if test="courseId != null '">
+        <if test="courseId != null ">
             and ua.course_id = #{courseId}
         </if>
         <if test="courseName != null and courseName != ''">
