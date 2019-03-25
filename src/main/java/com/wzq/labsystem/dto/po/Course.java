@@ -1,6 +1,10 @@
 package com.wzq.labsystem.dto.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.wzq.labsystem.config.InstantJacksonDeserialize;
+import com.wzq.labsystem.config.InstantJacksonSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -34,10 +38,14 @@ public class Course implements Serializable {
 
     @ApiModelProperty("开始日期")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant startDate;
 
     @ApiModelProperty("结束日期")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant endDate;
 
 }

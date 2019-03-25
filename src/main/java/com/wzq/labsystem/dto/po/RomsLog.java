@@ -1,6 +1,10 @@
 package com.wzq.labsystem.dto.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.wzq.labsystem.config.InstantJacksonDeserialize;
+import com.wzq.labsystem.config.InstantJacksonSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -37,18 +41,26 @@ public class RomsLog implements Serializable {
 
     @ApiModelProperty("申请时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant creatTime;
 
     @ApiModelProperty("处理时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant handleTime;
 
     @ApiModelProperty("申请开始使用时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant startTime;
 
     @ApiModelProperty("申请结束使用时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonSerialize(using = InstantJacksonSerializer.class)
+    @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant endTime;
 
 
