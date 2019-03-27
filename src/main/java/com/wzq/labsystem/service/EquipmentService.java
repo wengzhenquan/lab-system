@@ -64,21 +64,72 @@ public class EquipmentService {
 
     /**
      * 查询所有设备信息
-     * @param equipment
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageDto<EquipmentDto> selectEquipmentAll(Equipment equipment, Integer pageNo, Integer pageSize) {
+    public PageDto<EquipmentDto> selectEquipmentAll(Long romId,
+                                                    Integer romNumb,
+                                                    String romName,
+                                                    String equipmentSerNumb,
+                                                    Long eqClassId,
+                                                    String typeName,
+                                                    Integer state,
+                                                    Integer pageNo,
+                                                    Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentDto> equipmentlist = equipmentMapper.selectAll(equipment,pageNo, pageSize);
-        Long count = equipmentMapper.selectCount(equipment);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectAll(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCount(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentlist);
         return pageDto;
     }
 
+    /**
+     * 查询已分配所有设备信息
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public PageDto<EquipmentDto> selectEquipmentAllocated(Integer romNumb,
+                                                    String romName,
+                                                    String equipmentSerNumb,
+                                                    Long eqClassId,
+                                                    String typeName,
+                                                    Integer state,
+                                                    Integer pageNo,
+                                                    Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCountAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
+        PageDto<EquipmentDto> pageDto = new PageDto<>();
+        pageDto.setTotal(count);
+        pageDto.setData(equipmentlist);
+        return pageDto;
+    }
+    /**
+     * 查询未分配所有设备信息
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public PageDto<EquipmentDto> selectEquipmentUnallocated(Integer romNumb,
+                                                          String romName,
+                                                          String equipmentSerNumb,
+                                                          Long eqClassId,
+                                                          String typeName,
+                                                          Integer state,
+                                                          Integer pageNo,
+                                                          Integer pageSize) {
+        pageNo = pageSize * (pageNo - 1);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectUnallocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCountUnallocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
+        PageDto<EquipmentDto> pageDto = new PageDto<>();
+        pageDto.setTotal(count);
+        pageDto.setData(equipmentlist);
+        return pageDto;
+    }
     /**
      * 查询设备信息
      * @param equipmentId
@@ -185,10 +236,18 @@ public class EquipmentService {
      * @param pageSize
      * @return
      */
-    public PageDto<EquipmentLogDto> selectEquipmentLogAll(EquipmentLog equipmentLog,Integer pageNo, Integer pageSize) {
+    public PageDto<EquipmentLogDto> selectEquipmentLogAll(Long userId,
+                                                          String applyName,
+                                                          Long handleUserId,
+                                                          String handleUserName,
+                                                          Long eqClassId,
+                                                          String typeName,
+                                                          Integer state,
+                                                          Integer pageNo,
+                                                          Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(equipmentLog,pageNo, pageSize);
-        Long count = equipmentLogMapper.selectCount(equipmentLog);
+        List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentLogMapper.selectCount(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state);
         PageDto<EquipmentLogDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentLoglist);

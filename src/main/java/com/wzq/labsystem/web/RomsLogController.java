@@ -31,10 +31,10 @@ public class RomsLogController {
 
     @ApiOperation("根据条件查询申请")
     @GetMapping("selectRomLogAll")
-    public ResultDto<PageDto<RomsLogDto>> selectRomLogAll(@RequestParam Long userId,
-                                                          @RequestParam Long handleUserId,
-                                                          @RequestParam Long romId,
-                                                          @RequestParam Integer state,
+    public ResultDto<PageDto<RomsLogDto>> selectRomLogAll(@RequestParam(value ="userId",required = false) Long userId,
+                                                          @RequestParam(value ="handleUserId",required = false) Long handleUserId,
+                                                          @RequestParam(value ="romId",required = false) Long romId,
+                                                          @RequestParam(value ="state",required = false) Integer state,
                                                           @RequestParam Integer pageNo,
                                                           @RequestParam Integer pageSize){
         return ResultDto.ok(romsService.selectRomLogAll(userId,handleUserId,romId,state,pageNo, pageSize));

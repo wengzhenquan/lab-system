@@ -53,7 +53,7 @@
   </update>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EquipmentResultMap">
-    select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    select e.id, e.ser_numb, e.rom_id,r.numb as rom_numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
     from equipment e
     left join roms r on e.rom_id = r.id
     left join equipment_class c on c.id = e.eq_class_id
@@ -61,18 +61,30 @@
   </select>
   <!-- 查询设备 -->
   <select id="selectAll" resultMap="EquipmentResultMap">
-    select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    select e.id, e.ser_numb, e.rom_id,r.numb as rom_numb, r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
     from equipment e
     left join roms r on e.rom_id = r.id
     left join equipment_class c on c.id = e.eq_class_id
     <where>
-      <if test="equipment.rom_id != null and equipment.rom_id != ''">
+      <if test="romId != null">
         and e.rom_id = #{romId}
       </if>
-      <if test="equipment.eq_class_id != null and equipment.eq_class_id != ''">
-        and e.eq_class_id = = #{eq_class_id}
+      <if test="romNumb != null">
+        and r.numb = #{romNumb}
       </if>
-      <if test="equipment.state != null and equipment.state != ''">
+      <if test="romName != null">
+        and r.rom_name = #{romName}
+      </if>
+      <if test="serNumb != null and serNumb != ''">
+        and e.ser_numb = #{serNumb}
+      </if>
+      <if test="eqClassId != null">
+        and e.eq_class_id = = #{eqClassId}
+      </if>
+      <if test="typeName != null and typeName != ''">
+         and c.type_name = #{typeName}
+      </if>
+      <if test="state != null">
         and e.state = = #{state}
       </if>
     </where>
@@ -84,17 +96,143 @@
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
-    from  equipment
+    from equipment e
+    left join roms r on e.rom_id = r.id
+    left join equipment_class c on c.id = e.eq_class_id
     <where>
-      <if test="equipment.rom_id != null ">
-        and e.rom_id = #{romId}
-      </if>
-      <if test="equipment.eq_class_id != null ">
-        and e.eq_class_id = = #{eq_class_id}
-      </if>
-      <if test="equipment.state != null ">
-        and e.state = = #{state}
-      </if>
+        <if test="romId != null">
+            and e.rom_id = #{romId}
+        </if>
+        <if test="romNumb != null">
+            and r.numb = #{romNumb}
+        </if>
+        <if test="romName != null">
+            and r.rom_name = #{romName}
+        </if>
+        <if test="serNumb != null and serNumb != ''">
+            and e.ser_numb = #{serNumb}
+        </if>
+        <if test="eqClassId != null">
+            and e.eq_class_id = = #{eqClassId}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            and c.type_name = #{typeName}
+        </if>
+        <if test="state != null">
+            and e.state = = #{state}
+        </if>
     </where>
   </select>
+
+    <!-- 查询已分配设备 -->
+    <select id="selectAllocated" resultMap="EquipmentResultMap">
+        select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        from equipment e
+        left join roms r on e.rom_id = r.id
+        left join equipment_class c on c.id = e.eq_class_id
+        where e.rom_id &lt;&gt; 0
+            <if test="romNumb != null">
+                and r.numb = #{romNumb}
+            </if>
+            <if test="romName != null">
+                and r.rom_name = #{romName}
+            </if>
+            <if test="serNumb != null and serNumb != ''">
+                and e.ser_numb = #{serNumb}
+            </if>
+            <if test="eqClassId != null">
+                and e.eq_class_id = = #{eqClassId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and c.type_name = #{typeName}
+            </if>
+            <if test="state != null">
+                and e.state = = #{state}
+            </if>
+        order by e.update_time desc
+        limit #{pageNo},#{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="selectCountAllocated" resultType="java.lang.Long">
+        select count(*)
+        from equipment e
+        left join roms r on e.rom_id = r.id
+        left join equipment_class c on c.id = e.eq_class_id
+        where e.rom_id &lt;&gt; 0
+            <if test="romNumb != null">
+                and r.numb = #{romNumb}
+            </if>
+            <if test="romName != null">
+                and r.rom_name = #{romName}
+            </if>
+            <if test="serNumb != null and serNumb != ''">
+                and e.ser_numb = #{serNumb}
+            </if>
+            <if test="eqClassId != null">
+                and e.eq_class_id = = #{eqClassId}
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and c.type_name = #{typeName}
+            </if>
+            <if test="state != null">
+                and e.state = = #{state}
+            </if>
+        order by e.update_time desc
+    </select>
+
+    <!-- 查询未分配设备 -->
+    <select id="selectUnallocated" resultMap="EquipmentResultMap">
+        select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        from equipment e
+        left join roms r on e.rom_id = r.id
+        left join equipment_class c on c.id = e.eq_class_id
+        where e.rom_id = 0
+        <if test="romNumb != null">
+            and r.numb = #{romNumb}
+        </if>
+        <if test="romName != null">
+            and r.rom_name = #{romName}
+        </if>
+        <if test="serNumb != null and serNumb != ''">
+            and e.ser_numb = #{serNumb}
+        </if>
+        <if test="eqClassId != null">
+            and e.eq_class_id = = #{eqClassId}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            and c.type_name = #{typeName}
+        </if>
+        <if test="state != null">
+            and e.state = = #{state}
+        </if>
+        order by e.update_time desc
+        limit #{pageNo},#{pageSize}
+    </select>
+    <!-- 查询总数 -->
+    <select id="selectCountUnallocated" resultType="java.lang.Long">
+        select count(*)
+        from equipment e
+        left join roms r on e.rom_id = r.id
+        left join equipment_class c on c.id = e.eq_class_id
+        where e.rom_id = 0
+        <if test="romNumb != null">
+            and r.numb = #{romNumb}
+        </if>
+        <if test="romName != null">
+            and r.rom_name = #{romName}
+        </if>
+        <if test="serNumb != null and serNumb != ''">
+            and e.ser_numb = #{serNumb}
+        </if>
+        <if test="eqClassId != null">
+            and e.eq_class_id = = #{eqClassId}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            and c.type_name = #{typeName}
+        </if>
+        <if test="state != null">
+            and e.state = = #{state}
+        </if>
+        order by e.update_time desc
+    </select>
 </mapper>

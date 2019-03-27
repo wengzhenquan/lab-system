@@ -49,7 +49,7 @@ public class CourseService {
     }
 
     /**
-     * 修改身份信息
+     * 修改课程信息
      * @param course
      * @return
      */

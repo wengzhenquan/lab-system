@@ -31,8 +31,16 @@ public class EquipmentLogController {
 
     @ApiOperation("查询所有申请")
     @GetMapping("selectEquipmentLogAll")
-    public ResultDto<PageDto<EquipmentLogDto>> selectEquipmentLogAll(@RequestBody EquipmentLog equipmentLog, @RequestParam Integer pageNo,@RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentLogAll(equipmentLog,pageNo, pageSize));
+    public ResultDto<PageDto<EquipmentLogDto>> selectEquipmentLogAll(@RequestParam(value ="userId",required = false) Long userId,
+                                                                     @RequestParam(value ="applyName",required = false) String applyName,
+                                                                     @RequestParam(value ="handleUserId",required = false) Long handleUserId,
+                                                                     @RequestParam(value ="handleUserName",required = false) String handleUserName,
+                                                                     @RequestParam(value ="eqClassId",required = false) Long eqClassId,
+                                                                     @RequestParam(value ="typeName",required = false) String typeName,
+                                                                     @RequestParam(value ="state",required = false) Integer state,
+                                                                     @RequestParam Integer pageNo,
+                                                                     @RequestParam Integer pageSize){
+        return ResultDto.ok(equipmentService.selectEquipmentLogAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state,pageNo, pageSize));
     }
 
     @ApiOperation("查询申请")

@@ -16,10 +16,65 @@ public interface EquipmentMapper {
     EquipmentDto selectByPrimaryKey(Long id);
 
 
-    List<EquipmentDto> selectAll(@Param("equipment") Equipment equipment, @Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
-
     int updateByPrimaryKey(Equipment record);
 
+    List<EquipmentDto> selectAll(@Param("romId") Long romId,
+                                 @Param("romNumb") Integer romNumb,
+                                 @Param("romName") String romName,
+                                 @Param("serNumb") String equipmentSerNumb,
+                                 @Param("eqClassId") Long eqClassId,
+                                 @Param("typeName") String typeName,
+                                 @Param("state") Integer state,
+                                 @Param("pageNo") Integer pageNo,
+                                 @Param("pageSize") Integer pageSize);
 
-    Long selectCount(@Param("equipment") Equipment equipment);
+
+    Long selectCount(@Param("romId") Long romId,
+                     @Param("romNumb") Integer romNumb,
+                     @Param("romName") String romName,
+                     @Param("serNumb") String EquipmentSerNumb,
+                     @Param("eqClassId") Long eqClassId,
+                     @Param("typeName") String typeName,
+                     @Param("state") Integer state);
+
+    /**
+     * 查看已分配设备
+     * @return
+     */
+    List<EquipmentDto> selectAllocated(@Param("romNumb") Integer romNumb,
+                                 @Param("romName") String romName,
+                                 @Param("serNumb") String EquipmentSerNumb,
+                                 @Param("eqClassId") Long eqClassId,
+                                 @Param("typeName") String typeName,
+                                 @Param("state") Integer state,
+                                 @Param("pageNo") Integer pageNo,
+                                 @Param("pageSize") Integer pageSize);
+
+    Long selectCountAllocated(@Param("romNumb") Integer romNumb,
+                     @Param("romName") String romName,
+                     @Param("serNumb") String EquipmentSerNumb,
+                     @Param("eqClassId") Long eqClassId,
+                     @Param("typeName") String typeName,
+                     @Param("state") Integer state);
+
+
+    /**
+     * 查看未分配设备
+     * @return
+     */
+    List<EquipmentDto> selectUnallocated(@Param("romNumb") Integer romNumb,
+                                       @Param("romName") String romName,
+                                       @Param("serNumb") String EquipmentSerNumb,
+                                       @Param("eqClassId") Long eqClassId,
+                                       @Param("typeName") String typeName,
+                                       @Param("state") Integer state,
+                                       @Param("pageNo") Integer pageNo,
+                                       @Param("pageSize") Integer pageSize);
+
+    Long selectCountUnallocated(@Param("romNumb") Integer romNumb,
+                              @Param("romName") String romName,
+                              @Param("serNumb") String EquipmentSerNumb,
+                              @Param("eqClassId") Long eqClassId,
+                              @Param("typeName") String typeName,
+                              @Param("state") Integer state);
 }

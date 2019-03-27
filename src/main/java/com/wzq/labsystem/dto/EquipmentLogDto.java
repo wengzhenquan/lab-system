@@ -26,7 +26,7 @@ public class EquipmentLogDto implements Serializable {
     private Long applyId;
 
     @ApiModelProperty("申请人姓名")
-    private String userName;
+    private String applyName;
 
     @ApiModelProperty("处理人ID")
     private Long handleUserId;

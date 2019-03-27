@@ -32,8 +32,40 @@ public class EquipmentController {
 
     @ApiOperation("查询所有设备信息")
     @GetMapping("selectEquipmentAll")
-    public ResultDto<PageDto<EquipmentDto>> selectEquipmentAll(@RequestBody Equipment equipment, @RequestParam Integer pageNo,@RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentAll(equipment,pageNo, pageSize));
+    public ResultDto<PageDto<EquipmentDto>> selectEquipmentAll(@RequestParam(value ="romId",required = false) Long romId,
+                                                               @RequestParam(value ="romNumb",required = false) Integer romNumb,
+                                                               @RequestParam(value ="romName",required = false) String romName,
+                                                               @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
+                                                               @RequestParam(value ="eqClassId",required = false) Long eqClassId,
+                                                               @RequestParam(value ="typeName",required = false) String typeName,
+                                                               @RequestParam(value ="state",required = false) Integer state,
+                                                               @RequestParam Integer pageNo,
+                                                               @RequestParam Integer pageSize){
+        return ResultDto.ok(equipmentService.selectEquipmentAll(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
+    }
+    @ApiOperation("查询已分配所有设备信息")
+    @GetMapping("selectEquipmentAllocated")
+    public ResultDto<PageDto<EquipmentDto>> selectEquipmentAllocated(@RequestParam(value ="romNumb",required = false) Integer romNumb,
+                                                               @RequestParam(value ="romName",required = false) String romName,
+                                                               @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
+                                                               @RequestParam(value ="eqClassId",required = false) Long eqClassId,
+                                                               @RequestParam(value ="typeName",required = false) String typeName,
+                                                               @RequestParam(value ="state",required = false) Integer state,
+                                                               @RequestParam Integer pageNo,
+                                                               @RequestParam Integer pageSize){
+        return ResultDto.ok(equipmentService.selectEquipmentAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
+    }
+    @ApiOperation("查询未分配所有设备信息")
+    @GetMapping("selectEquipmentUnallocated")
+    public ResultDto<PageDto<EquipmentDto>> selectEquipmentUnallocated(@RequestParam(value ="romNumb",required = false) Integer romNumb,
+                                                               @RequestParam(value ="romName",required = false) String romName,
+                                                               @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
+                                                               @RequestParam(value ="eqClassId",required = false) Long eqClassId,
+                                                               @RequestParam(value ="typeName",required = false) String typeName,
+                                                               @RequestParam(value ="state",required = false) Integer state,
+                                                               @RequestParam Integer pageNo,
+                                                               @RequestParam Integer pageSize){
+        return ResultDto.ok(equipmentService.selectEquipmentUnallocated(    romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
     }
 
     @ApiOperation("查询设备信息")

@@ -15,9 +15,23 @@ public interface EquipmentLogMapper {
 
     EquipmentLogDto selectByPrimaryKey(Long id);
 
-    List<EquipmentLogDto> selectAll(@Param("equipmentLog") EquipmentLog equipmentLog,@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize);
-
     int updateByPrimaryKey(EquipmentLog record);
 
-    Long selectCount(@Param("equipmentLog") EquipmentLog equipmentLog);
+    List<EquipmentLogDto> selectAll(@Param("userId") Long userId,
+                                    @Param("applyName") String applyName,
+                                    @Param("handleUserId") Long handleUserId,
+                                    @Param("handleUserName") String handleUserName,
+                                    @Param("eqClassId") Long eqClassId,
+                                    @Param("typeName") String typeName,
+                                    @Param("state") Integer state,
+                                    @Param("pageNo") Integer pageNo,
+                                    @Param("pageSize") Integer pageSize);
+
+    Long selectCount(@Param("userId") Long userId,
+                     @Param("applyName") String applyName,
+                     @Param("handleUserId") Long handleUserId,
+                     @Param("handleUserName") String handleUserName,
+                     @Param("eqClassId") Long eqClassId,
+                     @Param("typeName") String typeName,
+                     @Param("state") Integer state);
 }
