@@ -28,8 +28,7 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into roms (numb, ,rom_name, user_id,
-      content, `state`)
+    insert into roms (numb,rom_name, user_id,content, `state`)
     values (#{numb,jdbcType=INTEGER}, #{romName,jdbcType=VARCHAR},
      #{userId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT})
   </insert>
@@ -80,7 +79,7 @@
     from roms r
     left join users u on r.user_id = u.id
     <where>
-      <if test="numb != null '">
+      <if test="numb != null ">
           and r.numb = #{numb}
       </if>
       <if test="userId != null ">
