@@ -45,5 +45,7 @@ public class ExpReport implements Serializable {
     @JsonDeserialize(using = InstantJacksonDeserialize.class)
     private Instant updateTime;
 
+    @ApiModelProperty("获得分数")
+    private Integer score;
 
 }

@@ -73,13 +73,13 @@
       <if test="title != null and title != ''">
         and et.title = #{title}
       </if>
-      <if test="studentUserId != null and studentUserId != ''">
+      <if test="studentUserId != null ">
         and er.student_user_id = #{studentUserId}
       </if>
       <if test="name != null and name != ''">
         and u.name = #{name}
       </if>
-      <if test="courseId != null and courseId != ''">
+      <if test="courseId != null ">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
@@ -105,13 +105,13 @@
       <if test="title != null and title != ''">
         and et.title = #{title}
       </if>
-      <if test="studentUserId != null '">
+      <if test="studentUserId != null ">
         and er.student_user_id = #{studentUserId}
       </if>
       <if test="name != null and name != ''">
         and u.name = #{name}
       </if>
-      <if test="courseId != null '">
+      <if test="courseId != null ">
         and et.course_id = #{courseId}
       </if>
       <if test="courseName != null and courseName != ''">
