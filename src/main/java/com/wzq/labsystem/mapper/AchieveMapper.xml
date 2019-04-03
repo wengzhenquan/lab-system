@@ -35,7 +35,7 @@
     where ua.course_id &lt;&gt; 0
     and c.id = #{courseId}
     and ua.teacher_user_id = #{teacherUserId}
-    limit #{pageNo},{pageSize}
+    limit #{pageNo},#{pageSize}
   </select>
   <!-- 查询老师查看某课程学生成绩列表总数 -->
   <select id="selectAchieveCountByTeacherId" resultType="java.lang.Long">
@@ -59,7 +59,7 @@
     left join users us on us.id = ua.student_id
     where ua.course_id &lt;&gt; 0
     and us.id = #{studentId}
-    limit #{pageNo},{pageSize}
+    limit #{pageNo},#{pageSize}
   </select>
   <!-- 查询学生查看课程成绩列表总数 -->
   <select id="selectAchieveCountByStudentId" resultType="java.lang.Long">
