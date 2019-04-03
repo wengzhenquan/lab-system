@@ -29,7 +29,7 @@ public class RomsController {
     }
 
     @ApiOperation("查询所有实验室列表")
-    @PostMapping("selectRomsAll")
+    @GetMapping("selectRomsAll")
     public ResultDto<PageDto<RomsDto>> selectRomsAll(@RequestParam(value ="numb",required = false) Integer numb,
                                                      @RequestParam(value ="userId",required = false) Long userId,
                                                      @RequestParam(value ="state",required = false) Integer state,
