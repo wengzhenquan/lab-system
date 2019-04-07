@@ -79,13 +79,13 @@
         and e.ser_numb = #{serNumb}
       </if>
       <if test="eqClassId != null">
-        and e.eq_class_id = = #{eqClassId}
+        and e.eq_class_id = #{eqClassId}
       </if>
       <if test="typeName != null and typeName != ''">
          and c.type_name = #{typeName}
       </if>
       <if test="state != null">
-        and e.state = = #{state}
+        and e.state = #{state}
       </if>
     </where>
     order by e.update_time desc
@@ -113,13 +113,13 @@
             and e.ser_numb = #{serNumb}
         </if>
         <if test="eqClassId != null">
-            and e.eq_class_id = = #{eqClassId}
+            and e.eq_class_id = #{eqClassId}
         </if>
         <if test="typeName != null and typeName != ''">
             and c.type_name = #{typeName}
         </if>
         <if test="state != null">
-            and e.state = = #{state}
+            and e.state  = #{state}
         </if>
     </where>
   </select>
@@ -141,13 +141,13 @@
                 and e.ser_numb = #{serNumb}
             </if>
             <if test="eqClassId != null">
-                and e.eq_class_id = = #{eqClassId}
+                and e.eq_class_id = #{eqClassId}
             </if>
             <if test="typeName != null and typeName != ''">
                 and c.type_name = #{typeName}
             </if>
             <if test="state != null">
-                and e.state = = #{state}
+                and e.state = #{state}
             </if>
         order by e.update_time desc
         limit #{pageNo},#{pageSize}
@@ -169,13 +169,13 @@
                 and e.ser_numb = #{serNumb}
             </if>
             <if test="eqClassId != null">
-                and e.eq_class_id = = #{eqClassId}
+                and e.eq_class_id = #{eqClassId}
             </if>
             <if test="typeName != null and typeName != ''">
                 and c.type_name = #{typeName}
             </if>
             <if test="state != null">
-                and e.state = = #{state}
+                and e.state = #{state}
             </if>
         order by e.update_time desc
     </select>
@@ -197,13 +197,13 @@
             and e.ser_numb = #{serNumb}
         </if>
         <if test="eqClassId != null">
-            and e.eq_class_id = = #{eqClassId}
+            and e.eq_class_id = #{eqClassId}
         </if>
         <if test="typeName != null and typeName != ''">
             and c.type_name = #{typeName}
         </if>
         <if test="state != null">
-            and e.state = = #{state}
+            and e.state  = #{state}
         </if>
         order by e.update_time desc
         limit #{pageNo},#{pageSize}
@@ -225,13 +225,13 @@
             and e.ser_numb = #{serNumb}
         </if>
         <if test="eqClassId != null">
-            and e.eq_class_id = = #{eqClassId}
+            and e.eq_class_id = #{eqClassId}
         </if>
         <if test="typeName != null and typeName != ''">
             and c.type_name = #{typeName}
         </if>
         <if test="state != null">
-            and e.state = = #{state}
+            and e.state = #{state}
         </if>
         order by e.update_time desc
     </select>
