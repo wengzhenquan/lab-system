@@ -126,7 +126,7 @@
 
     <!-- 查询已分配设备 -->
     <select id="selectAllocated" resultMap="EquipmentResultMap">
-        select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        select e.id, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
         from equipment e
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
@@ -182,7 +182,7 @@
 
     <!-- 查询未分配设备 -->
     <select id="selectUnallocated" resultMap="EquipmentResultMap">
-        select e.id, e.ser_numb, e.rom_id,r.numb,r.name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        select e.id, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
         from equipment e
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
