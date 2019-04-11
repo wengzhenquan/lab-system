@@ -26,7 +26,7 @@
 
   <!-- 老师查看某课程学生成绩列表 -->
   <select id="selectAchieveAllByTeacherId" resultMap="BaseResultMap">
-    select c.id as course_id, c.course_name,us.id as studentId,
+    select c.id as course_id, c.course_name,us.id as student_id,
     us.name as student_name, c.total_score,ua.achieve
     from course c
     left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
