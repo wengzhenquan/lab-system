@@ -114,17 +114,15 @@ public class EquipmentService {
      * @param pageSize
      * @return
      */
-    public PageDto<EquipmentDto> selectEquipmentUnallocated(Integer romNumb,
-                                                          String romName,
-                                                          String equipmentSerNumb,
+    public PageDto<EquipmentDto> selectEquipmentUnallocated(String equipmentSerNumb,
                                                           Long eqClassId,
                                                           String typeName,
                                                           Integer state,
                                                           Integer pageNo,
                                                           Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentDto> equipmentlist = equipmentMapper.selectUnallocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
-        Long count = equipmentMapper.selectCountUnallocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectUnallocated(equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCountUnallocated(equipmentSerNumb,eqClassId,typeName,state);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentlist);

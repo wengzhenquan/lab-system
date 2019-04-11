@@ -187,12 +187,6 @@
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
         where e.rom_id = 0
-        <if test="romNumb != null">
-            and r.numb = #{romNumb}
-        </if>
-        <if test="romName != null">
-            and r.rom_name = #{romName}
-        </if>
         <if test="serNumb != null and serNumb != ''">
             and e.ser_numb = #{serNumb}
         </if>
@@ -215,12 +209,6 @@
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
         where e.rom_id = 0
-        <if test="romNumb != null">
-            and r.numb = #{romNumb}
-        </if>
-        <if test="romName != null">
-            and r.rom_name = #{romName}
-        </if>
         <if test="serNumb != null and serNumb != ''">
             and e.ser_numb = #{serNumb}
         </if>

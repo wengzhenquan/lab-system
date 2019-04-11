@@ -62,18 +62,14 @@ public interface EquipmentMapper {
      * 查看未分配设备
      * @return
      */
-    List<EquipmentDto> selectUnallocated(@Param("romNumb") Integer romNumb,
-                                       @Param("romName") String romName,
-                                       @Param("serNumb") String EquipmentSerNumb,
+    List<EquipmentDto> selectUnallocated(@Param("serNumb") String EquipmentSerNumb,
                                        @Param("eqClassId") Long eqClassId,
                                        @Param("typeName") String typeName,
                                        @Param("state") Integer state,
                                        @Param("pageNo") Integer pageNo,
                                        @Param("pageSize") Integer pageSize);
 
-    Long selectCountUnallocated(@Param("romNumb") Integer romNumb,
-                              @Param("romName") String romName,
-                              @Param("serNumb") String EquipmentSerNumb,
+    Long selectCountUnallocated(@Param("serNumb") String EquipmentSerNumb,
                               @Param("eqClassId") Long eqClassId,
                               @Param("typeName") String typeName,
                               @Param("state") Integer state);
