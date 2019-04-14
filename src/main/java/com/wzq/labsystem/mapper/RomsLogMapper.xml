@@ -95,7 +95,10 @@
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
-    from roms_log
+    from roms_log l
+    left join users u on u.id = l.user_id
+    left join users a on a.id = l.handle_user_id
+    left join roms r on r.id = l.rom_id
     <where>
       <if test="userId != null ">
         and l.user_id = #{userId}

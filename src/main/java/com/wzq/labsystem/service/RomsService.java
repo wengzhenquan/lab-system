@@ -51,7 +51,7 @@ public class RomsService {
         List<RomsStateUpdateDto> list = romsLogDtos.stream()
                 .filter(romsLogDto -> timeNow.isBefore(romsLogDto.getEndTime()))
                 .map(romsLogDto -> RomsStateUpdateDto.builder()
-                                       .romLogId(romsLogDto.getLogId())
+                                       .romLogId(romsLogDto.getId())
                                        .romId(romsLogDto.getRomId())
                                        .startTime(romsLogDto.getStartTime())
                                        .endTime(romsLogDto.getEndTime()).build())
@@ -161,14 +161,14 @@ public class RomsService {
 
     /**
      * 修改申请状态
-     * @param romRomLogId 申请记录ID
+     * @param romLogId 申请记录ID
      * @param romId 分配的教室ID  若状态为2  可以为null
      * @param state 状态(0申请中,1已审批,2未通过审批)
      * @param handleUserId 处理人ID
      * @return
      */
-    public Integer updateRomLogState(Long romRomLogId,Long romId, Integer state,Long handleUserId){
-        RomsLog romsLog = romsLogMapper.selectByPrimaryKey(romRomLogId);
+    public Integer updateRomLogState(Long romLogId,Long romId, Integer state,Long handleUserId){
+        RomsLog romsLog = romsLogMapper.selectByPrimaryKey(romLogId);
         Integer stateOld = romsLog.getState();
         if(0 == state) throw new ServiceException(502, "不能将状态改为审批中");
         Integer result = 0;
@@ -177,7 +177,7 @@ public class RomsService {
                 case 1:{
                     Assert.notNull(romId,"通过审批，请指定教室ID");
                     result = romsLogMapper.updateState(RomsLog.builder()
-                            .id(romRomLogId)
+                            .id(romLogId)
                             .handleUserId(handleUserId)
                             .handleTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)))
                             .romId(romId)
@@ -191,7 +191,7 @@ public class RomsService {
                 }
                 case 2:{
                     result = romsLogMapper.updateState(RomsLog.builder()
-                            .id(romRomLogId)
+                            .id(romLogId)
                             .handleUserId(handleUserId)
                             .handleTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)))
                             .state(state).build());

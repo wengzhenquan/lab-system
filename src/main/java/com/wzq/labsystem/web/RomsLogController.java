@@ -40,16 +40,16 @@ public class RomsLogController {
     @ApiOperation("修改申请状态")
     @GetMapping("updateRomLogState")
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", dataType = "long", name = "romRomLogId", value = "申请记录ID"),
+            @ApiImplicitParam(paramType = "query", dataType = "long", name = "romLogId", value = "申请记录ID"),
             @ApiImplicitParam(paramType = "query", dataType = "long", name = "romId", value = "分配的教室ID  若状态为2  可以为null"),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "state", value = "状态(0申请中,1已审批,2未通过审批)"),
             @ApiImplicitParam(paramType = "query", dataType = "long", name = "handleUserId", value = "处理人ID")
     })
-    public ResultDto<Integer> updateRomLogState(@RequestParam Long romRomLogId,
+    public ResultDto<Integer> updateRomLogState(@RequestParam Long romLogId,
                                                 @RequestParam Long romId,
                                                 @RequestParam Integer state,
                                                 @RequestParam Long handleUserId){
-        return ResultDto.ok(romsService.updateRomLogState(romRomLogId, romId, state, handleUserId));
+        return ResultDto.ok(romsService.updateRomLogState(romLogId, romId, state, handleUserId));
     }
 
 

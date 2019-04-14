@@ -17,7 +17,7 @@ import java.time.Instant;
 @ApiModel("教室申请日志")
 public class RomsLogDto {
 
-    private Long logId;
+    private Long id;
 
     @ApiModelProperty("申请人ID")
     private Long applyId;
@@ -35,7 +35,7 @@ public class RomsLogDto {
     private Long romId;
 
     @ApiModelProperty("教室编号")
-    private Long romNub;
+    private Long romNumb;
 
     @ApiModelProperty("教室名称")
     private String romName;
