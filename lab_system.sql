@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : root
+ Source Server         : 本地
  Source Server Type    : MySQL
  Source Server Version : 50718
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 12/04/2019 23:00:47
+ Date: 15/04/2019 19:42:45
 */
 
 SET NAMES utf8mb4;
@@ -114,7 +114,7 @@ CREATE TABLE `exp_report`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间：update_time',
   `score` int(11) NULL DEFAULT 0 COMMENT '获得分数：score',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验报告表exp_report' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验报告表exp_report' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exp_report
@@ -122,9 +122,14 @@ CREATE TABLE `exp_report`  (
 INSERT INTO `exp_report` VALUES (1, 6, 27, '<p>完成试卷一的内容</p>', '', '2019-04-12 05:39:40', 85);
 INSERT INTO `exp_report` VALUES (2, 12, 27, '<p>十篇</p>', '', '2019-04-12 05:39:33', 90);
 INSERT INTO `exp_report` VALUES (3, 7, 28, '<p>1222</p>', '', '2019-04-12 06:07:16', 96);
-INSERT INTO `exp_report` VALUES (4, 10, 29, '2', '', '2019-04-12 06:09:33', NULL);
-INSERT INTO `exp_report` VALUES (5, 7, 29, '1', '', '2019-04-12 06:14:34', NULL);
-INSERT INTO `exp_report` VALUES (6, 8, 29, '1', '', '2019-04-12 06:15:18', NULL);
+INSERT INTO `exp_report` VALUES (4, 10, 29, '2', '', '2019-04-12 06:09:33', 0);
+INSERT INTO `exp_report` VALUES (5, 7, 29, '1', '', '2019-04-12 06:14:34', 0);
+INSERT INTO `exp_report` VALUES (6, 8, 29, '1', '', '2019-04-12 06:15:18', 0);
+INSERT INTO `exp_report` VALUES (7, 13, 28, 'defef', NULL, '2019-04-12 06:15:18', 84);
+INSERT INTO `exp_report` VALUES (8, 14, 28, 'uiygjy', NULL, '2019-04-12 06:15:18', 99);
+INSERT INTO `exp_report` VALUES (9, 15, 28, 'htttjt', NULL, '2019-04-12 06:15:18', 31);
+INSERT INTO `exp_report` VALUES (10, 14, 27, ';o;oo;', NULL, '2019-04-12 06:15:18', 55);
+INSERT INTO `exp_report` VALUES (11, 13, 29, 'uyyyy', NULL, '2019-04-12 06:15:18', 33);
 
 -- ----------------------------
 -- Table structure for exp_tesk
@@ -140,7 +145,7 @@ CREATE TABLE `exp_tesk`  (
   `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间：end_time',
   `file_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '课件:file_url',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验任务表exp_tesk' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '实验任务表exp_tesk' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exp_tesk
@@ -158,6 +163,8 @@ INSERT INTO `exp_tesk` VALUES (10, 7, NULL, '2', '2', '2019-03-26 00:00:00', '20
 INSERT INTO `exp_tesk` VALUES (11, 7, NULL, '111', '11111', '2019-03-19 00:00:00', '2019-03-26 00:00:00', 'http://localhost:8081/upload_tmp/2019-03-27/xls/1553700044425-15计科非师2班-3-4周.xls');
 INSERT INTO `exp_tesk` VALUES (12, 7, NULL, '英语阅读', '十篇', '2019-03-26 00:00:00', '2019-04-05 00:00:00', 'http://localhost:8081/upload_tmp/2019-03-27/xls/1553701444185-15计科非师2班-3-4周.xls');
 INSERT INTO `exp_tesk` VALUES (13, 8, NULL, '高等数学实验一', '<p>11111</p>', '2019-04-11 00:00:00', '2019-06-06 00:00:00', '');
+INSERT INTO `exp_tesk` VALUES (14, 8, NULL, 'wdwdw', 'dsfsefsd', '2019-04-12 06:15:18', '2019-04-12 06:15:18', NULL);
+INSERT INTO `exp_tesk` VALUES (15, 8, NULL, 'feffdxvccb', 'gghghghg', '2019-04-12 06:15:18', '2019-04-12 06:15:18', NULL);
 
 -- ----------------------------
 -- Table structure for identity
@@ -242,9 +249,9 @@ CREATE TABLE `user_activity`  (
 INSERT INTO `user_activity` VALUES (1, 27, 15, 7, 1.75);
 INSERT INTO `user_activity` VALUES (2, 28, 15, 7, 1.92);
 INSERT INTO `user_activity` VALUES (3, 29, 15, 7, 1.9);
-INSERT INTO `user_activity` VALUES (4, 27, 15, 8, 0);
-INSERT INTO `user_activity` VALUES (5, 28, 15, 8, 0);
-INSERT INTO `user_activity` VALUES (6, 29, 15, 8, 0);
+INSERT INTO `user_activity` VALUES (4, 27, 15, 8, 2.2);
+INSERT INTO `user_activity` VALUES (5, 28, 15, 8, 2.85);
+INSERT INTO `user_activity` VALUES (6, 29, 15, 8, 1.32);
 
 -- ----------------------------
 -- Table structure for users
@@ -275,7 +282,7 @@ INSERT INTO `users` VALUES (30, 3, 'wzq', '111111', '翁先生', '');
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `acti_`;
 delimiter ;;
-CREATE PROCEDURE `acti_`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acti_`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
       set b.com_user_id = user_id 
@@ -299,7 +306,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `acti_1`;
 delimiter ;;
-CREATE PROCEDURE `acti_1`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acti_1`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
       set b.com_user_id = user_id 
@@ -323,7 +330,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `acti_2`;
 delimiter ;;
-CREATE PROCEDURE `acti_2`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acti_2`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
       set b.com_user_id = user_id 
@@ -347,7 +354,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `acti_task`;
 delimiter ;;
-CREATE PROCEDURE `acti_task`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acti_task`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN acti_task b ON a.id = b.creator_user_id  
 			set b.creator_user_id = user_id 
@@ -361,7 +368,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `acti_weighting_user`;
 delimiter ;;
-CREATE PROCEDURE `acti_weighting_user`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acti_weighting_user`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
 			set b.com_user_id = user_id 
@@ -375,7 +382,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `app_user_invite_his`;
 delimiter ;;
-CREATE PROCEDURE `app_user_invite_his`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `app_user_invite_his`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN app_user_invite_his b ON a.id = b.user_id  
 			set b.user_id = user_id 
@@ -389,7 +396,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `collect_project`;
 delimiter ;;
-CREATE PROCEDURE `collect_project`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `collect_project`(IN user_id bigint,IN id bigint)
 BEGIN
       UPDATE company_user a JOIN collect_project b ON a.id = b.user_id  
 			set b.user_id = user_id 
@@ -403,7 +410,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `update_user`;
 delimiter ;;
-CREATE PROCEDURE `update_user`(IN user_id bigint,IN id bigint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_user`(IN user_id bigint,IN id bigint)
 BEGIN
 		UPDATE company_user a JOIN acti_weighting_user b ON a.id = b.com_user_id  
       set b.com_user_id = user_id 

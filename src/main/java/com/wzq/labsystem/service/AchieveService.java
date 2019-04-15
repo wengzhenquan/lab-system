@@ -98,12 +98,10 @@ public class AchieveService {
         Assert.notNull(studentId,"学生不能为空");
         Assert.notNull(teacherId,"老师不能为空");
         List<ExpReportDto> expReportDtoList = expReportMapper.selectAll(null, null, studentId, null, courseId, null, null, null);
-
         Integer sum = expReportDtoList.stream().map(ExpReportDto::getScore).reduce(0, Integer::sum);
-        Double rate = ((double) sum) / (expReportDtoList.size() * 100);
+        Double rate = expReportDtoList.size() == 0 ? 0 : ((double) sum) / (expReportDtoList.size() * 100);
         Integer totalScore = courseMapper.selectByPrimaryKey(courseId).getTotalScore();
         Double achieve = new BigDecimal(rate * totalScore).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-
         int result = achieveMapper.updateAchieveBy(achieve, courseId, studentId, teacherId);
         if(1 != result) throw new ServiceException(501, "成绩修改失败！");
         return result;

@@ -43,6 +43,7 @@ public class ExpReportService {
         Assert.notNull(expReport.getTeskId(), "所属实验任务不能为空！");
         Assert.notNull(expReport.getStudentUserId(), "提交报告的学生不能为空！");
         expReport.setUpdateTime(Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8)));
+        expReport.setScore(0);
         int result = expReportMapper.insert(expReport);
         if(0 == result) throw new ServiceException(501, "添加失败");
         return result;

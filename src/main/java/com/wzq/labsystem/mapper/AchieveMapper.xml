@@ -28,11 +28,11 @@
   <select id="selectAchieveAllByTeacherId" resultMap="BaseResultMap">
     select c.id as course_id, c.course_name,us.id as student_id,
     us.name as student_name, c.total_score,ua.achieve
-    from course c
-    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
-    left join users ut on ut.id = c.teacher_user_id
+    from  user_activity ua
+    left join course c on ua.course_id = c.id
+    left join users ut on ut.id = ua.teacher_user_id
     left join users us on us.id = ua.student_id
-    where ua.course_id &lt;&gt; 0
+    where ua.course_id = #{courseId}
     and c.id = #{courseId}
     and ua.teacher_user_id = #{teacherUserId}
     limit #{pageNo},#{pageSize}
@@ -40,11 +40,11 @@
   <!-- 查询老师查看某课程学生成绩列表总数 -->
   <select id="selectAchieveCountByTeacherId" resultType="java.lang.Long">
     select count(*)
-    from course c
-    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
-    left join users ut on ut.id = c.teacher_user_id
+    from  user_activity ua
+    left join course c on ua.course_id = c.id
+    left join users ut on ut.id = ua.teacher_user_id
     left join users us on us.id = ua.student_id
-    where ua.course_id &lt;&gt; 0
+    where ua.course_id = #{courseId}
     and c.id = #{courseId}
     and ua.teacher_user_id = #{teacherUserId}
   </select>
@@ -53,9 +53,9 @@
   <select id="selectAchieveAllByStudentId" resultMap="BaseResultMap">
     select c.id as course_id, c.course_name, ua.teacher_user_id,
     ut.name as teacher_name, c.total_score,ua.achieve
-    from course c
-    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
-    left join users ut on ut.id = c.teacher_user_id
+    from  user_activity ua
+    left join course c on ua.course_id = c.id
+    left join users ut on ut.id = ua.teacher_user_id
     left join users us on us.id = ua.student_id
     where ua.course_id &lt;&gt; 0
     and us.id = #{studentId}
@@ -64,9 +64,9 @@
   <!-- 查询学生查看课程成绩列表总数 -->
   <select id="selectAchieveCountByStudentId" resultType="java.lang.Long">
     select count(*)
-    from course c
-    left join user_activity ua on ua.teacher_user_id = c.teacher_user_id
-    left join users ut on ut.id = c.teacher_user_id
+    from  user_activity ua
+    left join course c on ua.course_id = c.id
+    left join users ut on ut.id = ua.teacher_user_id
     left join users us on us.id = ua.student_id
     where ua.course_id &lt;&gt; 0
     and us.id = #{studentId}
