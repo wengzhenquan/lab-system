@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @Api(tags ={"2-1 课程管理"})
 public class CourseController {
@@ -41,6 +43,18 @@ public class CourseController {
     @GetMapping("selectCourseById")
     public ResultDto<CourseDto> selectCourseById(@RequestParam Long courseId){
         return ResultDto.ok(courseService.selectCourseById(courseId));
+    }
+
+    @ApiOperation("获取课程信息数量（用于删除前确认）")
+    @GetMapping("getCourseInfoCount")
+    public ResultDto<Map<String,Long>> getCourseInfoCount(@RequestParam Long courseId){
+        return ResultDto.ok(courseService.getCourseInfoCount(courseId));
+    }
+
+    @ApiOperation("删除课程（确认删除）")
+    @GetMapping("deleteCourse")
+    public ResultDto<Integer> deleteCourse(@RequestParam Long courseId){
+        return ResultDto.ok(courseService.deleteCourse(courseId));
     }
 
 }

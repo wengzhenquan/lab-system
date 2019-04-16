@@ -59,5 +59,25 @@ public class UserActivitityController {
         return ResultDto.ok(userActivityService.selectStudentByCourseId(courseId,courseName,pageNo,pageSize));
     }
 
+    @ApiOperation("获取某老师所有的学生列表")
+    @GetMapping("selectStudentAllByteacherUserId")
+    public ResultDto<PageDto<UserActivityDto>> selectStudentAllByteacherUserId(@RequestParam(value ="teacherUserId",required = false) Long teacherUserId,
+                                                                       @RequestParam(value ="teacherName",required = false) String teacherName,
+                                                                       @RequestParam Integer pageNo,
+                                                                       @RequestParam Integer pageSize){
+        return ResultDto.ok(userActivityService.selectStudentAllByteacherUserId(teacherUserId,teacherName,pageNo,pageSize));
+    }
+
+    @ApiOperation("根据条件获取课程列表")
+    @GetMapping("selectCourseAllBy")
+    public ResultDto<PageDto<UserActivityDto>> selectCourseAllBy(@RequestParam(value ="studentId",required = false) Long studentId,
+                                                                 @RequestParam(value ="studentName",required = false) String studentName,
+                                                                 @RequestParam(value ="teacherUserId",required = false) Long teacherUserId,
+                                                                 @RequestParam(value ="teacherName",required = false) String teacherName,
+                                                                 @RequestParam Integer pageNo,
+                                                                 @RequestParam Integer pageSize){
+        return ResultDto.ok(userActivityService.selectCourseAllBy(studentId, studentName,teacherUserId,teacherName,pageNo,pageSize));
+    }
+
 
 }

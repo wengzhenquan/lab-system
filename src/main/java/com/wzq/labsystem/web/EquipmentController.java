@@ -96,4 +96,11 @@ public class EquipmentController {
         return ResultDto.ok(equipmentService.selectClassById(equipmentClassId));
     }
 
+    @ApiOperation("删除设备")
+    @GetMapping("deleteEquipment")
+    public ResultDto<Integer> deleteEquipment(@RequestParam Long equipmentId){
+        return ResultDto.ok(equipmentService.deleteEquipment(equipmentId));
+    }
+
+
 }

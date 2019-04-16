@@ -20,4 +20,10 @@ public interface CourseMapper {
     Long selectCount(@Param("teacherUserId") Long teacherUserId);
 
     int updateByPrimaryKey(Course record);
+
+    int deleteStudent(Long courseId);
+
+    int deleteExpReport(Long courseId);
+
+    int deleteExpTesk(Long courseId);
 }

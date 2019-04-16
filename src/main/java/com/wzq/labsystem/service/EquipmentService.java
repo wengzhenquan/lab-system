@@ -138,6 +138,17 @@ public class EquipmentService {
     }
 
 
+    /**
+     * 删除设备
+     * @param equipmentId
+     * @return
+     */
+    public Integer deleteEquipment(Long equipmentId){
+        int result = equipmentMapper.deleteByPrimaryKey(equipmentId);
+        if(0 == result) throw new ServiceException(501, "删除失败");
+        return result;
+    }
+
 
     // TODO 设备分类
 
@@ -189,6 +200,7 @@ public class EquipmentService {
     public EquipmentClass selectClassById(Long equipmentClassId){
         return equipmentClassMapper.selectByPrimaryKey(equipmentClassId);
     }
+
 
 
 
@@ -260,6 +272,19 @@ public class EquipmentService {
     public EquipmentLogDto selectLogById(Long equipmentLogId){
         return equipmentLogMapper.selectByPrimaryKey(equipmentLogId);
     }
+
+    /**
+     * 删除申请记录
+     * @param equipmentLogId
+     * @return
+     */
+    public Integer deleteEquipmentLog(Long equipmentLogId){
+        int result = equipmentLogMapper.deleteByPrimaryKey(equipmentLogId);
+        if(0 == result) throw new ServiceException(501, "删除失败");
+        return result;
+    }
+
+
 
 
 

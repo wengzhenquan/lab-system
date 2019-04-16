@@ -36,7 +36,7 @@ public class ExpReportController {
         return ResultDto.ok(expReportService.insertExpReport(expReport));
     }
 
-    @ApiOperation("修改实验任务")
+    @ApiOperation("修改实验报告")
     @PostMapping("updateExpReport")
     public ResultDto<Integer> updateExpReport(@RequestBody ExpReport expReport){
         return ResultDto.ok(expReportService.updateExpReport(expReport));
@@ -46,6 +46,12 @@ public class ExpReportController {
     @GetMapping("selectExpReportById")
     public ResultDto<ExpReportDto> selectExpReportById(@RequestParam Long expReportId){
         return ResultDto.ok(expReportService.selectExpReportById(expReportId));
+    }
+
+    @ApiOperation("删除实验报告")
+    @GetMapping("deleteExpReport")
+    public ResultDto<Integer> deleteExpReport(@RequestParam Long expReportId){
+        return ResultDto.ok(expReportService.deleteExpReport(expReportId));
     }
 
 }

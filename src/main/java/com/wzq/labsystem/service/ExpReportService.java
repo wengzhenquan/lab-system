@@ -50,7 +50,7 @@ public class ExpReportService {
     }
 
     /**
-     * 修改实验任务
+     * 修改实验报告
      * @param expReport
      * @return
      */
@@ -70,6 +70,18 @@ public class ExpReportService {
      */
     public ExpReportDto selectExpReportById(Long expReportId){
         return expReportMapper.selectByPrimaryKey(expReportId);
+    }
+
+
+    /**
+     * 删除实验报告
+     * @param expReportId
+     * @return
+     */
+    public Integer deleteExpReport(Long expReportId){
+        int result = expReportMapper.deleteByPrimaryKey(expReportId);
+        if(0 == result) throw new ServiceException(501, "删除失败");
+        return result;
     }
 
 }

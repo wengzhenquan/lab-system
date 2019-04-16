@@ -11,6 +11,8 @@ import java.util.List;
 public interface ExpReportMapper {
     int deleteByPrimaryKey(Long id);
 
+    int deleteByTeskId(Long teskId);
+
     int insert(ExpReport record);
 
     ExpReportDto selectByPrimaryKey(Long id);

@@ -53,5 +53,10 @@ public class RomsLogController {
     }
 
 
+    @ApiOperation("删除实验室申请记录")
+    @GetMapping("deleteRomLog")
+    public ResultDto<Integer> deleteRomLog(@RequestParam Long romLogId){
+        return ResultDto.ok(romsService.deleteRomLog(romLogId));
+    }
 
 }

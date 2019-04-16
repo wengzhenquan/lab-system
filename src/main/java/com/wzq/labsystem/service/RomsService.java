@@ -225,4 +225,15 @@ public class RomsService {
 
     }
 
+    /**
+     * 删除申请记录
+     * @param romLogId
+     * @return
+     */
+    public Integer deleteRomLog(Long romLogId){
+        int result = romsLogMapper.deleteByPrimaryKey(romLogId);
+        if(0 == result) throw new ServiceException(501, "删除失败");
+        return result;
+    }
+
 }

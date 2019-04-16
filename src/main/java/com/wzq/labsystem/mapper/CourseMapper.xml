@@ -71,4 +71,20 @@
       </if>
     </where>
   </select>
+
+  <delete id="deleteStudent" parameterType="java.lang.Long">
+    delete from user_activity
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteExpReport" parameterType="java.lang.Long">
+    delete t1 from exp_report t1
+    left join exp_tesk t2 on t2.id = t1.tesk_id
+    where t2.course_id = #{courseId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteExpTesk" parameterType="java.lang.Long">
+    delete from exp_tesk
+    where course_id = #{courseId,jdbcType=BIGINT}
+  </delete>
 </mapper>

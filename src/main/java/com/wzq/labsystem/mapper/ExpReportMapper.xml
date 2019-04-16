@@ -29,6 +29,12 @@
     delete from exp_report
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
+  <delete id="deleteByTeskId" parameterType="java.lang.Long">
+    delete from exp_report
+    where tesk_id = #{teskId,jdbcType=BIGINT}
+  </delete>
+
   <insert id="insert" parameterType="com.wzq.labsystem.dto.po.ExpReport">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
@@ -119,5 +125,7 @@
       </if>
     </where>
   </select>
+
+
 
 </mapper>

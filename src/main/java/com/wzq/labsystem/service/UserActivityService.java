@@ -33,7 +33,8 @@ public class UserActivityService {
             throw new ServiceException(501, "该学生已经是该老师的学生");
         Integer result = userActivityMapper.insert(UserActivity.builder()
                 .studentId(studentId)
-                .teacherUserId(teacherId).build());
+                .teacherUserId(teacherId)
+                .courseId(0L).build());
         if(0 == result)
             throw new ServiceException(501, "添加失败");
         return result;

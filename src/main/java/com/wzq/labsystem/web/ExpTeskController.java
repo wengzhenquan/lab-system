@@ -45,4 +45,16 @@ public class ExpTeskController {
     public ResultDto<ExpTeskDto> selectExpTeskById(@RequestParam Long expTeskId){
         return ResultDto.ok(expTeskService.selectExpTeskById(expTeskId));
     }
+
+    @ApiOperation("获取实验任务下的实验报告数（删除前确认）")
+    @GetMapping("getReportCount")
+    public ResultDto<Long> getReportCount(@RequestParam Long expTeskId){
+        return ResultDto.ok(expTeskService.getReportCount(expTeskId));
+    }
+
+    @ApiOperation("删除实验任务（确认删除）")
+    @GetMapping("deleteExpTesk")
+    public ResultDto<Integer> deleteExpTesk(@RequestParam Long expTeskId){
+        return ResultDto.ok(expTeskService.deleteExpTesk(expTeskId));
+    }
 }

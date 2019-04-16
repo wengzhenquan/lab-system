@@ -49,6 +49,12 @@ public class EquipmentLogController {
         return ResultDto.ok(equipmentService.selectLogById(equipmentLogId));
     }
 
+    @ApiOperation("删除设备申请记录")
+    @GetMapping("deleteEquipmentLog")
+    public ResultDto<Integer> deleteEquipmentLog(@RequestParam Long equipmentLogId){
+        return ResultDto.ok(equipmentService.deleteEquipmentLog(equipmentLogId));
+    }
+
 
 
 }
