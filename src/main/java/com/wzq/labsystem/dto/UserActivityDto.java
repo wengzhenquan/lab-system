@@ -15,6 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ApiModel("用户活动表")
 public class UserActivityDto implements Serializable {
+
     private static final long serialVersionUID = -6808402584697159056L;
 
     private Long id;

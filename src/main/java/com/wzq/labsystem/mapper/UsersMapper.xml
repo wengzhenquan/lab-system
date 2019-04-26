@@ -113,4 +113,12 @@
     and user_name = #{newPwd}
   </update>
 
+  <!-- 修改密码 -->
+  <update id="updatePwdById">
+    update users
+    set pwd = #{pwd}
+    where id = #{id}
+
+  </update>
+
 </mapper>

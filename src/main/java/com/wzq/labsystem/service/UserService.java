@@ -52,6 +52,20 @@ public class UserService {
         return result;
     }
 
+    /**
+     * 强制修改密码
+     * @param pwd
+     * @param pwd
+     * @return
+     */
+    public Integer updatePwdById(Long userId, String pwd) {
+        Assert.notNull(userId,"需要修改密码的用户ID不能为空");
+        Assert.notNull(pwd,"密码不能为空");
+        int result = userMapper.updatePwdById(userId, pwd);
+        if (0 == result) throw new ServiceException(501, "修改失败");
+        return result;
+    }
+
 
     /**
      * 添加新账户
