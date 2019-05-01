@@ -98,6 +98,9 @@
       <if test="typeName != null and typeName = ''">
         and c.type_name = #{typeName}
       </if>
+      <if test="type != null">
+        and l.type = #{type}
+      </if>
       <if test="state != null ">
         and l.state = #{state}
       </if>

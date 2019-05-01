@@ -37,10 +37,11 @@ public class EquipmentLogController {
                                                                      @RequestParam(value ="handleUserName",required = false) String handleUserName,
                                                                      @RequestParam(value ="eqClassId",required = false) Long eqClassId,
                                                                      @RequestParam(value ="typeName",required = false) String typeName,
+                                                                     @RequestParam Integer type,
                                                                      @RequestParam(value ="state",required = false) Integer state,
                                                                      @RequestParam Integer pageNo,
                                                                      @RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentLogAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state,pageNo, pageSize));
+        return ResultDto.ok(equipmentService.selectEquipmentLogAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,type,state,pageNo, pageSize));
     }
 
     @ApiOperation("查询申请")

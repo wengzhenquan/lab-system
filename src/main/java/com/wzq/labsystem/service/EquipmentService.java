@@ -252,12 +252,13 @@ public class EquipmentService {
                                                           String handleUserName,
                                                           Long eqClassId,
                                                           String typeName,
+                                                          Integer type,
                                                           Integer state,
                                                           Integer pageNo,
                                                           Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state,pageNo, pageSize);
-        Long count = equipmentLogMapper.selectCount(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,state);
+        List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,type,state,pageNo, pageSize);
+        Long count = equipmentLogMapper.selectCount(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,type,state);
         PageDto<EquipmentLogDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentLoglist);

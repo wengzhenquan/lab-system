@@ -23,6 +23,7 @@ public interface EquipmentLogMapper {
                                     @Param("handleUserName") String handleUserName,
                                     @Param("eqClassId") Long eqClassId,
                                     @Param("typeName") String typeName,
+                                    @Param("type") Integer type,
                                     @Param("state") Integer state,
                                     @Param("pageNo") Integer pageNo,
                                     @Param("pageSize") Integer pageSize);
@@ -33,5 +34,6 @@ public interface EquipmentLogMapper {
                      @Param("handleUserName") String handleUserName,
                      @Param("eqClassId") Long eqClassId,
                      @Param("typeName") String typeName,
+                     @Param("type") Integer type,
                      @Param("state") Integer state);
 }
