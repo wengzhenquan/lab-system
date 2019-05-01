@@ -37,7 +37,7 @@ public class EquipmentDto implements Serializable {
     private Long eqClassId;
 
     @ApiModelProperty("设备分类")
-    private String eqClassName;
+    private String typeName;
 
     @ApiModelProperty("购买时间")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
