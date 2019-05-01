@@ -256,6 +256,7 @@ public class EquipmentService {
                                                           Integer state,
                                                           Integer pageNo,
                                                           Integer pageSize) {
+        Assert.notNull(type,"类型不能为空！");
         pageNo = pageSize * (pageNo - 1);
         List<EquipmentLogDto> equipmentLoglist = equipmentLogMapper.selectAll(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,type,state,pageNo, pageSize);
         Long count = equipmentLogMapper.selectCount(userId,applyName,handleUserId,handleUserName,eqClassId,typeName,type,state);
