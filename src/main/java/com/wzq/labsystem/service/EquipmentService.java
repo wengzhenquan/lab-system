@@ -38,6 +38,7 @@ public class EquipmentService {
      * @return
      */
     public Integer insertEquipment(Equipment equipment){
+        Assert.notNull(equipment.getEqName(),"设备名称不能为空");
         Assert.notNull(equipment.getEqClassId(),"设备分类不能为空");
         equipment.setSerNumb(UUID.randomUUID().toString().replace("-","").toUpperCase());
         if(null == equipment.getRomId()) equipment.setRomId(0L);
@@ -72,6 +73,7 @@ public class EquipmentService {
     public PageDto<EquipmentDto> selectEquipmentAll(Long romId,
                                                     Integer romNumb,
                                                     String romName,
+                                                    String eqName,
                                                     String equipmentSerNumb,
                                                     Long eqClassId,
                                                     String typeName,
@@ -79,8 +81,8 @@ public class EquipmentService {
                                                     Integer pageNo,
                                                     Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentDto> equipmentlist = equipmentMapper.selectAll(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
-        Long count = equipmentMapper.selectCount(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectAll(romId,romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCount(romId,romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentlist);
@@ -95,6 +97,7 @@ public class EquipmentService {
      */
     public PageDto<EquipmentDto> selectEquipmentAllocated(Integer romNumb,
                                                     String romName,
+                                                    String eqName,
                                                     String equipmentSerNumb,
                                                     Long eqClassId,
                                                     String typeName,
@@ -102,8 +105,8 @@ public class EquipmentService {
                                                     Integer pageNo,
                                                     Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentDto> equipmentlist = equipmentMapper.selectAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
-        Long count = equipmentMapper.selectCountAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectAllocated(romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCountAllocated(romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentlist);
@@ -115,15 +118,16 @@ public class EquipmentService {
      * @param pageSize
      * @return
      */
-    public PageDto<EquipmentDto> selectEquipmentUnallocated(String equipmentSerNumb,
+    public PageDto<EquipmentDto> selectEquipmentUnallocated(String eqName,
+                                                            String equipmentSerNumb,
                                                           Long eqClassId,
                                                           String typeName,
                                                           Integer state,
                                                           Integer pageNo,
                                                           Integer pageSize) {
         pageNo = pageSize * (pageNo - 1);
-        List<EquipmentDto> equipmentlist = equipmentMapper.selectUnallocated(equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
-        Long count = equipmentMapper.selectCountUnallocated(equipmentSerNumb,eqClassId,typeName,state);
+        List<EquipmentDto> equipmentlist = equipmentMapper.selectUnallocated(eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize);
+        Long count = equipmentMapper.selectCountUnallocated(eqName,equipmentSerNumb,eqClassId,typeName,state);
         PageDto<EquipmentDto> pageDto = new PageDto<>();
         pageDto.setTotal(count);
         pageDto.setData(equipmentlist);

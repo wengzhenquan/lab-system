@@ -28,6 +28,9 @@ public class Equipment implements Serializable {
     @ApiModelProperty("ID")
     private Long id;
 
+    @ApiModelProperty("设备名称")
+    private String eqName;
+
     @ApiModelProperty("序列编号")
     private String serNumb;
 

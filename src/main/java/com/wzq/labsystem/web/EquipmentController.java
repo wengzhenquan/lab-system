@@ -35,35 +35,38 @@ public class EquipmentController {
     public ResultDto<PageDto<EquipmentDto>> selectEquipmentAll(@RequestParam(value ="romId",required = false) Long romId,
                                                                @RequestParam(value ="romNumb",required = false) Integer romNumb,
                                                                @RequestParam(value ="romName",required = false) String romName,
+                                                               @RequestParam(value ="eqName",required = false) String eqName,
                                                                @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
                                                                @RequestParam(value ="eqClassId",required = false) Long eqClassId,
                                                                @RequestParam(value ="typeName",required = false) String typeName,
                                                                @RequestParam(value ="state",required = false) Integer state,
                                                                @RequestParam Integer pageNo,
                                                                @RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentAll(romId,romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
+        return ResultDto.ok(equipmentService.selectEquipmentAll(romId,romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
     }
     @ApiOperation("查询已分配所有设备信息")
     @GetMapping("selectEquipmentAllocated")
     public ResultDto<PageDto<EquipmentDto>> selectEquipmentAllocated(@RequestParam(value ="romNumb",required = false) Integer romNumb,
                                                                @RequestParam(value ="romName",required = false) String romName,
+                                                                     @RequestParam(value ="eqName",required = false) String eqName,
                                                                @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
                                                                @RequestParam(value ="eqClassId",required = false) Long eqClassId,
                                                                @RequestParam(value ="typeName",required = false) String typeName,
                                                                @RequestParam(value ="state",required = false) Integer state,
                                                                @RequestParam Integer pageNo,
                                                                @RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentAllocated(romNumb,romName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
+        return ResultDto.ok(equipmentService.selectEquipmentAllocated(romNumb,romName,eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
     }
     @ApiOperation("查询未分配所有设备信息")
     @GetMapping("selectEquipmentUnallocated")
-    public ResultDto<PageDto<EquipmentDto>> selectEquipmentUnallocated(@RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
+    public ResultDto<PageDto<EquipmentDto>> selectEquipmentUnallocated(@RequestParam(value ="eqName",required = false) String eqName,
+                                                                       @RequestParam(value ="equipmentSerNumb",required = false) String equipmentSerNumb,
                                                                @RequestParam(value ="eqClassId",required = false) Long eqClassId,
                                                                @RequestParam(value ="typeName",required = false) String typeName,
                                                                @RequestParam(value ="state",required = false) Integer state,
                                                                @RequestParam Integer pageNo,
                                                                @RequestParam Integer pageSize){
-        return ResultDto.ok(equipmentService.selectEquipmentUnallocated(equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
+        return ResultDto.ok(equipmentService.selectEquipmentUnallocated(eqName,equipmentSerNumb,eqClassId,typeName,state,pageNo, pageSize));
     }
 
     @ApiOperation("查询设备信息")

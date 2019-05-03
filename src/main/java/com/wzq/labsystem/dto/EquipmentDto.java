@@ -21,6 +21,9 @@ public class EquipmentDto implements Serializable {
 
     private Long id;
 
+    @ApiModelProperty("设备名称")
+    private String eqName;
+
     @ApiModelProperty("序列编号")
     private String serNumb;
 

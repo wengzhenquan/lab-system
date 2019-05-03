@@ -21,6 +21,7 @@ public interface EquipmentMapper {
     List<EquipmentDto> selectAll(@Param("romId") Long romId,
                                  @Param("romNumb") Integer romNumb,
                                  @Param("romName") String romName,
+                                 @Param("eqName") String eqName,
                                  @Param("serNumb") String equipmentSerNumb,
                                  @Param("eqClassId") Long eqClassId,
                                  @Param("typeName") String typeName,
@@ -32,6 +33,7 @@ public interface EquipmentMapper {
     Long selectCount(@Param("romId") Long romId,
                      @Param("romNumb") Integer romNumb,
                      @Param("romName") String romName,
+                     @Param("eqName") String eqName,
                      @Param("serNumb") String EquipmentSerNumb,
                      @Param("eqClassId") Long eqClassId,
                      @Param("typeName") String typeName,
@@ -43,6 +45,7 @@ public interface EquipmentMapper {
      */
     List<EquipmentDto> selectAllocated(@Param("romNumb") Integer romNumb,
                                  @Param("romName") String romName,
+                                 @Param("eqName") String eqName,
                                  @Param("serNumb") String EquipmentSerNumb,
                                  @Param("eqClassId") Long eqClassId,
                                  @Param("typeName") String typeName,
@@ -52,6 +55,7 @@ public interface EquipmentMapper {
 
     Long selectCountAllocated(@Param("romNumb") Integer romNumb,
                      @Param("romName") String romName,
+                    @Param("eqName") String eqName,
                      @Param("serNumb") String EquipmentSerNumb,
                      @Param("eqClassId") Long eqClassId,
                      @Param("typeName") String typeName,
@@ -62,14 +66,16 @@ public interface EquipmentMapper {
      * 查看未分配设备
      * @return
      */
-    List<EquipmentDto> selectUnallocated(@Param("serNumb") String EquipmentSerNumb,
+    List<EquipmentDto> selectUnallocated(@Param("eqName") String eqName,
+                                         @Param("serNumb") String EquipmentSerNumb,
                                        @Param("eqClassId") Long eqClassId,
                                        @Param("typeName") String typeName,
                                        @Param("state") Integer state,
                                        @Param("pageNo") Integer pageNo,
                                        @Param("pageSize") Integer pageSize);
 
-    Long selectCountUnallocated(@Param("serNumb") String EquipmentSerNumb,
+    Long selectCountUnallocated(@Param("eqName") String eqName,
+                                @Param("serNumb") String EquipmentSerNumb,
                               @Param("eqClassId") Long eqClassId,
                               @Param("typeName") String typeName,
                               @Param("state") Integer state);

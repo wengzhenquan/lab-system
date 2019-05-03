@@ -3,6 +3,7 @@
 <mapper namespace="com.wzq.labsystem.mapper.EquipmentMapper">
   <resultMap id="BaseResultMap" type="com.wzq.labsystem.dto.po.Equipment">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="eq_name" jdbcType="VARCHAR" property="eqName" />
     <result column="ser_numb" jdbcType="VARCHAR" property="serNumb" />
     <result column="rom_id" jdbcType="BIGINT" property="romId" />
     <result column="eq_class_id" jdbcType="BIGINT" property="eqClassId" />
@@ -14,6 +15,7 @@
 
   <resultMap id="EquipmentResultMap" type="com.wzq.labsystem.dto.EquipmentDto">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="eq_name" jdbcType="VARCHAR" property="eqName" />
     <result column="ser_numb" jdbcType="VARCHAR" property="serNumb" />
     <result column="rom_id" jdbcType="BIGINT" property="romId" />
     <result column="rom_numb" jdbcType="BIGINT" property="romNumb" />
@@ -33,16 +35,17 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into equipment (ser_numb, rom_id, eq_class_id, 
+    insert into equipment (eq_name,ser_numb, rom_id, eq_class_id,
       buy_time, repair_times, update_time, 
       `state`)
-    values (#{serNumb,jdbcType=BIGINT}, #{romId,jdbcType=BIGINT}, #{eqClassId,jdbcType=BIGINT}, 
+    values (#{eqName,jdbcType=VARCHAR},#{serNumb,jdbcType=VARCHAR}, #{romId,jdbcType=BIGINT}, #{eqClassId,jdbcType=BIGINT},
       #{buyTime,jdbcType=TIMESTAMP}, #{repairTimes,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=TINYINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Equipment">
     update equipment
-    set ser_numb = #{serNumb,jdbcType=BIGINT},
+    set eq_name = #{eqName,jdbcType=VARCHAR}
+    ser_numb = #{serNumb,jdbcType=BIGINT},
       rom_id = #{romId,jdbcType=BIGINT},
       eq_class_id = #{eqClassId,jdbcType=BIGINT},
       buy_time = #{buyTime,jdbcType=TIMESTAMP},
@@ -53,7 +56,7 @@
   </update>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EquipmentResultMap">
-    select e.id, e.ser_numb, e.rom_id,r.numb as rom_numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    select e.id,e.eq_name, e.ser_numb, e.rom_id,r.numb as rom_numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
     from equipment e
     left join roms r on e.rom_id = r.id
     left join equipment_class c on c.id = e.eq_class_id
@@ -61,7 +64,7 @@
   </select>
   <!-- 查询设备 -->
   <select id="selectAll" resultMap="EquipmentResultMap">
-    select e.id, e.ser_numb, e.rom_id,r.numb as rom_numb, r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+    select e.id,e.eq_name, e.ser_numb, e.rom_id,r.numb as rom_numb, r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
     from equipment e
     left join roms r on e.rom_id = r.id
     left join equipment_class c on c.id = e.eq_class_id
@@ -126,7 +129,7 @@
 
     <!-- 查询已分配设备 -->
     <select id="selectAllocated" resultMap="EquipmentResultMap">
-        select e.id, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        select e.id,eq_name, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
         from equipment e
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
@@ -136,6 +139,9 @@
             </if>
             <if test="romName != null">
                 and r.rom_name = #{romName}
+            </if>
+            <if test="eqName != null and eqName != ''">
+                and e.eq_name = #{eqName}
             </if>
             <if test="serNumb != null and serNumb != ''">
                 and e.ser_numb = #{serNumb}
@@ -165,6 +171,9 @@
             <if test="romName != null">
                 and r.rom_name = #{romName}
             </if>
+            <if test="eqName != null and eqName != ''">
+                and e.eq_name = #{eqName}
+            </if>
             <if test="serNumb != null and serNumb != ''">
                 and e.ser_numb = #{serNumb}
             </if>
@@ -182,11 +191,14 @@
 
     <!-- 查询未分配设备 -->
     <select id="selectUnallocated" resultMap="EquipmentResultMap">
-        select e.id, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
+        select e.id,eq_name, e.ser_numb, e.rom_id,r.numb,r.rom_name, e.eq_class_id,c.type_name, e.buy_time, e.repair_times, e.update_time, e.`state`
         from equipment e
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
         where e.rom_id = 0
+        <if test="eqName != null and eqName != ''">
+            and e.eq_name = #{eqName}
+        </if>
         <if test="serNumb != null and serNumb != ''">
             and e.ser_numb = #{serNumb}
         </if>
@@ -209,6 +221,9 @@
         left join roms r on e.rom_id = r.id
         left join equipment_class c on c.id = e.eq_class_id
         where e.rom_id = 0
+        <if test="eqName != null and eqName != ''">
+            and e.eq_name = #{eqName}
+        </if>
         <if test="serNumb != null and serNumb != ''">
             and e.ser_numb = #{serNumb}
         </if>
