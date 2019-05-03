@@ -36,13 +36,9 @@ public class UserActivitityController {
         return ResultDto.ok(userActivityService.selectStudentByTeacherId(teacherUserId,teacherName, pageNo, pageSize));
     }
 
-    @ApiOperation("将学生加入到某位老师的学生列表")
-    @GetMapping("insertStudentToTeacher")
-    public ResultDto<Integer> insertStudentToTeacher(@RequestParam Long studentId,@RequestParam Long teacherId){
-        return ResultDto.ok(userActivityService.insertStudentToTeacher(studentId,teacherId));
-    }
 
-    @ApiOperation("将学生加入到某位老师的学生列表")
+
+    @ApiOperation("学生选课（将学生加入到某课程）")
     @GetMapping("insertStudentToCourse")
     public ResultDto<Integer> insertStudentToCourse(@RequestParam Long studentId,
                                                     @RequestParam Long teacherId,

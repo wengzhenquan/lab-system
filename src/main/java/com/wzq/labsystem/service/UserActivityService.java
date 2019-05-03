@@ -28,15 +28,15 @@ public class UserActivityService {
     public Integer insertStudentToTeacher(Long studentId,Long teacherId){
         Assert.notNull(studentId, "学生不能为空");
         Assert.notNull(teacherId, "教师不能为空");
+        Integer result = 0;
         List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(studentId, null, teacherId, null, 0L, null, null, null);
-        if(0 != userActivityDtoList.size())
-            throw new ServiceException(501, "该学生已经是该老师的学生");
-        Integer result = userActivityMapper.insert(UserActivity.builder()
-                .studentId(studentId)
-                .teacherUserId(teacherId)
-                .courseId(0L).build());
-        if(0 == result)
-            throw new ServiceException(501, "添加失败");
+        if(0 == userActivityDtoList.size()){
+            result = userActivityMapper.insert(UserActivity.builder()
+                    .studentId(studentId)
+                    .teacherUserId(teacherId)
+                    .courseId(0L).build());
+        }
+
         return result;
     }
     /**
