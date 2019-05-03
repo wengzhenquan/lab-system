@@ -69,7 +69,7 @@
     from equipment_log l
     left join users u on u.id = l.user_id
     left join users h on h.id = l.handle_user_id
-    left join equipment_class c on equipment_class.id = l.eq_class_id
+    left join equipment_class c on c.id = l.eq_class_id
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="EquipmentLogResultMap">
@@ -78,24 +78,24 @@
     from equipment_log l
     left join users u on u.id = l.user_id
     left join users h on h.id = l.handle_user_id
-    left join equipment_class c on equipment_class.id = l.eq_class_id
+    left join equipment_class c on c.id = l.eq_class_id
     <where>
       <if test="userId != null">
         and l.user_id = #{userId}
       </if>
-      <if test="applyName != null and applyName = ''">
+      <if test="applyName != null and applyName != ''">
         and u.name = #{applyName}
       </if>
       <if test="handleUserId != null ">
         and l.handle_user_id = #{handleUserId}
       </if>
-      <if test="handleUserName != null and handleUserName = ''">
+      <if test="handleUserName != null and handleUserName != ''">
         and h.name = #{handleUserName}
       </if>
       <if test="eqClassId != null ">
         and l.eq_class_id = #{eqClassId}
       </if>
-      <if test="typeName != null and typeName = ''">
+      <if test="typeName != null and typeName != ''">
         and c.type_name = #{typeName}
       </if>
       <if test="type != null">
@@ -115,24 +115,24 @@
     from equipment_log l
     left join users u on u.id = l.user_id
     left join users h on h.id = l.handle_user_id
-    left join equipment_class c on equipment_class.id = l.eq_class_id
+    left join equipment_class c on c.id = l.eq_class_id
     <where>
         <if test="userId != null">
             and l.user_id = #{userId}
         </if>
-        <if test="applyName != null and applyName = ''">
+        <if test="applyName != null and applyName != ''">
             and u.name = #{applyName}
         </if>
         <if test="handleUserId != null ">
             and l.handle_user_id = #{handleUserId}
         </if>
-        <if test="handleUserName != null and handleUserName = ''">
+        <if test="handleUserName != null and handleUserName != ''">
             and h.name = #{handleUserName}
         </if>
         <if test="eqClassId != null ">
             and l.eq_class_id = #{eqClassId}
         </if>
-        <if test="typeName != null and typeName = ''">
+        <if test="typeName != null and typeName != ''">
             and c.type_name = #{typeName}
         </if>
         <if test="state != null ">

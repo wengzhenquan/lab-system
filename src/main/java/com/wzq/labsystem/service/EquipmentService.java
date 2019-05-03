@@ -40,6 +40,7 @@ public class EquipmentService {
     public Integer insertEquipment(Equipment equipment){
         Assert.notNull(equipment.getEqClassId(),"设备分类不能为空");
         equipment.setSerNumb(UUID.randomUUID().toString().replace("-","").toUpperCase());
+        if(null == equipment.getRomId()) equipment.setRomId(0L);
         Instant timeNow = Instant.now().plusMillis(TimeUnit.HOURS.toMillis(8));
         equipment.setBuyTime(timeNow);
         if(null == equipment.getUpdateTime())
