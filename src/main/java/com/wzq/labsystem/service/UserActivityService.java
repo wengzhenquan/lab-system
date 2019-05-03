@@ -81,6 +81,7 @@ public class UserActivityService {
         Assert.notNull(studentId, "学生不能为空");
         Assert.notNull(teacherId, "教师不能为空");
         Assert.notNull(courseId, "课程不能为空");
+        insertStudentToTeacher(studentId, teacherId);
         List<UserActivityDto> userActivityDtoList = userActivityMapper.selectAll(studentId, null, teacherId, null, courseId, null, null, null);
         if(0 != userActivityDtoList.size())
             throw new ServiceException(501, "该学生已经加入该课程");
@@ -110,22 +111,6 @@ public class UserActivityService {
         return pageDto;
     }
 
-
-
-
-    /**
-     * 获取某老师所有的学生列表
-     * @return
-     */
-    public PageDto<UserActivityDto> selectStudentAllByteacherUserId(Long teacherUserId,String teacherName, Integer pageNo, Integer pageSize){
-        pageNo = pageSize * (pageNo - 1);
-        List<UserActivityDto> courseDtoList = userActivityMapper.selectAll(null, null, teacherUserId, teacherName, 0L, null, pageNo, pageSize);
-        Long count = userActivityMapper.selectCount(null, null, teacherUserId, teacherName, 0L, null);
-        PageDto<UserActivityDto> page = new PageDto<>();
-        page.setData(courseDtoList);
-        page.setTotal(count);
-        return page;
-    }
 
     /**
      * 根据条件获取课程列表
