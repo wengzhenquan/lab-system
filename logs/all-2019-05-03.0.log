@@ -3538,3 +3538,52 @@ Caused by: java.lang.NumberFormatException: For input string: "2019-05-03T05:04:
 2019-05-03 13:19:54.716 [http-nio-8081-exec-4] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectCount - ==>  Preparing: select count(*) from roms_log l left join users u on u.id = l.user_id left join users a on a.id = l.handle_user_id left join roms r on r.id = l.rom_id 
 2019-05-03 13:19:54.716 [http-nio-8081-exec-4] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectCount - ==> Parameters: 
 2019-05-03 13:19:54.717 [http-nio-8081-exec-4] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectCount - <==      Total: 1
+2019-05-03 23:23:37.782 [main] INFO  com.wzq.labsystem.LabSystemApplication - Starting LabSystemApplication on WIN-5MMBE2LUICA with PID 12344 (I:\lab-system\target\classes started by Administrator in I:\lab-system)
+2019-05-03 23:23:37.787 [main] DEBUG com.wzq.labsystem.LabSystemApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-05-03 23:23:37.788 [main] INFO  com.wzq.labsystem.LabSystemApplication - No active profile set, falling back to default profiles: default
+2019-05-03 23:23:40.693 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2019-05-03 23:23:40.707 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-03 23:23:40.707 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-05-03 23:23:40.716 [main] INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_102\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;%JAVA_HOME%\bin;%M2_HOME%\bin;D:\Program Files\Git\cmd;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;D:\Program Files\TortoiseSVN\bin;E:\nodejs\;E:\nodejs\node_global;d:\Program Files (x86)\Leawo\Youtube Download;D:\Program Files (x86)\Leawo\Youtube Download;C:\Users\Administrator\AppData\Roaming\npm;.]
+2019-05-03 23:23:40.903 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-05-03 23:23:41.759 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2019-05-03 23:23:41.906 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2019-05-03 23:23:41.917 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - ==>  Preparing: update roms set `state` = 0 where `state` <> 0 
+2019-05-03 23:23:41.949 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - ==> Parameters: 
+2019-05-03 23:23:41.952 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - <==    Updates: 0
+2019-05-03 23:23:41.990 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - ==>  Preparing: select l.id,l.user_id as apply_id, u.`name`,l.handle_user_id, a.`name` as handle_user,l.rom_id, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time, l.end_time from roms_log l left join users u on u.id = l.user_id left join users a on a.id = l.handle_user_id left join roms r on r.id = l.rom_id WHERE l.`state` = ? order by l.creat_time desc 
+2019-05-03 23:23:41.991 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - ==> Parameters: 1(Integer)
+2019-05-03 23:23:42.029 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - <==      Total: 0
+2019-05-03 23:23:42.785 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2019-05-03 23:23:43.051 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+2019-05-03 23:23:43.075 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2019-05-03 23:23:43.128 [main] INFO  s.d.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+2019-05-03 23:23:43.512 [main] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateEquipmentUsingPOST_1
+2019-05-03 23:23:43.723 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2019-05-03 23:23:43.765 [main] INFO  com.wzq.labsystem.LabSystemApplication - Started LabSystemApplication in 6.99 seconds (JVM running for 8.744)
+2019-05-03 23:39:27.097 [main] INFO  com.wzq.labsystem.LabSystemApplication - Starting LabSystemApplication on WIN-5MMBE2LUICA with PID 11484 (I:\lab-system\target\classes started by Administrator in I:\lab-system)
+2019-05-03 23:39:27.107 [main] DEBUG com.wzq.labsystem.LabSystemApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-05-03 23:39:27.108 [main] INFO  com.wzq.labsystem.LabSystemApplication - No active profile set, falling back to default profiles: default
+2019-05-03 23:39:39.651 [main] INFO  com.wzq.labsystem.LabSystemApplication - Starting LabSystemApplication on WIN-5MMBE2LUICA with PID 10684 (I:\lab-system\target\classes started by Administrator in I:\lab-system)
+2019-05-03 23:39:39.662 [main] DEBUG com.wzq.labsystem.LabSystemApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-05-03 23:39:39.663 [main] INFO  com.wzq.labsystem.LabSystemApplication - No active profile set, falling back to default profiles: default
+2019-05-03 23:39:42.841 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2019-05-03 23:39:42.856 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2019-05-03 23:39:42.856 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-05-03 23:39:42.865 [main] INFO  org.apache.catalina.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_102\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;%JAVA_HOME%\bin;%M2_HOME%\bin;D:\Program Files\Git\cmd;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;D:\Program Files\TortoiseSVN\bin;E:\nodejs\;E:\nodejs\node_global;d:\Program Files (x86)\Leawo\Youtube Download;D:\Program Files (x86)\Leawo\Youtube Download;C:\Users\Administrator\AppData\Roaming\npm;.]
+2019-05-03 23:39:43.026 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-05-03 23:39:43.858 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2019-05-03 23:39:43.999 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2019-05-03 23:39:44.009 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - ==>  Preparing: update roms set `state` = 0 where `state` <> 0 
+2019-05-03 23:39:44.037 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - ==> Parameters: 
+2019-05-03 23:39:44.039 [main] DEBUG c.w.l.mapper.RomsMapper.updateStateInitialize - <==    Updates: 0
+2019-05-03 23:39:44.067 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - ==>  Preparing: select l.id,l.user_id as apply_id, u.`name`,l.handle_user_id, a.`name` as handle_user,l.rom_id, r.numb, r.rom_name, l.`state`, l.creat_time, l.handle_time, l.start_time, l.end_time from roms_log l left join users u on u.id = l.user_id left join users a on a.id = l.handle_user_id left join roms r on r.id = l.rom_id WHERE l.`state` = ? order by l.creat_time desc 
+2019-05-03 23:39:44.068 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - ==> Parameters: 1(Integer)
+2019-05-03 23:39:44.095 [main] DEBUG com.wzq.labsystem.mapper.RomsLogMapper.selectAll - <==      Total: 0
+2019-05-03 23:39:44.876 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2019-05-03 23:39:45.188 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+2019-05-03 23:39:45.213 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2019-05-03 23:39:45.261 [main] INFO  s.d.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+2019-05-03 23:39:45.628 [main] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateEquipmentUsingPOST_1
+2019-05-03 23:39:45.838 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2019-05-03 23:39:45.880 [main] INFO  com.wzq.labsystem.LabSystemApplication - Started LabSystemApplication in 7.099 seconds (JVM running for 8.923)

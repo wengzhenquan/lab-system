@@ -37,10 +37,11 @@ public class CourseService {
      * 获取课程列表
      * @return
      */
-    public PageDto<CourseDto> selectCourseAll(Long teacherUserId,Integer pageNo,Integer pageSize){
+    public PageDto<CourseDto> selectCourseAll(Long teacherUserId,String teacherName,
+                                              String courseName,Integer pageNo,Integer pageSize){
         pageNo = pageSize * (pageNo - 1);
-        List<CourseDto> courseDtoList = courseMapper.selectAll(teacherUserId, pageNo, pageSize);
-        Long count = courseMapper.selectCount(teacherUserId);
+        List<CourseDto> courseDtoList = courseMapper.selectAll(teacherUserId,teacherName,courseName, pageNo, pageSize);
+        Long count = courseMapper.selectCount(teacherUserId,teacherName,courseName);
         PageDto<CourseDto> page = new PageDto<>();
         page.setData(courseDtoList);
         page.setTotal(count);

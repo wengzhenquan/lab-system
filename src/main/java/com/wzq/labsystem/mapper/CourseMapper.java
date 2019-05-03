@@ -15,9 +15,15 @@ public interface CourseMapper {
 
     CourseDto selectByPrimaryKey(Long id);
 
-    List<CourseDto> selectAll(@Param("teacherUserId") Long teacherUserId,@Param("pageNo") Integer pageNo, @Param("pageSize")Integer pageSize);
+    List<CourseDto> selectAll(@Param("teacherUserId") Long teacherUserId,
+                              @Param("teacherName") String teacherName,
+                              @Param("courseName") String courseName,
+                              @Param("pageNo") Integer pageNo,
+                              @Param("pageSize")Integer pageSize);
 
-    Long selectCount(@Param("teacherUserId") Long teacherUserId);
+    Long selectCount(@Param("teacherUserId") Long teacherUserId,
+                     @Param("teacherName") String teacherName,
+                     @Param("courseName") String courseName);
 
     int updateByPrimaryKey(Course record);
 

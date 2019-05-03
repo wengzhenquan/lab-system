@@ -55,7 +55,13 @@
     left join users u on u.id = c.teacher_user_id
     <where>
       <if test="teacherUserId != null">
-        c.teacher_user_id = #{teacherUserId}
+        and c.teacher_user_id = #{teacherUserId}
+      </if>
+      <if test="teacherName != null and teacherName != ''">
+        and u.name like CONCAT('%',#{teacherName},'%')
+      </if>
+      <if test="courseName != null and courseName != ''">
+        and c.course_name like CONCAT('%',#{courseName},'%')
       </if>
     </where>
     limit #{pageNo},#{pageSize}
@@ -66,8 +72,14 @@
     from course c
     left join users u on u.id = c.teacher_user_id
     <where>
-      <if test="teacherUserId != null ">
-        c.teacher_user_id = #{teacherUserId}
+      <if test="teacherUserId != null">
+       and c.teacher_user_id = #{teacherUserId}
+      </if>
+      <if test="teacherName != null and teacherName != ''">
+       and u.name like CONCAT('%',#{teacherName},'%')
+      </if>
+      <if test="courseName != null and courseName != ''">
+       and c.course_name like CONCAT('%',#{courseName},'%')
       </if>
     </where>
   </select>

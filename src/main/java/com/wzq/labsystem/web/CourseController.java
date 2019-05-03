@@ -22,9 +22,11 @@ public class CourseController {
     @ApiOperation("获取课程列表")
     @GetMapping("selectCourseAll")
     public ResultDto<PageDto<CourseDto>> selectCourseAll(@RequestParam(value ="teacherUserId",required = false) Long teacherUserId,
+                                                         @RequestParam(value ="teacherName",required = false) String teacherName,
+                                                         @RequestParam(value ="courseName",required = false) String courseName,
                                                          @RequestParam Integer pageNo,
                                                          @RequestParam Integer pageSize){
-        return ResultDto.ok(courseService.selectCourseAll(teacherUserId, pageNo, pageSize));
+        return ResultDto.ok(courseService.selectCourseAll(teacherUserId,teacherName,courseName, pageNo, pageSize));
     }
 
     @ApiOperation("添加课程")
