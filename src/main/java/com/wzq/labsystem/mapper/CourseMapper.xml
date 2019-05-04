@@ -54,7 +54,7 @@
     from course c
     left join user_activity ua on c.id = ua.course_id
     left join users us on us.id = ua.student_id
-    left join users ut on ut.id = ua.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
     <where>
       <if test="teacherUserId != null">
         and c.teacher_user_id = #{teacherUserId}
@@ -80,7 +80,7 @@
     from course c
     left join user_activity ua on c.id = ua.course_id
     left join users us on us.id = ua.student_id
-    left join users ut on ut.id = ua.teacher_user_id
+    left join users ut on ut.id = c.teacher_user_id
     <where>
       <if test="teacherUserId != null">
        and c.teacher_user_id = #{teacherUserId}
