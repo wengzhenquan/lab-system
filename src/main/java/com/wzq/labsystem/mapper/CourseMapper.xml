@@ -77,7 +77,6 @@
   <!-- 查询总数 -->
   <select id="selectCount" resultType="java.lang.Long">
     select count(*)
-    select distinct  c.id, c.course_name, c.teacher_user_id,ut.name, c.total_score, c.start_date, c.end_date
     from course c
     left join user_activity ua on c.id = ua.course_id
     left join users us on us.id = ua.student_id
