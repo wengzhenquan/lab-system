@@ -13,7 +13,7 @@ public interface RomsLogMapper {
 
     int insert(RomsLog record);
 
-    RomsLog selectByPrimaryKey(Long id);
+    RomsLogDto selectByPrimaryKey(Long id);
 
     /**
      * 查询所有申请列表

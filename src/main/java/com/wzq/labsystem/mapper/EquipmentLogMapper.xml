@@ -70,7 +70,7 @@
     left join users u on u.id = l.user_id
     left join users h on h.id = l.handle_user_id
     left join equipment_class c on c.id = l.eq_class_id
-    where id = #{id,jdbcType=BIGINT}
+    where l.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="EquipmentLogResultMap">
     select l.id, l.user_id,u.name as apply_name, l.handle_user_id,h.name as handle_user_name,

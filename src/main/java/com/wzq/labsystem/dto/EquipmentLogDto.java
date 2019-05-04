@@ -23,7 +23,7 @@ public class EquipmentLogDto implements Serializable {
     private Long id;
 
     @ApiModelProperty("申请人ID")
-    private Long applyId;
+    private Long userId;
 
     @ApiModelProperty("申请人姓名")
     private String applyName;

@@ -59,4 +59,10 @@ public class RomsLogController {
         return ResultDto.ok(romsService.deleteRomLog(romLogId));
     }
 
+    @ApiOperation("通过ID查询实验室申请记录")
+    @PostMapping("selectRomLogById")
+    public ResultDto<RomsLogDto> selectRomLogById(@RequestParam Long romLogId){
+        return ResultDto.ok(romsService.selectRomLogById(romLogId));
+    }
+
 }

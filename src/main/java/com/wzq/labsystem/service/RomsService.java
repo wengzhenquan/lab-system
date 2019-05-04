@@ -168,7 +168,7 @@ public class RomsService {
      * @return
      */
     public Integer updateRomLogState(Long romLogId,Long romId, Integer state,Long handleUserId){
-        RomsLog romsLog = romsLogMapper.selectByPrimaryKey(romLogId);
+        RomsLogDto romsLog = romsLogMapper.selectByPrimaryKey(romLogId);
         Integer stateOld = romsLog.getState();
         if(0 == state) throw new ServiceException(502, "不能将状态改为审批中");
         Integer result = 0;
@@ -234,6 +234,15 @@ public class RomsService {
         int result = romsLogMapper.deleteByPrimaryKey(romLogId);
         if(0 == result) throw new ServiceException(501, "删除失败");
         return result;
+    }
+
+    /**
+     * 通过ID查询实验室申请记录
+     * @param romLogId
+     * @return
+     */
+    public RomsLogDto selectRomLogById(Long romLogId){
+        return romsLogMapper.selectByPrimaryKey(romLogId);
     }
 
 }
