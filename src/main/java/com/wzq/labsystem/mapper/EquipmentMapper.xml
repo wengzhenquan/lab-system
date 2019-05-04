@@ -44,8 +44,8 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.wzq.labsystem.dto.po.Equipment">
     update equipment
-    set eq_name = #{eqName,jdbcType=VARCHAR}
-    ser_numb = #{serNumb,jdbcType=BIGINT},
+    set eq_name = #{eqName,jdbcType=VARCHAR},
+    ser_numb = #{serNumb,jdbcType=VARCHAR},
       rom_id = #{romId,jdbcType=BIGINT},
       eq_class_id = #{eqClassId,jdbcType=BIGINT},
       buy_time = #{buyTime,jdbcType=TIMESTAMP},

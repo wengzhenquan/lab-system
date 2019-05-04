@@ -108,9 +108,9 @@
   <!-- 修改密码 -->
   <update id="updatePwd">
     update users
-    set pwd = #{pwd}
+    set pwd = #{newPwd}
     where pwd = #{oldPwd}
-    and user_name = #{newPwd}
+    and user_name = #{userName}
   </update>
 
   <!-- 修改密码 -->
